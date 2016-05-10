@@ -1,5 +1,6 @@
 Letmecheck::Application.routes.draw do
 
+  devise_for :users
   root 'static_page#index'
 
   resources :games, only: [:new, :create, :update]
