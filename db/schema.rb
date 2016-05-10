@@ -11,15 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 0) do
+=======
 ActiveRecord::Schema.define(version: 20160510142912) do
+>>>>>>> 06a3ad0e5d276abdc144babba264ba75ad1fa148
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
+=======
   create_table "games", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+>>>>>>> 06a3ad0e5d276abdc144babba264ba75ad1fa148
 end
