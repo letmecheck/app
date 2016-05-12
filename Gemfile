@@ -6,6 +6,11 @@ gem 'rails', '4.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+#Rspec
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
 # Use Twitter Bootstrap to style the views
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets', '2.11.0'
