@@ -6,6 +6,7 @@ gem 'rails', '4.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+#Rspec
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
