@@ -1,1 +1,32 @@
 <h1>Welcome to Let Me Check</h1>
+
+<div class="booyah-box col-xs-10 col-xs-offset-1">
+  <div class="col-xs-offset-2">
+    <% 7.downto(0) do |y| %>
+      
+      <% if y % 2 == 0 %>
+        
+        <% 0.upto(7) do |x| %>
+          <% if x % 2 == 0 %> 
+            <div class= "booyah-box col-xs-1"><%= "#{y}#{x}" %></div>
+          <% else %>
+            <div class= "booyah-box-black col-xs-1"><%= "#{y}#{x}" %></div>
+          <% end %>
+        <% end %>
+
+      <% else %>
+
+        <% 0.upto(7) do |x| %>
+          <% if x % 2 == 0 %> 
+            <div class= "booyah-box-black col-xs-1"><%= "#{y}#{x}" %></div>
+          <% else %>
+            <div class= "booyah-box col-xs-1"><%= "#{y}#{x}" %></div>
+          <% end %>
+        <% end %>
+
+      <% end %>
+
+      <div class="clear"></div>
+    <% end %>
+  </div>
+</div>
