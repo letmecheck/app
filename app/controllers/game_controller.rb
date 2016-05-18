@@ -1,7 +1,6 @@
 class GameController < ApplicationController
-
 	def index
-		
+
 	end
 
 	def new
@@ -13,9 +12,8 @@ class GameController < ApplicationController
 	end
 
 	def update
-		
-	end
 
+	end
 
 	private
 
