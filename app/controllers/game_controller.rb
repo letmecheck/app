@@ -1,6 +1,9 @@
 class GameController < ApplicationController
 	def index
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 	end
 
 	def new
