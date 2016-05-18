@@ -4,7 +4,7 @@ class Piece < ActiveRecord::Base
 
     @pieces = Piece.all
     
-    composite_self = self.y_coord * 10 + self.x_coord #if self.y_coord is 3 and self.x_coord is 6, composite_self will be 36
+    composite_self = y_coord * 10 + x_coord #if y_coord is 3 and x_coord is 6, composite_self will be 36
     composite_intended = intended_y * 10 + intended_x
 
     @pieces.each do |piece|
@@ -18,7 +18,7 @@ class Piece < ActiveRecord::Base
       when composite_self == composite_intended #if the current position of the piece is the intended position after the move 
         return true                             #there is an obstruction 
 
-      when intended_x != self.x_coord && intended_y != self.y_coord #diagonal move
+      when intended_x != x_coord && intended_y != y_coord #diagonal move
 
         number = [composite_self, composite_intended].min  #number is the minimum of the numeric representation of the current and intended positions
         sequence = [number]                                #the sequence array will store all the values between (diagonally) the current and intended positons
@@ -47,15 +47,15 @@ class Piece < ActiveRecord::Base
 
         end
 
-      when intended_x != self.x_coord #horizontal move 
+      when intended_x != x_coord #horizontal move 
 
-        next if piece.y_coord != self.y_coord #do not check pieces that are on a different row
-        return true if ([self.x_coord, intended_x].min..[self.x_coord, intended_x].max).include?(piece.x_coord)
+        next if piece.y_coord != y_coord #do not check pieces that are on a different row
+        return true if ([x_coord, intended_x].min..[x_coord, intended_x].max).include?(piece.x_coord)
 
-      when intended_y != self.y_coord #vertical move
+      when intended_y != y_coord #vertical move
         
-        next if piece.x_coord != self.x_coord #do not check pieces that are on a different column
-        return true if ([self.y_coord, intended_y].min..[self.y_coord, intended_y].max).include?(piece.y_coord)
+        next if piece.x_coord != x_coord #do not check pieces that are on a different column
+        return true if ([y_coord, intended_y].min..[y_coord, intended_y].max).include?(piece.y_coord)
 
       end
 
@@ -63,6 +63,57 @@ class Piece < ActiveRecord::Base
 
     return false #if no obstruction has been found, return false
 
+  end
+
+
+  def obstructed?(destination_x, destination_y)
+    # Start at the piece's original location.
+    current_x = x_coord
+    current_y = y_coord
+
+    # Determine the magnitude of movement along each axis.
+    x_movement = (destination_x - current_x).abs
+    y_movement = (destination_y - current_y).abs
+
+    # Do we need to verify that the destination is on the board, and not the same
+    # as the piece's current location? If so...
+    board_range = (0..7)
+    unless board_range.include?(destination_x) && board_range.include?(destination_y)
+      raise 'Destination square is not on the board'
+    end
+    if x_movement == 0 && y_movement == 0
+      raise 'Piece is already on destination square'
+    end
+
+    # If a move is along a rank or file, either x_movement or y_movement will be zero.
+    # If a move is along a diagonal, x_movement and y_movement will be equal.
+    # Otherwise, the move is invalid.
+
+    unless x_movement == 0 || y_movement == 0 || x_movement == y_movement
+      raise 'Destination is not on the same rank, file, or diagonal as origin'
+    end
+
+    # Set delta_x and delta_y to -1, 0, or 1, such that adding them to
+    # current_x and current_y will move one square toward the destination.
+
+    delta_x = destination_x <=> current_x
+    delta_y = destination_y <=> current_y
+    
+    # Move toward the destination one square at a time, stopping and returning
+    # true if an obstructing piece is present. Return false upon successfully
+    # reaching the destination.
+    @pieces = Piece.all
+
+    loop do
+      current_x += delta_x
+      current_y += delta_y
+
+      @pieces.each do |piece|
+        return true if current_x == piece.x_coord && current_y == piece.y_coord
+      end
+
+      return false if current_x == destination_x && current_y == destination_y
+    end
   end
 
   
