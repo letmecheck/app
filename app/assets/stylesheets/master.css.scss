@@ -1,37 +1,61 @@
+.clear {
+  clear:both;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+/* delete everything below once the route is set up for the game #show page, we have
+what we need to display the chessboard under game.css.scss */
+$square-size: 70px;
+
 .booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
   box-shadow: 1px 1px 2px 0 #d0d0d0;
-  background: #fff;
+  background: url('/assets/wood_pattern.png');
   border: 1px solid #ccc;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
-  min-width: 5px;
-  min-height: 5px;
+}
+
+table {
+  margin: 0 auto;
 }
 
 
-.booyah-box-cream {
-  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  box-shadow: 1px 1px 2px 0 #d0d0d0;
-  background: #e4bd5e;
-  border: 1px solid #ccc;
-  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
-  min-width: 5px;
-  min-height: 5px;
+table tr:nth-child(odd) td:nth-child(even) {
+  background: url('/assets/dark_wood_@2X.png');
+}
+table tr:nth-child(even) td:nth-child(odd) {
+  background: #000;
 }
 
-.booyah-box-brown {
-  -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  box-shadow: 1px 1px 2px 0 #d0d0d0;
-  background: #8f690d;
-  border: 1px solid #ccc;
-  border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
-  min-width: 5px;
-  min-height: 5px;
+.square {
+  width: $square-size;
+  height: $square-size;
+  border: solid #000 1px;
 }
 
-.clear {
-  clear:both;
+$square-size-mobile: 30px;
+@media (max-width: 760px) {
+  .square {
+    width: $square-size-mobile;
+    height: $square-size-mobile;
+  }
+}
+
+$square-size-tablet: 60px;
+@media (min-width: 761px) and (max-width: 1024px) {
+  .square {
+    width: $square-size-tablet;
+    height: $square-size-tablet;
+  }
+}
+
+.boardTopBottom {
+  padding: 1em 0
 }

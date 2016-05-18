@@ -1,33 +1,17 @@
 <h1>Welcome to Let Me Check</h1>
-
-<div class="col-xs-10 col-xs-offset-1">
-  <div class="col-xs-offset-2"> <!--this "centers" the board on the page -->
-    <% 7.downto(0) do |y| %> <!-- each iteration represents one row of the board. The iteration method is .downto rather than .upto 
-    so that the 1st row is the bottom one -->
-      
-      <% if y % 2 == 0 %>
-        
-        <% 0.upto(7) do |x| %> <!-- each iteration represents a cell -->
-          <% if x % 2 == 0 %>  
-            <div class= "booyah-box-cream col-xs-1"><%= "#{y}#{x}" %></div> <!-- row starts with a cream cell -->
-          <% else %>
-            <div class= "booyah-box-brown col-xs-1"><%= "#{y}#{x}" %></div>
-          <% end %>
+<!-- delete everything below once the route is set up for the game #show page, we have
+what we need to display the chessboard under views/game/show.html.erb -->
+<h2 class="text-center">BoatyMcBoatface vs DarthSidius</h2>
+<div class="booyah-box col-xs-10 col-xs-offset-1">
+  <p class="boardTopBottom"></p>
+  <table>
+    <% 8.times do |y| %>
+      <tr>
+        <% 8.times do |x| %>
+          <td class="square"></td>
         <% end %>
-
-      <% else %>
-
-        <% 0.upto(7) do |x| %>
-          <% if x % 2 == 0 %> 
-            <div class= "booyah-box-brown col-xs-1"><%= "#{y}#{x}" %></div> <!-- row starts with a brown cell -->
-          <% else %>
-            <div class= "booyah-box-cream col-xs-1"><%= "#{y}#{x}" %></div>
-          <% end %>
-        <% end %>
-
-      <% end %>
-
-      <div class="clear"></div>
+      </tr>
     <% end %>
-  </div>
+  </table>
+  <p class="boardTopBottom"></p>
 </div>
