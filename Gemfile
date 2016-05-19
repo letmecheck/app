@@ -1,16 +1,27 @@
 source 'https://rubygems.org'
 
+ruby '2.2.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+#Rspec
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
+# Rubocop style checking
+gem 'rubocop', '~> 0.40.0', require: false
+
 # Use Twitter Bootstrap to style the views
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets', '2.11.0'
 gem 'sass-rails'
 
+gem 'devise'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 

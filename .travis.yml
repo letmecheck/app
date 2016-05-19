@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+  - 2.2
+sudo: required
+
+notifications:
+  email:
+    recipients:
+      - umfarruh@gmail.com
+      - ufarruh@gmail.com
+    on_success: [always|never|change] # default: change
+    on_failure: [always|never|change] # default: always
+
+script:
+  - bundle exec rubocop
