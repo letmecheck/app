@@ -28,10 +28,10 @@ table {
 
 
 table tr:nth-child(odd) td:nth-child(even) {
-  background: url('/assets/dark_wood_@2X.png');
+  background: url('/assets/dark_wood.jpg');
 }
 table tr:nth-child(even) td:nth-child(odd) {
-  background: #000;
+  background: url('/assets/dark_wood.jpg');
 }
 
 .square {
