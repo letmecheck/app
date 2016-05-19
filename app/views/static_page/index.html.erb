@@ -5,7 +5,7 @@ what we need to display the chessboard under views/game/show.html.erb -->
 <div class="booyah-box col-xs-10 col-xs-offset-1">
   <p class="boardTopBottom"></p>
   <table>
-    <% 8.times do |y| %>
+    <% 8.downto(1) do |y| %>
       <tr>
         <% 8.times do |x| %>
           <td class="square"></td>
