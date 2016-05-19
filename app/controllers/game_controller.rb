@@ -10,6 +10,10 @@ class GameController < ApplicationController
 		@game = Game.new
 	end
 
+	def show
+		@game = Game.find_by_id(params[:id])
+	end
+
 	def create
 		@game = Game.create(game_params)
 	end
