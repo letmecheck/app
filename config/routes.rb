@@ -4,9 +4,9 @@ Letmecheck::Application.routes.draw do
   root 'static_page#index'
 
 
-resources :games  do
-   resources :enrollments, only: :create
- end
+  resources :games  do
+    resources :enrollments, only: :create
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

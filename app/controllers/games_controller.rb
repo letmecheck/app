@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+	before_action :authenticate_user!
 
 	def index
 		@games = Game.all
@@ -9,8 +10,10 @@ class GamesController < ApplicationController
 	end
 
 	def create
-		@game = current_user.games.create(game_params)
-		redirect_to game_path
+		@game = Game.create(game_params)
+		@game.white_player_id = current_user.id
+		@game.save
+		redirect_to game_path(@game)
 	end
 
 	def show
