@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 	def create
 		@game = current_user.games.create(game_params)
 		@game.white_player_id = @game.user_id
+		@game.save
 		redirect_to game_path(@game)
 	end
 
