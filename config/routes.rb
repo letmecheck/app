@@ -2,7 +2,7 @@ Letmecheck::Application.routes.draw do
   devise_for :users
   root 'static_page#index'
 
-  resources :games  do
+  resources :games do
     resources :enrollments, only: :create
   end
 

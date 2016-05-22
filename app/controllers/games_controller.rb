@@ -23,15 +23,13 @@ class GamesController < ApplicationController
 	def update
 	end
 
-
 	private
 
 	def game_params
 		params.require(:game).permit(:name)
 	end
 
-	#def game_params
-	#	params.require(:game).permit(:name, :white_player_id, :black_player_id)
-	#end
-
+	# def game_params
+	#	  params.require(:game).permit(:name, :white_player_id, :black_player_id)
+	# end
 end
