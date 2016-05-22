@@ -22,9 +22,13 @@ class GamesController < ApplicationController
 
 	def update
 		@game = Game.find(params[:id])
-		@game.black_player_id = current_user.id if @game.black_player_id.nil?
-		@game.save
-		redirect_to game_path(@game)
+		if @game.black_player_id.nil? && @game.white_player_id != current_user.id
+			@game.black_player_id = current_user.id 
+			@game.save
+			redirect_to game_path(@game)
+		else
+			render text: 'The game is already full!', status: :unauthorized	
+		end
 	end
 
 	private
