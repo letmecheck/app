@@ -1,12 +1,18 @@
 inherit_from: .rubocop_todo.yml
-
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
+Documentation:
+  Enabled: false
+EndOfLine:
+  Enabled: false
+Rails:
+  Enabled: true
+Style/LeadingCommentSpace:
   Enabled: false
 
-  AllCops:
-    - Rakefile
-    - config.ru
-  
-  Rails:
-    Enabled: true
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'vendor/**/*'
