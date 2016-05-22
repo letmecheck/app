@@ -21,6 +21,10 @@ class GamesController < ApplicationController
 	end
 
 	def update
+		@game = Game.find(params[:id])
+		@game.black_player_id = current_user.id if @game.black_player_id.nil?
+		@game.save
+		redirect_to game_path(@game)
 	end
 
 	private
