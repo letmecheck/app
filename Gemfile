@@ -11,6 +11,7 @@ gem 'pg'
 #Rspec
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'pry-nav'
 end
 
 # Rubocop style checking
