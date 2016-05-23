@@ -16,7 +16,7 @@
   <p class="boardTopBottom"></p>
 </div>
 <div class="container">
-  <% if current_game.black_player_id.nil? && current_game.white_player_id != current_user.id %>
-    <%= link_to "Join", game_path(current_game), method: :patch, class: 'btn btn-primary' %>
+  <% if @game.black_player_id.nil? && @game.white_player_id != current_user.id %>
+    <%= link_to "Join", game_path(@game), method: :patch, class: 'btn btn-primary' %>
   <% end %>
 </div>
