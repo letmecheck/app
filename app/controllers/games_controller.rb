@@ -1,25 +1,26 @@
 class GamesController < ApplicationController
-	before_action :authenticate_user!
+  before_action :authenticate_user!
 
-	def index
-		@games = Game.all
-	end
+  def index
+    @games = Game.all
+  end
 
-	def new
-		@game = Game.new
-	end
+  def new
+    @game = Game.new
+  end
 
-	def create
-		@game = Game.find(params[:id])
-		@game.white_player_id = current_user.id
-		@game.save
-		redirect_to game_path(@game)
-	end
+  def create
+    @game = Game.create(game_params)
+    @game.white_player_id = current_user.id
+    @game.save
+    redirect_to game_path(@game)
+  end
 
-	def show
-		@white_player = User.find(current_game.white_player_id)
-		@black_player = User.find(current_game.black_player_id)
-	end
+  def show
+    @game = Game.find(params[:id])
+	@white_player = User.find(current_game.white_player_id)
+	@black_player = User.find(current_game.black_player_id)    
+  end
 
 	def update
 		if current_game.black_player_id.nil? && current_game.white_player_id != current_user.id
@@ -31,11 +32,11 @@ class GamesController < ApplicationController
 		end
 	end
 
-	private
+  private
 
-	def game_params
-		params.require(:game).permit(:name)
-	end
+  def game_params
+    params.require(:game).permit(:name)
+  end
 
 	helper_method :current_game	
 	def current_game
@@ -46,3 +47,8 @@ class GamesController < ApplicationController
 	#	  params.require(:game).permit(:name, :white_player_id, :black_player_id)
 	# end
 end
+
+  # def game_params
+  #   params.require(:game).permit(:name, :white_player_id, :black_player_id)
+  # end
+
