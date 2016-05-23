@@ -1,6 +1,13 @@
 <div class="container">
-<p>A Game</p>
-<% @games.each do |game| %>
-  <p><%= link_to game.name, game_path(game) %></p>
-<% end %>
+<p>All Games</p>
+    <% @games.each do |game| %>
+        <div class="booyah-box"></div>
+          <p><%= link_to game.name, game_path(game), class: 'col-xs-6 clear' %></p>
+        
+          <% if game.black_player_id.nil? && game.white_player_id != current_user.id %>
+            <%= link_to "Join", game_path(game), method: :patch, class: 'btn btn-primary col-xs-6 clear' %>
+          <% end %>
+        </div>  
+        <br />  
+    <% end %>
 </div>
