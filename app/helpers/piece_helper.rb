@@ -52,11 +52,11 @@ module PieceHelper
   end
 
   def squares_on_board?(current_x, current_y, destination_x, destination_y)
-    unless (0..7).cover?(current_x) && (0..7).cover?(current_y)
+    unless (1..8).cover?(current_x) && (1..8).cover?(current_y)
       raise 'Origin square is not on the board'
     end
 
-    unless (0..7).cover?(destination_x) && (0..7).cover?(destination_y)
+    unless (1..8).cover?(destination_x) && (1..8).cover?(destination_y)
       raise 'Destination square is not on the board'
     end
     true
