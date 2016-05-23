@@ -5,8 +5,10 @@
   <table>
     <% 8.downto(1) do |y| %>
       <tr>
-        <% 8.times do |x| %>
-          <td class="square"></td>
+        <% 1.upto(8) do |x| %>
+          <td data-x="<%= x %>" data-y="<%= y %>"class="square">
+            <span><%= display_pieces(@game, x, y) %></span>
+          </td>
         <% end %>
       </tr>
     <% end %>

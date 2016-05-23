@@ -18,6 +18,7 @@ class GamesController < ApplicationController
 
 	def show
 		@game = Game.find(params[:id])
+		@chess_pieces = @game.pieces.where(game_id: @game.id).take # ActiveRecord query
 	end
 
 	def update
