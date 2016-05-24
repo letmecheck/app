@@ -1,4 +1,5 @@
 inherit_from: .rubocop_todo.yml
+<<<<<<< HEAD
 
 AllCops:
   Include:
@@ -17,3 +18,22 @@ Style/StringLiterals:
 
 Style/Documentation:
   Enabled: false
+=======
+Documentation:
+  Enabled: false
+EndOfLine:
+  Enabled: false
+Rails:
+  Enabled: true
+Style/LeadingCommentSpace:
+  Enabled: false
+
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'vendor/**/*'
+>>>>>>> rubocop
