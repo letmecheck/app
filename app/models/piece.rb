@@ -13,7 +13,7 @@ class Piece < ActiveRecord::Base
   scope :queens,  -> { where(piece_type: 'Queen') }
   scope :kings,   -> { where(piece_type: 'King') }
 
-  def self.off_board?(x_value, y_value)
+  def off_board?(x_value, y_value)
     (1..8).exclude?(x_value) || (1..8).exclude?(y_value)
   end
 
