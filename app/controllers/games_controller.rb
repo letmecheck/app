@@ -17,22 +17,22 @@ class GamesController < ApplicationController
   end
 
   def show
-  	@game = Game.find(params[:id])
-  	@white_player = User.find(@game.white_player_id) unless @game.white_player_id.nil?
-  	@black_player = User.find(@game.black_player_id) unless @game.black_player_id.nil?
-  	@chess_pieces = @game.pieces
+    @game = Game.find(params[:id])
+    @white_player = User.find(@game.white_player_id) unless @game.white_player_id.nil?
+    @black_player = User.find(@game.black_player_id) unless @game.black_player_id.nil?
+    @chess_pieces = @game.pieces
   end
 
-	def update
-		@game = Game.find(params[:id])
-		if @game.black_player_id.nil? && @game.white_player_id != current_user.id
-			@game.black_player_id = current_user.id
-			@game.save
-			redirect_to game_path(@game)
-		else
-			render text: 'The game is already full!', status: :unauthorized
-		end
-	end
+  def update
+    @game = Game.find(params[:id])
+    if @game.black_player_id.nil? && @game.white_player_id != current_user.id
+      @game.black_player_id = current_user.id
+      @game.save
+      redirect_to game_path(@game)
+    else
+      render text: 'The game is already full!', status: :unauthorized
+    end
+  end
 
   private
 
@@ -40,12 +40,12 @@ class GamesController < ApplicationController
     params.require(:game).permit(:name)
   end
 
-	#helper_method :current_game
-	#def current_game
-	#	@currentgame ||= Game.find(params[:id])
-	#end
+  #helper_method :current_game
+  #def current_game
+  # @currentgame ||= Game.find(params[:id])
+  #end
 
-	# def game_params
-	#	  params.require(:game).permit(:name, :white_player_id, :black_player_id)
-	# end
+  # def game_params
+  #   params.require(:game).permit(:name, :white_player_id, :black_player_id)
+  # end
 end
