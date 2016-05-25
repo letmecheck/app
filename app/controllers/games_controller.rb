@@ -18,9 +18,9 @@ class GamesController < ApplicationController
 
   def show
   	@game = Game.find(params[:id])
-		@white_player = User.find(@game.white_player_id) unless @game.white_player_id.nil?
-		@black_player = User.find(@game.black_player_id) unless @game.black_player_id.nil?
-		@chess_pieces = @game.pieces
+  	@white_player = User.find(@game.white_player_id) unless @game.white_player_id.nil?
+  	@black_player = User.find(@game.black_player_id) unless @game.black_player_id.nil?
+  	@chess_pieces = @game.pieces
   end
 
 	def update

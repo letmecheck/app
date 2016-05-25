@@ -1,3 +1,2 @@
 class PiecesController < ApplicationController
-
 end

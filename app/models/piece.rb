@@ -13,6 +13,20 @@ class Piece < ActiveRecord::Base
   scope :queens,  -> { where(piece_type: 'Queen') }
   scope :kings,   -> { where(piece_type: 'King') }
 
+  def move_to!(destination_x, destination_y)
+    destination_piece = game.piece_at(destination_x, destination_y)
+
+    if destination_piece
+      if destination_piece.color == color
+        return false
+      else
+        destination_piece.destroy
+      end
+    end
+
+    update_attributes(x_coord: destination_x, y_coord: destination_y)
+  end
+
   def valid_move?
     # Implement this method in each subclass.
     # Keep this method here for the parent class, in case things go awry.
