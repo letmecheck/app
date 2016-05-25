@@ -13,6 +13,10 @@ class Piece < ActiveRecord::Base
   scope :queens,  -> { where(piece_type: 'Queen') }
   scope :kings,   -> { where(piece_type: 'King') }
 
+  def self.off_board?(x_value, y_value)
+    (1..8).exclude?(x_value) || (1..8).exclude?(y_value)
+  end
+
   def valid_move?
     # Implement this method in each subclass.
     # Keep this method here for the parent class, in case things go awry.
@@ -20,6 +24,9 @@ class Piece < ActiveRecord::Base
   end
 
   def obstructed?(destination_x, destination_y)
+    # Sanity-check the prospective move.
+    error = bad_move_reason(destination_x, destination_y)
+    raise error if error
 
     current_x, current_y = x_coord, y_coord
 
@@ -31,10 +38,13 @@ class Piece < ActiveRecord::Base
       current_x += (destination_x <=> current_x)
       current_y += (destination_y <=> current_y)
 
-      return true if game.piece_at(current_x, current_y).present?  
       return false if current_x == destination_x && current_y == destination_y
+
+      return true if game.piece_at(current_x, current_y)
     end
   end
+
+  # private  # Temporarily commented out for debugging.
 
   def bad_move_reason(new_x, new_y)
     return 'Destination is not on board.' if off_board?(new_x, new_y)
@@ -62,10 +72,6 @@ class Piece < ActiveRecord::Base
   # Returns the potenial move's displacement along each axis.
   def movement_by_axis(new_x, new_y)
     [(new_x - x_coord), (new_y - y_coord)]
-  end
-
-  def off_board?(x_value, y_value)         
-    (1..8).exclude?(x_value) || (1..8).exclude?(y_value)
   end
 
   def current_square?(x_value, y_value)
