@@ -13,10 +13,6 @@ class Piece < ActiveRecord::Base
   scope :queens,  -> { where(piece_type: 'Queen') }
   scope :kings,   -> { where(piece_type: 'King') }
 
-  def off_board?(x_value, y_value)
-    (1..8).exclude?(x_value) || (1..8).exclude?(y_value)
-  end
-
   def valid_move?
     # Implement this method in each subclass.
     # Keep this method here for the parent class, in case things go awry.
@@ -72,6 +68,10 @@ class Piece < ActiveRecord::Base
   # Returns the potenial move's displacement along each axis.
   def movement_by_axis(new_x, new_y)
     [(new_x - x_coord), (new_y - y_coord)]
+  end
+
+  def off_board?(x_value, y_value)
+    (1..8).exclude?(x_value) || (1..8).exclude?(y_value)
   end
 
   def current_square?(x_value, y_value)
