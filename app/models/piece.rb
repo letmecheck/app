@@ -20,9 +20,6 @@ class Piece < ActiveRecord::Base
   end
 
   def obstructed?(destination_x, destination_y)
-    # Sanity-check the prospective move.
-    error = bad_move_reason(destination_x, destination_y)
-    raise error if error
 
     current_x, current_y = x_coord, y_coord
 
@@ -34,13 +31,10 @@ class Piece < ActiveRecord::Base
       current_x += (destination_x <=> current_x)
       current_y += (destination_y <=> current_y)
 
+      return true if game.piece_at(current_x, current_y).present?  
       return false if current_x == destination_x && current_y == destination_y
-
-      return true if game.piece_at(current_x, current_y)
     end
   end
-
-  private
 
   def bad_move_reason(new_x, new_y)
     return 'Destination is not on board.' if off_board?(new_x, new_y)
@@ -70,12 +64,8 @@ class Piece < ActiveRecord::Base
     [(new_x - x_coord), (new_y - y_coord)]
   end
 
-  def on_board?(x_value, y_value)
-    (1..8).cover?(x_value) && (1..8).cover?(y_value)
-  end
-
-  def off_board?(x_value, y_value)
-    !on_board?(x_value, y_value)
+  def off_board?(x_value, y_value)         
+    (1..8).exclude?(x_value) || (1..8).exclude?(y_value)
   end
 
   def current_square?(x_value, y_value)
