@@ -25,9 +25,8 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    if @game.black_player_id.nil? && @game.white_player_id != current_user.id
-      @game.black_player_id = current_user.id
-      @game.save
+    if game_spot_open?
+      @game.update_attribute(:black_player_id, current_user.id)
       redirect_to game_path(@game)
     else
       render text: 'The game is already full!', status: :unauthorized
@@ -35,6 +34,10 @@ class GamesController < ApplicationController
   end
 
   private
+
+  def game_spot_open?
+    @game.black_player_id.nil? && @game.white_player_id != current_user.id
+  end
 
   def game_params
     params.require(:game).permit(:name)

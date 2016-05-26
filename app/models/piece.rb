@@ -17,11 +17,8 @@ class Piece < ActiveRecord::Base
     destination_piece = game.piece_at(destination_x, destination_y)
 
     if destination_piece
-      if destination_piece.color == color
-        return false
-      else
-        destination_piece.destroy
-      end
+      return false if destination_piece.color == color
+      destination_piece.destroy
     end
 
     update_attributes(x_coord: destination_x, y_coord: destination_y)
@@ -38,7 +35,8 @@ class Piece < ActiveRecord::Base
     error = bad_move_reason(destination_x, destination_y)
     raise error if error
 
-    current_x, current_y = x_coord, y_coord
+    current_x = x_coord
+    current_y = y_coord
 
     # Move toward the destination one square at a time, stopping and returning
     # true if an obstructing piece is present. Return false upon successfully
