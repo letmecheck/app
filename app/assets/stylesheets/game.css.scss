@@ -3,7 +3,7 @@ $square-size: 70px;
 .board-booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
-  box-shadow: 1px 1px 2px 0 #d0d0d0;
+  box-shadow: 10px 10px 16px 0 #d0d0d0;
   background: url('/assets/wood_pattern.png');
   border: 1px solid #ccc;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
@@ -15,10 +15,10 @@ table {
 
 
 table tr:nth-child(odd) td:nth-child(even) {
-  background: url('/assets/dark_wood.jpg');
+  background: url('/assets/med_birdseye_70px.jpg');
 }
 table tr:nth-child(even) td:nth-child(odd) {
-  background: url('/assets/dark_wood.jpg');
+  background: url('/assets/med_birdseye_70px.jpg');
 }
 
 .square {
