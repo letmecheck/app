@@ -13,6 +13,17 @@ class Piece < ActiveRecord::Base
   scope :queens,  -> { where(piece_type: 'Queen') }
   scope :kings,   -> { where(piece_type: 'King') }
 
+  def move_to!(destination_x, destination_y)
+    destination_piece = game.piece_at(destination_x, destination_y)
+
+    if destination_piece
+      return false if destination_piece.color == color
+      destination_piece.destroy
+    end
+
+    update_attributes(x_coord: destination_x, y_coord: destination_y)
+  end
+
   def valid_move?
     # Implement this method in each subclass.
     # Keep this method here for the parent class, in case things go awry.
@@ -24,7 +35,8 @@ class Piece < ActiveRecord::Base
     error = bad_move_reason(destination_x, destination_y)
     raise error if error
 
-    current_x, current_y = x_coord, y_coord
+    current_x = x_coord
+    current_y = y_coord
 
     # Move toward the destination one square at a time, stopping and returning
     # true if an obstructing piece is present. Return false upon successfully

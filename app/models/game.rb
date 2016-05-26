@@ -8,7 +8,7 @@ class Game < ActiveRecord::Base
 
   # Returns the Piece object located at the given square.
   def piece_at(x_coord, y_coord)
-    pieces.where(x_coord: x_coord, y_coord: y_coord).first
+    pieces.find_by(x_coord: x_coord, y_coord: y_coord).first
   end
 
   private
@@ -16,19 +16,35 @@ class Game < ActiveRecord::Base
   def setup_board!
     %w(white black).each do |color|
       y_coordinate = color == 'white' ? 1 : 8 # is color white y/n, if not then it's blk and y == 8
-      Rook.create(game_id: id, x_coord: 1, y_coord: y_coordinate, color: color, img: "#{color}_rook.svg")
-      Knight.create(game_id: id, x_coord: 2, y_coord: y_coordinate, color: color, img: "#{color}_knight.svg")
-      Bishop.create(game_id: id, x_coord: 3, y_coord: y_coordinate, color: color, img: "#{color}_bishop.svg")
-      Queen.create(game_id: id, x_coord: 4, y_coord: y_coordinate, color: color, img: "#{color}_queen.svg")
-      King.create(game_id: id, x_coord: 5, y_coord: y_coordinate, color: color, img: "#{color}_king.svg")
-      Bishop.create(game_id: id, x_coord: 6, y_coord: y_coordinate, color: color, img: "#{color}_bishop.svg")
-      Knight.create(game_id: id, x_coord: 7, y_coord: y_coordinate, color: color, img: "#{color}_knight.svg")
-      Rook.create(game_id: id, x_coord: 8, y_coord: y_coordinate, color: color, img: "#{color}_rook.svg")
+      create_rooks!(y_coordinate, color)
+      create_knights!(y_coordinate, color)
+      create_bishops!(y_coordinate, color)
+      create_royalty!(y_coordinate, color)
 
       pawn_y_coordinate = color == 'white' ? 2 : 7
       (1..8).each do |position|
-        Pawn.create(game_id: id, x_coord: position, y_coord: pawn_y_coordinate, color: color, img: "#{color}_pawn.svg")
+        pawns.create(x_coord: position, y_coord: pawn_y_coordinate, color: color, img: "#{color}_pawn.svg")
       end
     end
+  end
+
+  def create_rooks!(y_coordinate, color)
+    rooks.create(x_coord: 1, y_coord: y_coordinate, color: color, img: "#{color}_rook.svg")
+    rooks.create(x_coord: 8, y_coord: y_coordinate, color: color, img: "#{color}_rook.svg")
+  end
+
+  def create_knights!(y_coordinate, color)
+    knights.create(x_coord: 2, y_coord: y_coordinate, color: color, img: "#{color}_knight.svg")
+    knights.create(x_coord: 7, y_coord: y_coordinate, color: color, img: "#{color}_knight.svg")
+  end
+
+  def create_bishops!(y_coordinate, color)
+    bishops.create(x_coord: 3, y_coord: y_coordinate, color: color, img: "#{color}_bishop.svg")
+    bishops.create(x_coord: 6, y_coord: y_coordinate, color: color, img: "#{color}_bishop.svg")
+  end
+
+  def create_royalty!(y_coordinate, color)
+    queens.create(x_coord: 4, y_coord: y_coordinate, color: color, img: "#{color}_queen.svg")
+    kings.create(x_coord: 5, y_coord: y_coordinate, color: color, img: "#{color}_king.svg")
   end
 end
