@@ -3,9 +3,10 @@ Letmecheck::Application.routes.draw do
   root 'static_page#index'
 
   resources :games do
-    resources :enrollments, only: :create
   end
 
+  resources :pieces, only: [:show, :update]
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
