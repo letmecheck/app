@@ -6,6 +6,8 @@ Letmecheck::Application.routes.draw do
     resources :enrollments, only: :create
   end
 
+  resources :pieces, only: [:show]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -21,7 +21,7 @@ class Piece < ActiveRecord::Base
       destination_piece.destroy
     end
 
-    update_attributes(x_coord: destination_x, y_coord: destination_y)
+    update_attributes!(x_coord: destination_x, y_coord: destination_y)
   end
 
   def valid_move?
