@@ -24,7 +24,6 @@ h2 {
   padding:10px;
 }
 
-.selected-piece {
-  border-style: solid;
-  color: yellow;
+.non-selected-piece {
+  opacity: 0.5;
 }
