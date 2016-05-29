@@ -24,7 +24,15 @@ h2 {
   padding:10px;
 }
 
+.non-selected-piece {
+  opacity: 0.5;
+}
+
 .selected-piece {
-  border-style: solid;
-  color: yellow;
+  background-color: yellow;
+}
+
+.btn-sm {
+  font-size: 10px;
+  border-radius: 20px;
 }
