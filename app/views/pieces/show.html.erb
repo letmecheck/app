@@ -1,3 +1,23 @@
+<script>
+  $(function(){
+    $("td").click(function(){
+    	var xCoord = $(this).data("X");
+    	var yCoord = $(this).data("Y");
+    	var updateURL = $(this).data("updateURL");
+    	
+    	$.ajax({
+    	  url: updateURL,
+    	  type: 'PUT',
+        dataType: 'json',
+        data: { piece: { x_coord: xCoord, y_coord: yCoord } }    	  
+    	});
+    });    
+    
+  });
+  
+  
+</script>
+
 <h1>Pieces#show page</h1>
 
 <div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1">
@@ -6,7 +26,7 @@
     <% 8.downto(1) do |y| %>
       <tr>
         <% 1.upto(8) do |x| %>
-              <td data-x="<%= x %>" data-y="<%= y %>"class="square">
+              <td data-x="<%= x %>" data-y="<%= y %>"class="square" data-update-url=<%= piece_path(@piece) %>>
                 <%= link_to piece_path(@piece, piece: {x_coord: x, y_coord: y}), method: :patch do %>
                   <span><%= display_piece_pieces(x, y) %></span>
                 <% end %>
