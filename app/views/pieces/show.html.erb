@@ -1,5 +1,5 @@
 <script>
-  $(function(){
+/*  $(function(){
     $("td").click(function(){
     	var xCoord = $(this).data("X");
     	var yCoord = $(this).data("Y");
@@ -8,12 +8,12 @@
     	$.ajax({
     	  url: updateURL,
     	  type: 'PUT',
-        dataType: 'json',
+       dataType: 'json',
         data: { piece: { x_coord: xCoord, y_coord: yCoord } }    	  
     	});
     });    
     
-  });
+  }); */
   
   
 </script>
@@ -27,9 +27,8 @@
       <tr>
         <% 1.upto(8) do |x| %>
               <td data-x="<%= x %>" data-y="<%= y %>"class="square" data-update-url=<%= piece_path(@piece) %>>
-                <%= link_to piece_path(@piece, piece: {x_coord: x, y_coord: y}), method: :patch do %>
+                <%= link_to 'Move Here', piece_path(@piece, piece: {x_coord: x, y_coord: y}), method: :patch, class: 'btn' %>
                   <span><%= display_piece_pieces(x, y) %></span>
-                <% end %>
               </td>
         <% end %>
       </tr>
