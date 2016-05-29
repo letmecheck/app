@@ -27,8 +27,8 @@
       <tr>
         <% 1.upto(8) do |x| %>
               <td data-x="<%= x %>" data-y="<%= y %>"class="square" data-update-url=<%= piece_path(@piece) %>>
-                <%= link_to 'Move Here', piece_path(@piece, piece: {x_coord: x, y_coord: y}), method: :patch, class: 'btn' %>
-                  <span><%= display_piece_pieces(x, y) %></span>
+                <%= link_to 'Move', piece_path(@piece, piece: {x_coord: x, y_coord: y}), method: :patch, class: 'btn btn-primary btn-sm' %>
+                <span><%= display_piece_pieces(x, y) %></span>
               </td>
         <% end %>
       </tr>

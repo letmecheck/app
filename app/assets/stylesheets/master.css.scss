@@ -27,3 +27,12 @@ h2 {
 .non-selected-piece {
   opacity: 0.5;
 }
+
+.selected-piece {
+  background-color: yellow;
+}
+
+.btn-sm {
+  font-size: 10px;
+  border-radius: 20px;
+}
