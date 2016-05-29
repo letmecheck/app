@@ -1,3 +1,23 @@
+<script> //this javascript doesn't need to be implemented until we add drag-and-drop functionality. Feel free to delete. 
+/*  $(function(){
+    $("td").click(function(){
+    	var xCoord = $(this).data("X");
+    	var yCoord = $(this).data("Y");
+    	var updateURL = $(this).data("updateURL");
+    	
+    	$.ajax({
+    	  url: updateURL,
+    	  type: 'PUT',
+        dataType: 'json',
+        data: { piece: { x_coord: xCoord, y_coord: yCoord } }    	  
+    	});
+    });    
+    
+  }); */
+  
+  
+</script>
+
 <h1>Pieces#show page</h1>
 
 <div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1">
@@ -6,17 +26,13 @@
     <% 8.downto(1) do |y| %>
       <tr>
         <% 1.upto(8) do |x| %>
-          <td data-x="<%= x %>" data-y="<%= y %>"class="square">
-            <span><%= display_piece_pieces(x, y) %></span>
-          </td>
+              <td data-x="<%= x %>" data-y="<%= y %>"class="square" data-update-url=<%= piece_path(@piece) %>>
+                <%= link_to 'Move', piece_path(@piece, piece: {x_coord: x, y_coord: y}), method: :patch, class: 'btn btn-primary btn-sm' %>
+                <span><%= display_piece_pieces(x, y) %></span>
+              </td>
         <% end %>
       </tr>
     <% end %>
   </table>
   <p class="boardTopBottom"></p>
 </div>
-<!-- <div class="container">
-  <% if @piece.game.black_player_id.nil? && @game.white_player_id != current_user.id %>
-    <%= link_to "Join", game_path(@game), method: :patch, class: 'btn btn-primary' %>
-  <% end %>
-</div> -->
