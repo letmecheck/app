@@ -74,7 +74,7 @@ class Piece < ActiveRecord::Base
     # If a move is along a rank or file, x_offset or y_offset will be zero.
     # If a move is along a diagonal, their absolute values will be equal.
 
-    x_offset == 0 || y_offset == 0 || x_offset.abs == y_offset.abs
+    x_offset == 0 || y_offset == 0 || diagonal_move?(new_x, new_y)
   end
 
   # Returns the potenial move's displacement along each axis.
