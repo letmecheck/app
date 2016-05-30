@@ -91,6 +91,7 @@ class Piece < ActiveRecord::Base
   end
 
   def diagonal_move?(new_x, new_y)
+    return false if current_square?(new_x, new_y)
     x_offset, y_offset = movement_by_axis(new_x, new_y)
 
     return true if x_offset.abs == y_offset.abs
