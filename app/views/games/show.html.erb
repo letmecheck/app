@@ -1,31 +1,12 @@
-<script> //this javascript doesn't need to be implemented until we add drag-and-drop functionality. Feel free to delete. 
-/*  $(function(){
-    $("td").click(function(){
-      var xCoord = $(this).data("X");
-      var yCoord = $(this).data("Y");
-      var updateURL = $(this).data("updateURL");
-      
-      $.ajax({
-        url: updateURL,
-        type: 'PUT',
-        dataType: 'json',
-        data: { piece: { x_coord: xCoord, y_coord: yCoord } }       
-      });
-    });    
-    
-  }); */
-
-  $(init);
-
-</script>
-
 <h1>games#show page</h1>
+
 <h2 class="text-center">
   <% if !@game.black_player_id.nil? %>
-    <%= @white_player.email %> vs <%= @black_player.email %></h2>
+    <%= @white_player.email %><h3> vs </h3><%= @black_player.email %>
   <% else %>
     <%= @white_player.email %> vs Someone
   <% end %>
+</h2>
 
 <div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1">
   <!-- push the board to a partial -->
@@ -37,3 +18,6 @@
     <%= link_to "Join", game_path(@game), method: :patch, class: 'btn btn-primary' %>
   <% end %>
 </div>
+
+<!-- Execute the script that allows moving pieces on the board. -->
+<script>$(init);</script>

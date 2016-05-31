@@ -18,7 +18,7 @@ function handleDragStop( event, ui ) {
   $.ajax({
     type: 'PATCH',
     url: ui.draggable.data('update-url'),
-    dataType: 'script',
+    dataType: 'script', //no touchy
     data: { piece: { x_coord: destination_x, y_coord: destination_y } }
   });
 }

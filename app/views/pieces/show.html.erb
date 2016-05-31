@@ -1,19 +1,4 @@
-<script> //this javascript doesn't need to be implemented until we add drag-and-drop functionality. Feel free to delete. 
-/*  $(function(){
-    $("td").click(function(){
-    	var xCoord = $(this).data("X");
-    	var yCoord = $(this).data("Y");
-    	var updateURL = $(this).data("updateURL");
-    	
-    	$.ajax({
-    	  url: updateURL,
-    	  type: 'PUT',
-        dataType: 'json',
-        data: { piece: { x_coord: xCoord, y_coord: yCoord } }    	  
-    	});
-    });    
-    
-  }); */
+<script> 
   $(function(){
     $("span").draggable( {
       containment: "table",

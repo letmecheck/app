@@ -1,4 +1,6 @@
-// undecided whether we will keep this file...
+// Replaces the board with a brand-spanking-new board.
 <% @game = @piece.game %>
 $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')) %>");
+// The following calls the function within master.js to make 
+// pieces draggable and squares droppable.
 init();
