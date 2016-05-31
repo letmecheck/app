@@ -8,12 +8,6 @@ gem 'rails', '4.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
-#Rspec
-group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
-  gem 'pry-nav'
-end
-
 # Rubocop style checking
 gem 'rubocop', '~> 0.40.0', require: false
 
@@ -42,22 +36,19 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+# jQuery UI assets (JavaScripts, stylesheets, and images) for the Rails asset pipeline.
+gem 'jquery-ui-rails'
+
+#Rspec
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'pry-nav'
+end
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 
 #Use rails_12factor gem for easier production deployment
 gem 'rails_12factor', group: :production

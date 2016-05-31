@@ -10,6 +10,8 @@
  *
  *= require_self
  *= require_tree .
+ *= require jquery-ui/core
+ *= require jquery-ui/draggable
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";

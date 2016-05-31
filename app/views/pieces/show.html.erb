@@ -14,7 +14,20 @@
     });    
     
   }); */
-  
+  $(function(){
+    $("span").draggable( {
+      containment: "table",
+      cursor: "move",
+      //snap: true,
+      //stop: handleDragStop,
+    });
+
+    // $("td").droppable( {
+    //   drop: function() {
+    //     $("span")
+    //   }
+    // });
+  });
   
 </script>
 

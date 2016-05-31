@@ -46,3 +46,11 @@ $square-size-tablet: 60px;
 .boardTopBottom {
   padding: 1em 0
 }
+
+.hoveredSquare {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+/*.ui-draggable-dragging img {
+   box-shadow: 0px 0px 10px 0 red;
+}*/
