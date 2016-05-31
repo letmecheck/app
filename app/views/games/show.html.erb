@@ -6,9 +6,25 @@
 <script>
 //$(init);
 $(document).ready(function () {
+  
   $(".draggable").draggable({
-  containment: '#board'
+  containment: '#board',
+  revert: "invalid" //returns the piece to the original position if it is not placed in a droppable area
   });
+
+
+  $(".square").droppable({
+    //snaps the piece to the new square
+    drop: function (event, ui){
+      ui.draggable.position({ 
+        of: $(this), 
+        my: 'left top', 
+        at: 'left top' 
+        });
+    }
+  });
+
+
 });
 
 </script>
