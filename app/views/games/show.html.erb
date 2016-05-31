@@ -53,8 +53,13 @@
     <% 8.downto(1) do |y| %>
       <tr>
         <% 1.upto(8) do |x| %>
+        <% piece = @game.pieces.find_by(x_coord: x, y_coord: y) %>
           <td data-x="<%= x %>" data-y="<%= y %>"class="square">
-            <span class="chessPiece" data-update-url><%= display_game_pieces(x, y) %></span>
+            <% if piece.present? %>
+              <span class="chessPiece" data-update-url>
+                <%= link_to image_tag(piece.img, class: "img-responsive"), piece_path(piece) %>
+              </span>
+            <% end %>
           </td>
         <% end %>
       </tr>
