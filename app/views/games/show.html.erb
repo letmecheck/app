@@ -34,7 +34,7 @@
         type: 'PATCH',
         url: ui.draggable.data('update-url'),
         dataType: 'json',
-        data: { x_coord: destination_x, y_coord: destination_y }
+        data: { piece: { x_coord: destination_x, y_coord: destination_y } }
       });
     }
   });  
@@ -47,26 +47,12 @@
   <% else %>
     <%= @white_player.email %> vs Someone
   <% end %>
+
 <div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1">
-  <p class="boardTopBottom"></p>
-  <table>
-    <% 8.downto(1) do |y| %>
-      <tr>
-        <% 1.upto(8) do |x| %>
-        <% piece = @game.pieces.find_by(x_coord: x, y_coord: y) %>
-          <td data-x="<%= x %>" data-y="<%= y %>"class="square">
-            <% if piece.present? %>
-              <span class="chessPiece" data-update-url>
-                <%= link_to image_tag(piece.img, class: "img-responsive"), piece_path(piece) %>
-              </span>
-            <% end %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
-  <p class="boardTopBottom"></p>
+  <!-- push the board to a partial -->
+  <%= render 'chess_board' %>
 </div>
+
 <div class="container">
   <% if @game.black_player_id.nil? && @game.white_player_id != current_user.id %>
     <%= link_to "Join", game_path(@game), method: :patch, class: 'btn btn-primary' %>
