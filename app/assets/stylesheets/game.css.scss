@@ -48,7 +48,8 @@ $square-size-tablet: 60px;
 }
 
 .hoveredSquare {
-  background-color: rgba(0, 0, 0, 0.3) !important;
+  outline: 3px solid rgba(251, 248, 93, 0.7);
+  box-shadow: 7px 7px 11px 0 rgba(0, 0, 0, 0.5);
 }
 
 /*.ui-draggable-dragging img {

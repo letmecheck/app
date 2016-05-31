@@ -10,7 +10,7 @@ class PiecesController < ApplicationController
     #redirect_to game_path(@piece.game)
     respond_to do |format|
       format.html { redirect_to game_path(@piece.game) }
-      format.js
+      format.js {}
     end
   end
 

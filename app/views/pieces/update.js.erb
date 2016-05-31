@@ -1,2 +1,4 @@
 // undecided whether we will keep this file...
+<% @game = @piece.game %>
 $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')) %>");
+init();
