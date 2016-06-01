@@ -8,7 +8,7 @@
   <% end %>
 </h2>
 
-<div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1">
+<div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1" data-no-turbolink>
   <!-- push the board to a partial -->
   <%= render 'chess_board' %>
 </div>
@@ -21,4 +21,3 @@
 
 <!-- Execute the script that allows moving pieces on the board. -->
 <script>$(dragDrop);</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
