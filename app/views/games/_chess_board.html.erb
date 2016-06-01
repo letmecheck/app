@@ -1,0 +1,18 @@
+<p class="boardTopBottom"></p>
+  <table id="board">
+    <% 8.downto(1) do |y| %>
+      <tr>
+        <% 1.upto(8) do |x| %>
+        <% piece = @game.pieces.find_by(x_coord: x, y_coord: y) %>
+          <td data-x="<%= x %>" data-y="<%= y %>"class="square">
+            <% if piece.present? %>
+              <span class="chessPiece" data-update-url="<%= piece_url(piece) %>">
+                <%= display_game_pieces(x, y) %>
+              </span>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<p class="boardTopBottom"></p>
