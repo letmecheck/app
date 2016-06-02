@@ -8,7 +8,7 @@ class Game < ActiveRecord::Base
 
   # Returns the Piece object located at the given square.
   def piece_at(x_coord, y_coord)
-    pieces.where(x_coord: x_coord, y_coord: y_coord).first
+    pieces.find_by(x_coord: x_coord, y_coord: y_coord)
   end
 
   private

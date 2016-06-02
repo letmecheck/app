@@ -17,14 +17,14 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
-    @white_player = User.find(@game.white_player_id) unless @game.white_player_id.nil?
-    @black_player = User.find(@game.black_player_id) unless @game.black_player_id.nil?
+    @game = Game.find_by_id(params[:id])
+    @white_player = User.find_by_id(@game.white_player_id) unless @game.white_player_id.nil?
+    @black_player = User.find_by_id(@game.black_player_id) unless @game.black_player_id.nil?
     @chess_pieces = @game.pieces
   end
 
   def update
-    @game = Game.find(params[:id])
+    @game = Game.find_by_id(params[:id])
     if game_spot_open?
       @game.update_attribute(:black_player_id, current_user.id)
       redirect_to game_path(@game)
