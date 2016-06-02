@@ -7,7 +7,7 @@
           <td data-x="<%= x %>" data-y="<%= y %>"class="square">
             <% if piece.present? %>
               <span class="chessPiece" data-update-url="<%= piece_url(piece) %>">
-                <%= display_game_pieces(x, y) %>
+                <%= image_tag(piece.img, class: "chessPiece img-responsive") %>
               </span>
             <% end %>
           </td>
