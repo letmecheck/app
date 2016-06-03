@@ -6,9 +6,9 @@
         <% piece = @game.pieces.find_by(x_coord: x, y_coord: y) %>
           <td data-x="<%= x %>" data-y="<%= y %>"class="square">
             <% if piece.present? %>
-              <span class="chessPiece" data-update-url="<%= piece_url(piece) %>">
-                <%= image_tag(piece.img, class: "chessPiece img-responsive") %>
-              </span>
+              <%= image_tag(piece.img, 
+                            class: "chessPiece img-responsive",
+                            "data-update-url" => piece_url(piece)) %>       
             <% end %>
           </td>
         <% end %>
