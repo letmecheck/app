@@ -22,13 +22,9 @@ class Pawn < Piece
   end
 
   def valid_double_move?(new_x, new_y)
-    origin_row = (color == 'white') ? 2 : 7
-    passed_row = (color == 'white') ? 3 : 6
-
-    return false unless y_coord == origin_row
-    return false if game.piece_at(new_x, passed_row)
-    return false if game.piece_at(new_x, new_y)
-    true
+    return false unless y_coord == nth_rank(2)
+    return false if game.piece_at(new_x, nth_rank(3))
+    !game.piece_at(new_x, new_y)
   end
 
   def valid_capture?(new_x, new_y)
