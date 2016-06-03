@@ -58,7 +58,7 @@ class Pawn < Piece
     # ...and the immediately-preceding move must have been a pawn advancing
     # two squares on the destination file. If this is the case,
     # game.en_passant_file will equal the destination file.
-    game.en_passant_file == new_x
+    game.reload.en_passant_file == new_x
   end
 
   def capture_en_passant!(destination_x, destination_y)
@@ -71,7 +71,6 @@ class Pawn < Piece
        destination_y == nth_rank(6) &&
        game.reload.en_passant_file == destination_x
 
-      # raise "#{game.reload.en_passant_file} == #{destination_x}"
       game.piece_at(destination_x, y_coord).destroy
     end
   end
