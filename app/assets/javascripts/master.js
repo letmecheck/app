@@ -20,4 +20,11 @@ function handleDragStop( event, ui ) {
     });
   var destination_x = $(this).data("x");
   var destination_y = $(this).data("y");
+
+  $.ajax({
+    type: 'PATCH',
+    url: ui.draggable.data('update-url'),
+    dataType: 'script', //no touchy
+    data: { piece: { x_coord: destination_x, y_coord: destination_y } }
+  });
 }
