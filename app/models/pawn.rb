@@ -22,7 +22,7 @@ class Pawn < Piece
   def move_to!(destination_x, destination_y)
     capture_en_passant!(destination_x, destination_y)
 
-    # If the pawn is advancing two squares, it my be captured en passant.
+    # If the pawn is advancing two squares, it may be captured en passant.
     en_passant_file = (destination_y - y_coord).abs == 2 ? x_coord : nil
     game.update_attribute(:en_passant_file, en_passant_file)
 
