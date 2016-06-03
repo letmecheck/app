@@ -97,4 +97,12 @@ class Piece < ActiveRecord::Base
 
     x_offset.abs == y_offset.abs
   end
+
+  # Given the rank from the current player's perspective, returns the
+  # corresponding y value. For example, pawns start on the player's second
+  # rank, which is 2 for White and 7 for Black. Therefore, nth_rank(2)
+  # returns 2 if the piece is white, and 7 if it's black.
+  def nth_rank(n)
+    color == 'white' ? n : 9 - n
+  end
 end
