@@ -15,5 +15,8 @@ class King < Piece
     rook_file = 1 if new_x == 3
     rook_file = 8 if new_x == 7
     return false if obstructed?(rook_file, new_y)
+    return false if moved?
+    rook = game.piece_at(rook_file, new_y)
+    return false if rook.moved?
   end
 end
