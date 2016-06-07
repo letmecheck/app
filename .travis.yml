@@ -11,9 +11,6 @@ notifications:
     on_success: [always|never|change] # default: change
     on_failure: [always|never|change] # default: always
 
-services:
-  - postgresql
-
 addons:
   postgresql: "9.4"
 
