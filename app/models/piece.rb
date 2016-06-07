@@ -94,8 +94,6 @@ class Piece < ActiveRecord::Base
     return false if current_square?(new_x, new_y)
     x_offset, y_offset = movement_by_axis(new_x, new_y)
 
-    return true if x_offset.abs == y_offset.abs
-
-    false
+    x_offset.abs == y_offset.abs
   end
 end
