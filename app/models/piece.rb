@@ -95,6 +95,5 @@ class Piece < ActiveRecord::Base
     x_offset, y_offset = movement_by_axis(new_x, new_y)
 
     x_offset.abs == y_offset.abs
-
   end
 end
