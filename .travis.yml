@@ -13,3 +13,4 @@ notifications:
 
 script:
   - bundle exec rubocop
+  - bundle exec rspec
