@@ -57,3 +57,18 @@ class King < Piece
     end
     false
   end
+
+  # Castling is prevented temporarily:
+  # if the square on which the king stands, or the square which it must cross,
+  # or the square which it is to occupy, is attacked by one or more of the opponent's pieces.
+  def king_traversal_under_attack?(new_x, new_y)
+    # The argument for new_x will be either 3 or 7 if castling is attempted.
+    king_file_array = (new_x == 3) ? [3, 4, 5] : [5, 6, 7]
+
+    # File is a chess term that's analogous to x_coord
+    king_file_array.each do |file|
+      return true if square_threatened?(file, new_y)
+    end
+    false
+  end
+end
