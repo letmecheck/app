@@ -12,32 +12,36 @@ class King < Piece
 
   private
 
-
   # Determine if castling is allowed.
   def valid_castling?(new_x, new_y)
     # The right to castle has been lost if the king has moved.
     return false if moved?
 
     # Castling is permitted if the king and the chosen rook are on the player's first rank.
-    return false unless nth_rank(1) == new_y
+    # Since the king hasn't moved, then y_coord will be the same as the player's first rank.
+    return false unless y_coord == new_y
 
     # Castling is not permitted unless the king moves two spaces along the same rank.
     return false unless new_x == 3 || new_x == 7
 
     # Castling is not permitted if the rook has moved, or if there are any obstructions.
-    rook_file(new_x, new_y)
-  end
+    return false unless rook_requirements(new_x, new_y)
 
-  # Ensures that Castling is only permitted on the first rank relative to the player.
-  def nth_rank(n)
-    color == 'white' ? n : 9 - n
+    # Allows Castling if the squares that the king traverses are not under attack.
+    !king_traversal_under_attack?(new_x, new_y)
   end
 
   # Castling helper method.
-  def rook_file(new_x, new_y)
+  def rook_requirements(new_x, new_y)
     # Set the file for the rook to 1 if the player's intent is to Castle queen-side,
     # otherwise it will be set to eight.
     rook_file = new_x == 3 ? 1 : 8
+
+    # Guard against the rook's square being empty.
+    return false if game.piece_at(rook_file, new_y) == nil
+
+    # Assign a variable to the piece found in the rook's square. This handles either situation
+    # whether the piece is a rook or not.
     rook = game.piece_at(rook_file, new_y)
 
     # The right to castle has been lost if the rook has moved earlier in the game.
