@@ -8,7 +8,9 @@ gem 'rails', '4.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+# RSpec
 group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
   gem 'pry-nav'
 end
 
@@ -62,8 +64,3 @@ end
 
 # Use rails_12factor gem for easier production deployment
 gem 'rails_12factor', group: :production
-
-# Per rspec docs, these need to be included to run against the master branch
-%w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-  gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
-end
