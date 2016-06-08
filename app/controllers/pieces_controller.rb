@@ -5,7 +5,7 @@ class PiecesController < ApplicationController
 
   def update
     @piece = Piece.find(params[:id])
-    @piece.move_to!(piece_params[:x_coord], piece_params[:y_coord])
+    @piece.move_to!(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
   end
 
   private
