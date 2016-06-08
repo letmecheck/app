@@ -11,5 +11,14 @@ notifications:
     on_success: [always|never|change] # default: change
     on_failure: [always|never|change] # default: always
 
+addons:
+  postgresql: "9.4"
+
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - bundle exec rake db:migrate RAILS_ENV=test
+
 script:
+  - bundle exec rspec
   - bundle exec rubocop
