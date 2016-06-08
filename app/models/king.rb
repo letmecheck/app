@@ -2,23 +2,16 @@ class King < Piece
   def valid_move?(new_x, new_y)
     return false if off_board?(new_x, new_y)
     return false if current_square?(new_x, new_y)
+    # return false if in_check?(new_x, new_y)
 
     x_offset, y_offset = movement_by_axis(new_x, new_y)
     return true if (-1..1).cover?(x_offset) && (-1..1).cover?(y_offset)
 
-    in_check?(new_x, new_y)
-
     valid_castling?(new_x, new_y)
   end
 
-  # Determine if the king is being moved into a position resulting in check
-  def in_check?(new_x, new_y)
-    opponent_color = (color == 'white') ? 'black' : 'white'
-    live_pieces = game.pieces.where(color: opponent_color)
-    live_pieces.each do |piece|
-      return false if piece.valid_move?
-    end
-  end
+  private
+
 
   # Determine if castling is allowed.
   def valid_castling?(new_x, new_y)
@@ -42,7 +35,7 @@ class King < Piece
 
   # Castling helper method.
   def rook_file(new_x, new_y)
-    # Set the file for the rook to 1 if the player's intent is to Castle to their left,
+    # Set the file for the rook to 1 if the player's intent is to Castle queen-side,
     # otherwise it will be set to eight.
     rook_file = new_x == 3 ? 1 : 8
     rook = game.piece_at(rook_file, new_y)
@@ -55,12 +48,12 @@ class King < Piece
     true
   end
 
-  # Castling is prevented temporarily:
-  # if the square on which the king stands, or the square which it must cross,
-  # or the square which it is to occupy, is attacked by one or more of the
-  # opponent's pieces.
-  # def threatened_squares
-  # make sure that the following squares are not being attacked
-  #   (3..5) || (5..7)
-  # end
-end
+  # Helper method used to determine if a particular square is under potential attack
+  def square_threatened?(destination_x, destination_y)
+    opponent_color = (color == 'white') ? 'black' : 'white'
+    enemy_pieces = game.pieces.where(color: opponent_color)
+    enemy_pieces.each do |piece|
+      return true if piece.valid_move?(destination_x, destination_y)
+    end
+    false
+  end
