@@ -10,6 +10,14 @@ class King < Piece
     valid_castling?(new_x, new_y)
   end
 
+  # This is an addition to the move_to! method in the Piece model.
+  # It determines which rook is to be castled and moves it to the appropriate square.
+  def move_to!(new_x, new_y)
+    rook_file = (new_x == 3) ? 4 : 6
+    castled_rook = game.piece_at(rook_file, new_y)
+    castled_rook.move_to!(rook_file, new_y)
+  end
+
   private
 
   # Determine if castling is allowed.
@@ -38,7 +46,7 @@ class King < Piece
     rook_file = new_x == 3 ? 1 : 8
 
     # Guard against the rook's square being empty.
-    return false if game.piece_at(rook_file, new_y) == nil
+    return false if game.piece_at(rook_file, new_y).nil?
 
     # Assign a variable to the piece found in the rook's square. This handles either situation
     # whether the piece is a rook or not.
