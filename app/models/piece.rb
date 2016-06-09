@@ -14,6 +14,7 @@ class Piece < ActiveRecord::Base
   scope :kings,   -> { where(piece_type: 'King') }
 
   def move_to!(destination_x, destination_y)
+    return false unless valid_move?(destination_x, destination_y)
     destination_piece = game.piece_at(destination_x, destination_y)
 
     if destination_piece
