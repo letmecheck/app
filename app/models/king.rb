@@ -10,12 +10,26 @@ class King < Piece
     valid_castling?(new_x, new_y)
   end
 
-  # This is an addition to the move_to! method in the Piece model.
-  # It determines which rook is to be castled and moves it to the appropriate square.
-  def move_to!(new_x, new_y)
-    rook_file = (new_x == 3) ? 4 : 6
-    castled_rook = game.piece_at(rook_file, new_y)
-    castled_rook.move_to!(rook_file, new_y)
+  # An addition to the move_to! method found within the Piece model.
+  # This determines which rook is to be castled and moves it to the
+  # appropriate square.
+  def move_to!(destination_x, destination_y)
+    return false unless valid_move?(destination_x, destination_y)
+    castling = (x_coord - destination_x).abs == 2
+
+    # Call the move_to! method within the Piece model and move the king.
+    super
+
+    # If all of the requirements are met for valid_move? AND the intention is to castle;
+    # place the rook in its appropriate position to complete the castling move.
+    if castling
+      rook_origin_file = (destination_x == 3) ? 1 : 8
+      rook_destination_file = (destination_x == 3) ? 4 : 6
+      castled_rook = game.piece_at(rook_origin_file, destination_y)
+      castled_rook.update_attributes(x_coord: rook_destination_file,
+                                     y_coord: destination_y,
+                                     moved: true)
+    end
   end
 
   private
@@ -33,34 +47,32 @@ class King < Piece
     return false unless new_x == 3 || new_x == 7
 
     # Castling is not permitted if the rook has moved, or if there are any obstructions.
-    return false unless rook_requirements(new_x, new_y)
+    return false unless rook_requirements_met?(new_x, new_y)
 
     # Allows Castling if the squares that the king traverses are not under attack.
     !king_traversal_under_attack?(new_x, new_y)
   end
 
   # Castling helper method.
-  def rook_requirements(new_x, new_y)
+  def rook_requirements_met?(new_x, new_y)
     # Set the file for the rook to 1 if the player's intent is to Castle queen-side,
     # otherwise it will be set to eight.
     rook_file = new_x == 3 ? 1 : 8
 
-    # Guard against the rook's square being empty.
-    return false if game.piece_at(rook_file, new_y).nil?
-
-    # Assign a variable to the piece found in the rook's square. This handles either situation
-    # whether the piece is a rook or not.
+    # Assign a variable to the piece found in the rook's square.
     rook = game.piece_at(rook_file, new_y)
+
+    # Guard against the rook's square being empty, or some other piece.
+    return false unless rook.is_a? Rook
 
     # The right to castle has been lost if the rook has moved earlier in the game.
     return false if rook.moved?
 
     # Castling is prevented temporarily if there is any piece between the king and the rook.
-    return false if obstructed?(rook_file, new_y)
-    true
+    !obstructed?(rook_file, new_y)
   end
 
-  # Helper method used to determine if a particular square is under potential attack
+  # Helper method used to determine if a particular square is under potential attack.
   def square_threatened?(destination_x, destination_y)
     opponent_color = (color == 'white') ? 'black' : 'white'
     enemy_pieces = game.pieces.where(color: opponent_color)
