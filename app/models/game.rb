@@ -6,12 +6,32 @@ class Game < ActiveRecord::Base
 
   after_create :setup_board!
 
+  # Determine if the king is being moved into a position resulting in check.
+  def in_check?(color)
+    # Find the active player's king
+    king = pieces.find_by(piece_type: 'King', color: color)
+
+    # Distinguish which pieces belong to the opponent.
+    opponent_color = (color == 'white') ? 'black' : 'white'
+
+    square_threatened_by?(opponent_color, king.x_coord, king.y_coord)
+  end
+
   # Returns the Piece object located at the given square.
   def piece_at(x_coord, y_coord)
     pieces.find_by(x_coord: x_coord, y_coord: y_coord)
   end
 
   private
+
+  # Helper method used to determine if a particular square is under potential attack.
+  def square_threatened_by?(color, destination_x, destination_y)
+    enemy_pieces = pieces.where(color: color)
+    enemy_pieces.each do |piece|
+      return true if piece.valid_move?(destination_x, destination_y)
+    end
+    false
+  end
 
   def setup_board!
     %w(white black).each do |color|
