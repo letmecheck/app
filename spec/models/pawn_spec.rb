@@ -45,7 +45,7 @@ RSpec.describe Pawn, type: :model do
         ActiveRecord::RecordNotFound
       )
       expect(black_pawn_6.x_coord).to eq 5
-      expect(black_pawn_6.x_coord).to eq 3
+      expect(black_pawn_6.y_coord).to eq 3
     end
 
     it "disallows e.p. capture after another move has been made" do
