@@ -12,7 +12,7 @@ RSpec.describe Pawn, type: :model do
     let(:black_pawn_3) { game.piece_at(3, 7) }
     let(:white_bishop) { game.piece_at(6, 1) }
 
-    it "allows valid en passant capture" do
+    it "allows valid en passant capture by White" do
       white_pawn_2.move_to!(2, 4)
       # Inconsequential move to bypass Black's turn:
       black_knight.move_to!(8, 6)
@@ -25,6 +25,27 @@ RSpec.describe Pawn, type: :model do
       expect { black_pawn_1.reload }.to raise_error(
         ActiveRecord::RecordNotFound
       )
+      expect(white_pawn_2.x_coord).to eq 1
+      expect(white_pawn_2.y_coord).to eq 6
+    end
+
+    it "allows valid en passant capture by Black" do
+      # Inconsequential move to bypass White's turn:
+      white_knight.move_to!(8, 3)
+      black_pawn_6.move_to!(6, 5)
+      # Ditto:
+      white_knight.move_to!(7, 1)
+      black_pawn_6.move_to!(6, 4)
+      # Two-square advance:
+      white_pawn_5.move_to!(5, 4)
+      # Capture:
+      expect(black_pawn_6.valid_move?(5, 3)).to be true
+      black_pawn_6.move_to!(5, 3)
+      expect { white_pawn_5.reload }.to raise_error(
+        ActiveRecord::RecordNotFound
+      )
+      expect(black_pawn_6.x_coord).to eq 5
+      expect(black_pawn_6.x_coord).to eq 3
     end
 
     it "disallows e.p. capture after another move has been made" do
