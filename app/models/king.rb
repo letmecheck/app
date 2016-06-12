@@ -55,7 +55,7 @@ class King < Piece
   # Castling helper method.
   def rook_requirements_met?(new_x, new_y)
     # Set the file for the rook to 1 if the player's intent is to Castle queen-side,
-    # otherwise it will be set to eight.
+    # otherwise it will be set to eight. File is a chess term that's analogous to x_coord.
     rook_file = new_x == 3 ? 1 : 8
 
     # Assign a variable to the piece found in the rook's square.
@@ -71,16 +71,6 @@ class King < Piece
     !obstructed?(rook_file, new_y)
   end
 
-  # Helper method used to determine if a particular square is under potential attack.
-  def square_threatened?(destination_x, destination_y)
-    opponent_color = (color == 'white') ? 'black' : 'white'
-    enemy_pieces = game.pieces.where(color: opponent_color)
-    enemy_pieces.each do |piece|
-      return true if piece.valid_move?(destination_x, destination_y)
-    end
-    false
-  end
-
   # Castling is prevented temporarily:
   # if the square on which the king stands, or the square which it must cross,
   # or the square which it is to occupy, is attacked by one or more of the opponent's pieces.
@@ -88,9 +78,12 @@ class King < Piece
     # The argument for new_x will be either 3 or 7 if castling is attempted.
     king_file_array = (new_x == 3) ? [3, 4, 5] : [5, 6, 7]
 
-    # File is a chess term that's analogous to x_coord
+    # square_threatened_by? takes color as one of its arguments.
+    opponent_color = (color == 'white') ? 'black' : 'white'
+
+    # Determine if any squares from the king's origin to his destination are under threat.
     king_file_array.each do |file|
-      return true if square_threatened?(file, new_y)
+      return true if game.square_threatened_by?(opponent_color, file, new_y)
     end
     false
   end
