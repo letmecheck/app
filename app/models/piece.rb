@@ -29,7 +29,7 @@ class Piece < ActiveRecord::Base
     # method in the Pawn class will set this value appropriately.
     game.update_attribute(:en_passant_file, nil) unless is_a? Pawn
 
-    update_attributes!(x_coord: destination_x, y_coord: destination_y)
+    update_attributes!(x_coord: destination_x, y_coord: destination_y, moved: true)
   end
 
   def valid_move?
