@@ -4,9 +4,7 @@ class King < Piece
     return false if current_square?(new_x, new_y)
 
     x_offset, y_offset = movement_by_axis(new_x, new_y)
-    return true if (-1..1).cover?(x_offset) && (-1..1).cover?(y_offset)
-
-    valid_castling?(new_x, new_y)
+    (-1..1).cover?(x_offset) && (-1..1).cover?(y_offset) || valid_castling?(new_x, new_y)
   end
 
   # An addition to the move_to! method found within the Piece model.
@@ -54,12 +52,12 @@ class King < Piece
 
   # Castling helper method.
   def rook_requirements_met?(new_x, new_y)
-    # Set the file for the rook to 1 if the player's intent is to Castle queen-side,
-    # otherwise it will be set to eight. File is a chess term that's analogous to x_coord.
-    rook_file = new_x == 3 ? 1 : 8
+    # Set the x_coord for the rook to 1 if the player's intent is to Castle queen-side,
+    # otherwise it will be set to eight.
+    rook_x_coord = new_x == 3 ? 1 : 8
 
     # Assign a variable to the piece found in the rook's square.
-    rook = game.piece_at(rook_file, new_y)
+    rook = game.piece_at(rook_x_coord, new_y)
 
     # Guard against the rook's square being empty, or some other piece.
     return false unless rook.is_a? Rook
@@ -68,7 +66,7 @@ class King < Piece
     return false if rook.moved?
 
     # Castling is prevented temporarily if there is any piece between the king and the rook.
-    !obstructed?(rook_file, new_y)
+    !obstructed?(rook_x_coord, new_y)
   end
 
   # Castling is prevented temporarily:
@@ -76,15 +74,12 @@ class King < Piece
   # or the square which it is to occupy, is attacked by one or more of the opponent's pieces.
   def king_traversal_under_attack?(new_x, new_y)
     # The argument for new_x will be either 3 or 7 if castling is attempted.
-    king_file_array = (new_x == 3) ? [3, 4, 5] : [5, 6, 7]
+    king_x_array = (new_x == 3) ? [3, 4, 5] : [5, 6, 7]
 
     # square_threatened_by? takes color as one of its arguments.
     opponent_color = (color == 'white') ? 'black' : 'white'
 
     # Determine if any squares from the king's origin to his destination are under threat.
-    king_file_array.each do |file|
-      return true if game.square_threatened_by?(opponent_color, file, new_y)
-    end
-    false
+    king_x_array.any? { |x_coord| game.square_threatened_by?(opponent_color, x_coord, new_y) }
   end
 end
