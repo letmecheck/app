@@ -17,10 +17,17 @@ class Piece < ActiveRecord::Base
     return false unless valid_move?(destination_x, destination_y)
     destination_piece = game.piece_at(destination_x, destination_y)
 
+    # If the destination piece is friendly, reject the move.
+    # Otherwise, capture the destination piece.
     if destination_piece
       return false if destination_piece.color == color
       destination_piece.destroy
     end
+
+    # If the move is not being made by a pawn, en passant capture is not
+    # possible on the next move. If it is being made by a pawn, the move_to!
+    # method in the Pawn class will set this value appropriately.
+    game.update_attribute(:en_passant_file, nil) unless is_a? Pawn
 
     update_attributes!(x_coord: destination_x, y_coord: destination_y, moved: true)
   end
@@ -96,5 +103,13 @@ class Piece < ActiveRecord::Base
     x_offset, y_offset = movement_by_axis(new_x, new_y)
 
     x_offset.abs == y_offset.abs
+  end
+
+  # Given the rank from the current player's perspective, returns the
+  # corresponding y value. For example, pawns start on the player's second
+  # rank, which is 2 for White and 7 for Black. Therefore, nth_rank(2)
+  # returns 2 if the piece is white, and 7 if it's black.
+  def nth_rank(n)
+    color == 'white' ? n : 9 - n
   end
 end

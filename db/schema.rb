@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160605185936) do
     t.datetime "updated_at"
     t.integer  "white_player_id"
     t.integer  "black_player_id"
+    t.integer  "en_passant_file"
   end
 
   create_table "pieces", force: true do |t|
