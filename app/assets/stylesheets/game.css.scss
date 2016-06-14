@@ -52,6 +52,23 @@ $square-size-tablet: 60px;
   box-shadow: 7px 7px 11px 0 rgba(0, 0, 0, 0.5);
 }
 
-/*.ui-draggable-dragging img {
-   box-shadow: 0px 0px 10px 0 red;
+.warning {
+  font-size: 1.8em;
+  margin-top: -1em;
+}
+
+/*consider changing to .kingInCheckMessage*/
+.kingInCheckMessage {
+  font-size: 1.8em;
+  color: #B64402;
+  text-shadow: 0px 2px 2px rgb(109, 63, 63), 0px 3px 6px #351B03;
+  margin-top: -1em;
+}
+
+/* place-holder for checkmate
+.checkmate {
+  font-size: 1.8em;
+  color: #C90202;
+  text-shadow: 0px 2px 2px rgb(109, 63, 63), 0px 3px 6px #351B03;
+  margin-top: -1em;
 }*/

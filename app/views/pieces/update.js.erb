@@ -1,6 +1,21 @@
 // Replaces the board with a brand-spanking-new board.
 <% @game = @piece.game %>
 $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')) %>");
+
 // The following calls the function within master.js to make 
 // pieces draggable and squares droppable.
 dragDrop();
+
+<% if @black_king_in_check %>
+  $( ".warning" ).html("Hello, black is in check!")
+                 .addClass("kingInCheckMessage", 1000)
+                 .animate({letterSpacing: ".3em"}, "slow");
+<% elsif @white_king_in_check %>
+  $( ".warning" ).html("Hello, white is in check!")
+                 .addClass("kingInCheckMessage", 1000)
+                 .animate({letterSpacing: ".3em"}, "slow");
+<% end %>
+
+// The _chess_board partial has a div with the class .warning 
+// .warning may be used in the future to show a message for checkmate
+// much in the same way as above with .addClass
