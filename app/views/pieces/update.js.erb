@@ -12,7 +12,7 @@ dragDrop();
                  .addClass( "animated bounceInUp" )
                  .animate( { letterSpacing: ".3em" }, 1200 );
  
-  $("#black-king").addClass( "animated bounce" );
+  $("#black-king").addClass( "animated bounce blushing-king" );
 
 <% elsif @game.in_check?('white') %>
   $( ".warning" ).html( "Hello, white is in check!" )
@@ -20,7 +20,7 @@ dragDrop();
                  .addClass( "animated bounceInUp" )
                  .animate( { letterSpacing: ".3em" }, 1200 );
 
-  $("#white-king").addClass( "animated bounce" );
+  $("#white-king").addClass( "animated bounce blushing-king" );
 <% end %>
 
 // The _chess_board partial has a div with the class .warning 
