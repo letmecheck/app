@@ -6,14 +6,21 @@ $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')
 // pieces draggable and squares droppable.
 dragDrop();
 
-<% if @black_king_in_check %>
-  $( ".warning" ).html("Hello, black is in check!")
-                 .addClass("kingInCheckMessage", 1000)
-                 .animate({letterSpacing: ".3em"}, "slow");
-<% elsif @white_king_in_check %>
-  $( ".warning" ).html("Hello, white is in check!")
-                 .addClass("kingInCheckMessage", 1000)
-                 .animate({letterSpacing: ".3em"}, "slow");
+<% if @game.in_check?('black') %>
+  $( ".warning" ).html( "Hello, black is in check!" )
+                 .addClass( "kingInCheckMessage", 1000 )
+                 .addClass( "animated bounceInUp" )
+                 .animate( { letterSpacing: ".3em" }, 1200 );
+ 
+  $("#black-king").addClass( "animated bounce" );
+
+<% elsif @game.in_check?('white') %>
+  $( ".warning" ).html( "Hello, white is in check!" )
+                 .addClass( "kingInCheckMessage", 1000 )
+                 .addClass( "animated bounceInUp" )
+                 .animate( { letterSpacing: ".3em" }, 1200 );
+
+  $("#white-king").addClass( "animated bounce" );
 <% end %>
 
 // The _chess_board partial has a div with the class .warning 

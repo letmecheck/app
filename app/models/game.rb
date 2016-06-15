@@ -15,10 +15,15 @@ class Game < ActiveRecord::Base
     false
   end
 
+  # Helper method for in_check?
+  def find_king(color)
+    pieces.find_by(piece_type: 'King', color: color)
+  end
+
   # Determine if the king is being moved into a position resulting in check.
   def in_check?(color)
     # Find the active player's king
-    king = pieces.find_by(piece_type: 'King', color: color)
+    king = find_king(color)
 
     # Distinguish which pieces belong to the opponent.
     opponent_color = (color == 'white') ? 'black' : 'white'
