@@ -1,4 +1,6 @@
 class Piece < ActiveRecord::Base
+  #require 'pry'
+
   belongs_to :game
   self.inheritance_column = :piece_type
 
@@ -14,16 +16,22 @@ class Piece < ActiveRecord::Base
   scope :kings,   -> { where(piece_type: 'King') }
 
   def move_to!(destination_x, destination_y)
+    #binding.pry
+
+    return false unless game.current_player == color
     return false unless valid_move?(destination_x, destination_y)
     destination_piece = game.piece_at(destination_x, destination_y)
 
     # If the destination piece is friendly, reject the move.
     # Otherwise, capture the destination piece.
     if destination_piece
-      return false if destination_piece.color == color
-      destination_piece.destroy
+      return destination_piece.destroy unless destination_piece.color == color
     end
 
+    update_game_attributes(destination_x, destination_y)
+  end
+
+  def update_game_attributes(destination_x, destination_y)
     # If the move is not being made by a pawn, en passant capture is not
     # possible on the next move. If it is being made by a pawn, the move_to!
     # method in the Pawn class will set this value appropriately.
@@ -35,17 +43,23 @@ class Piece < ActiveRecord::Base
     game.switch_players!
   end
 
-  def valid_move?
+  def valid_move?(destination_x, destination_y)
+    return false if current_square?(destination_x, destination_y)
+
+    return false if obstructed?(destination_x, destination_y) && piece_type != 'Knight'
+
+    return false if off_board?(destination_x, destination_y)
+
+    return false unless linear_move?(destination_x, destination_y)
+
+    true
+
     # Implement this method in each subclass.
     # Keep this method here for the parent class, in case things go awry.
-    raise 'Abstract method'
+    # raise 'Abstract method'
   end
 
   def obstructed?(destination_x, destination_y)
-    # Sanity-check the prospective move.
-    error = bad_move_reason(destination_x, destination_y)
-    raise error if error
-
     current_x = x_coord
     current_y = y_coord
 
@@ -65,21 +79,7 @@ class Piece < ActiveRecord::Base
 
   # private  # Temporarily commented out for debugging.
 
-  def bad_move_reason(new_x, new_y)
-    return 'Destination is not on board.' if off_board?(new_x, new_y)
-
-    if current_square?(new_x, new_y)
-      return 'Origin and destination are the same square.'
-    end
-
-    unless linear_move?(new_x, new_y)
-      return 'Destination is not on same rank, file, or diagonal as origin.'
-    end
-    nil
-  end
-
   def linear_move?(new_x, new_y)
-    return false if current_square?(new_x, new_y)
     x_offset, y_offset = movement_by_axis(new_x, new_y)
 
     # If a move is along a rank or file, x_offset or y_offset will be zero.
@@ -102,7 +102,6 @@ class Piece < ActiveRecord::Base
   end
 
   def diagonal_move?(new_x, new_y)
-    return false if current_square?(new_x, new_y)
     x_offset, y_offset = movement_by_axis(new_x, new_y)
 
     x_offset.abs == y_offset.abs

@@ -30,6 +30,7 @@ RSpec.describe King, type: :model do
     context 'when called by black king' do
       before(:each) do
         @game = Game.create
+        @game.black!
         @game.pieces.each(&:destroy)
         @black_king = King.create(x_coord: 5, y_coord: 8, color: 'black')
         @black_rook = Rook.create(x_coord: 8, y_coord: 8, color: 'black')
