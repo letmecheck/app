@@ -34,6 +34,8 @@ RSpec.describe King, type: :model do
         @game.pieces.each(&:destroy)
         @black_king = King.create(x_coord: 5, y_coord: 8, color: 'black')
         @black_rook = Rook.create(x_coord: 8, y_coord: 8, color: 'black')
+        @white_pawn = Pawn.create(x_coord: 8, y_coord: 2, color: 'white')
+        @game.pieces << @white_pawn
         @game.pieces << @black_king
         @game.pieces << @black_rook
       end
@@ -41,6 +43,7 @@ RSpec.describe King, type: :model do
       context 'castling move not permitted if the king has moved previously' do
         it 'returns false after attempting to castle' do
           @black_king.move_to!(6, 7)
+          @white_pawn.move_to!(8, 3)
           @black_king.move_to!(5, 8)
           expect(@black_king.move_to!(7, 8)).to be(false)
         end
@@ -176,11 +179,15 @@ RSpec.describe King, type: :model do
         @black_rook = Rook.create(x_coord: 1, y_coord: 8, color: 'black')
         @game.pieces << @black_king
         @game.pieces << @black_rook
+        @white_pawn = Pawn.create(x_coord: 7, y_coord: 2, color: 'white')
+        @game.pieces << @white_pawn
       end
 
       context 'Rook has moved, and its original square is unoccupied' do
         it 'returns false' do
+          @white_pawn.move_to!(7, 3)
           @black_rook.move_to!(1, 7)
+          @white_pawn.move_to!(7, 4)
           expect(@black_king.valid_move?(3, 8)).to eq(false)
         end
       end
@@ -188,6 +195,7 @@ RSpec.describe King, type: :model do
       context 'Rook has moved and another piece is in its original position' do
         it 'returns false' do
           @black_rook.move_to!(1, 7)
+          @white_pawn.move_to!(7, 5)
           black_queen = Queen.create(x_coord: 8, y_coord: 1, color: 'black')
           black_queen.moved?
           expect(@black_king.valid_move?(3, 8)).to eq(false)
@@ -197,7 +205,9 @@ RSpec.describe King, type: :model do
       context 'when the rook has moved and returned to its original position' do
         it 'returns false' do
           @black_rook.move_to!(1, 4)
+          @white_pawn.move_to!(7, 6)
           @black_rook.move_to!(1, 8)
+          @white_pawn.move_to!(7, 7)
           expect(@black_king.valid_move?(3, 8)).to eq(false)
         end
       end
