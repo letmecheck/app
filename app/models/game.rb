@@ -1,4 +1,7 @@
 class Game < ActiveRecord::Base
+  enum current_player: [ :current_player_is_white_player,
+                         :current_player_is_black_player ]
+
   belongs_to :user
   has_many :pieces
 
