@@ -23,8 +23,24 @@ RSpec.describe Piece, type: :model do
 
   describe 'current_square?' do
     context 'A rook is picked up and placed on the same square it started' do
-      it 'returns true if a moved piece ends up on its current square' do
-        expect(@white_rook.move_to!(1, 1)).to be(true)
+      before(:each) do
+        @game = Game.create
+        @game.pieces.each(&:destroy)
+        @white_pawn = Pawn.create(x_coord: 8, y_coord: 2, color: 'white')
+        @white_rook = Rook.create(x_coord: 1, y_coord: 1, color: 'white')
+        @game.pieces << @white_pawn
+        @game.pieces << @white_rook
+      end
+      context 'picking up the rook and placing it on the same square' do
+        it 'returns true if a moved piece ends up on its current square' do
+          @white_rook.move_to!(1, 1)
+          expect(@white_rook.current_square?(1, 1)).to be(true)
+        end
+
+        it 'returns true if the turn still belongs to White' do
+          @game.white?
+          expect(@game.white?).to be(true)
+        end
       end
     end
   end

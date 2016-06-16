@@ -6,6 +6,16 @@ $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')
 // pieces draggable and squares droppable.
 dragDrop();
 
+// Display a message indicating whether it's white or black's turn.
+<% if @game.white? %>
+  $( ".player-turn" ).html( "current move: white player" )
+                     .addClass( "animated fadeInDown white-player-turn", 1000 );
+<% elsif @game.black? %>
+    $( ".player-turn" ).html( "current move: black player" )
+                     .addClass( "animated fadeInUp black-player-turn", 1000 );
+<% end %>
+
+// Display a warning if the king is in check
 <% if @game.in_check?('black') %>
   $( ".warning" ).html( "Hello, black is in check!" )
                  .addClass( "kingInCheckMessage", 1000 )

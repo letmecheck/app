@@ -1,6 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe King, type: :model do
+  describe '.in_check?' do
+    context 'when different pieces threaten the black king' do
+      before(:each) do
+        @game = Game.create
+        @game.pieces.each(&:destroy)
+        @black_king = King.create(x_coord: 5, y_coord: 8, color: 'black')
+        @white_pawn = Pawn.create(x_coord: 1, y_coord: 2, color: 'white')
+        @game.pieces << @white_pawn
+        @game.pieces << @black_king
+      end
+
+      context "the white pawn shouldn't put the king in check from across the board" do
+        it 'returns false since it is more than a square away' do
+          @white_pawn.move_to!(1, 4)
+          expect(@game.in_check?('black')).to be(false)
+        end
+      end
+    end
+  end
+
   describe '.valid_move?' do
     context 'when called by white king' do
       before(:each) do
@@ -171,16 +191,20 @@ RSpec.describe King, type: :model do
       end
     end
 
-    context 'for black' do
+    context 'for black attempting to castle' do
       before(:each) do
         @game = Game.create
         @game.pieces.each(&:destroy)
         @black_king = King.create(x_coord: 5, y_coord: 8, color: 'black')
         @black_rook = Rook.create(x_coord: 1, y_coord: 8, color: 'black')
+        @black_queen = Queen.create(x_coord: 8, y_coord: 1, color: 'black')
         @game.pieces << @black_king
         @game.pieces << @black_rook
+        @game.pieces << @black_queen
         @white_pawn = Pawn.create(x_coord: 7, y_coord: 2, color: 'white')
+        @white_bishop = Bishop.create(x_coord: 3, y_coord: 1, color: 'white')
         @game.pieces << @white_pawn
+        @game.pieces << @white_bishop
       end
 
       context 'Rook has moved, and its original square is unoccupied' do
@@ -194,21 +218,23 @@ RSpec.describe King, type: :model do
 
       context 'Rook has moved and another piece is in its original position' do
         it 'returns false' do
-          @black_rook.move_to!(1, 7)
-          @white_pawn.move_to!(7, 5)
-          black_queen = Queen.create(x_coord: 8, y_coord: 1, color: 'black')
-          black_queen.moved?
-          expect(@black_king.valid_move?(3, 8)).to eq(false)
+          expect(@white_pawn.move_to!(7, 3)).to eq(true)
+          expect(@black_rook.move_to!(1, 6)).to eq(true)
+          @white_pawn.move_to!(7, 4)
+          @black_queen.move_to!(1, 8)
+          @white_bishop.move_to!(1, 3)
+          expect(@black_king.move_to!(3, 8)).to eq(false)
         end
       end
 
       context 'when the rook has moved and returned to its original position' do
         it 'returns false' do
+          @white_pawn.move_to!(7, 3)
           @black_rook.move_to!(1, 4)
-          @white_pawn.move_to!(7, 6)
+          @white_bishop.move_to!(2, 2)
           @black_rook.move_to!(1, 8)
-          @white_pawn.move_to!(7, 7)
-          expect(@black_king.valid_move?(3, 8)).to eq(false)
+          @white_bishop.move_to!(3, 3)
+          expect(@black_king.move_to!(3, 8)).to eq(false)
         end
       end
 
