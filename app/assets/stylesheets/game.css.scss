@@ -1,5 +1,10 @@
 $square-size: 70px;
 
+.table-surface {
+  width: 100%;
+  background: url('/assets/upfeathers.png');
+}
+
 .board-booyah-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -7,6 +12,14 @@ $square-size: 70px;
   background: url('/assets/wood_pattern.png');
   border: 1px solid #ccc;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+}
+
+.white-coords {
+
+}
+
+.black-coords {
+  
 }
 
 table {
@@ -25,6 +38,14 @@ table tr:nth-child(even) td:nth-child(odd) {
   width: $square-size;
   height: $square-size;
   border: solid #000 1px;
+}
+
+$square-size-iphone5: 25px;
+@media (max-width: 300px) {
+  .square {
+    width: $square-size-iphone5;
+    height: $square-size-iphone5;
+  }
 }
 
 $square-size-mobile: 30px;
@@ -54,14 +75,20 @@ $square-size-tablet: 60px;
 
 .warning {
   font-size: 1.8em;
-  margin-top: -1em;
 }
 
 .kingInCheckMessage {
   font-size: 1.8em;
   color: #B64402;
   text-shadow: 0px 2px 2px rgb(109, 63, 63), 0px 3px 6px #351B03;
-  margin-top: -1em;
+}
+
+
+$kingInCheckMessage-iphone5: .8em;
+@media (max-width: 760px) {
+  .kingInCheckMessage { 
+  font-size: $kingInCheckMessage-iphone5;
+  }
 }
 
 .blushing-king {
@@ -70,17 +97,17 @@ $square-size-tablet: 60px;
 
 .white-player-turn {
   font-size: 1.4em;
-  color: red;
+  color: #9CAAA8;
   text-transform: capitalize;
 }
 
 .black-player-turn {
   font-size: 1.4em;
-  color: red;
+  color: #3D3D4C;
   text-transform: capitalize;
 }
 
-/* place-holder for checkmate
+/* place-holder for checkmate - feel free to use or disregard...
 .checkmate {
   font-size: 1.8em;
   color: #C90202;

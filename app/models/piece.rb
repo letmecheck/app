@@ -1,6 +1,4 @@
 class Piece < ActiveRecord::Base
-  #require 'pry'
-
   belongs_to :game
   self.inheritance_column = :piece_type
 
@@ -16,8 +14,6 @@ class Piece < ActiveRecord::Base
   scope :kings,   -> { where(piece_type: 'King') }
 
   def move_to!(new_x, new_y)
-    #binding.pry
-
     return false unless game.current_player == color
     return false unless valid_move?(new_x, new_y)
     destination_piece = game.piece_at(new_x, new_y)
