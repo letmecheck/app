@@ -1,5 +1,3 @@
-<h1>games#show page</h1>
-
 <h2 class="text-center">
   <% if !@game.black_player_id.nil? %>
     <%= @white_player.email %><h3> vs </h3><%= @black_player.email %>
@@ -8,9 +6,15 @@
   <% end %>
 </h2>
 
-<div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1" data-no-turbolink>
-  <!-- pull in the board from a partial -->
-  <%= render 'chess_board' %>
+<div class="player-turn text-center"></div>
+
+<div class="container table-surface">
+  <div class="black-or-white-coords">
+    <div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1" data-no-turbolink>
+      <!-- pull in the board from a partial -->
+      <%= render 'chess_board' %>
+    </div>
+  </div>
 </div>
 
 <div class="container">
@@ -19,5 +23,12 @@
   <% end %>
 </div>
 
+<br />
+
 <!-- Execute the script that allows moving pieces on the board. -->
-<script>$(dragDrop);</script>
+<script>
+<% current_player_id = @game.white? ? @game.white_player_id : @game.black_player_id %>
+  <% if current_user.id == current_player_id %>
+    dragDrop();
+  <% end %>
+</script>

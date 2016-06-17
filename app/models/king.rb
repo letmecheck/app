@@ -1,7 +1,7 @@
 class King < Piece
   def valid_move?(new_x, new_y)
-    return false if off_board?(new_x, new_y)
-    return false if current_square?(new_x, new_y)
+    # Check to see if destination square is the same as origin square
+    super
 
     x_offset, y_offset = movement_by_axis(new_x, new_y)
     (-1..1).cover?(x_offset) && (-1..1).cover?(y_offset) || valid_castling?(new_x, new_y)
@@ -10,9 +10,9 @@ class King < Piece
   # An addition to the move_to! method found within the Piece model.
   # This determines which rook is to be castled and moves it to the
   # appropriate square.
-  def move_to!(destination_x, destination_y)
-    return false unless valid_move?(destination_x, destination_y)
-    castling = (x_coord - destination_x).abs == 2
+  def move_to!(new_x, new_y)
+    return false unless valid_move?(new_x, new_y)
+    castling = (x_coord - new_x).abs == 2
 
     # Call the move_to! method within the Piece model and move the king.
     super
@@ -20,11 +20,11 @@ class King < Piece
     # If all of the requirements are met for valid_move? AND the intention is to castle;
     # place the rook in its appropriate position to complete the castling move.
     if castling
-      rook_origin_file = (destination_x == 3) ? 1 : 8
-      rook_destination_file = (destination_x == 3) ? 4 : 6
-      castled_rook = game.piece_at(rook_origin_file, destination_y)
+      rook_origin_file = (new_x == 3) ? 1 : 8
+      rook_destination_file = (new_x == 3) ? 4 : 6
+      castled_rook = game.piece_at(rook_origin_file, new_y)
       castled_rook.update_attributes(x_coord: rook_destination_file,
-                                     y_coord: destination_y,
+                                     y_coord: new_y,
                                      moved: true)
     end
   end

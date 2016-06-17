@@ -1,10 +1,20 @@
 class Game < ActiveRecord::Base
+  enum current_player: [:white, :black]
+
   belongs_to :user
   has_many :pieces
 
   delegate :pawns, :rooks, :knights, :bishops, :queens, :kings, to: :pieces
 
   after_create :setup_board!
+
+  def switch_players!
+    if white?
+      black!
+    else
+      white!
+    end
+  end
 
   # Helper method used to determine if a particular square is under potential attack.
   def square_threatened_by?(color, destination_x, destination_y)

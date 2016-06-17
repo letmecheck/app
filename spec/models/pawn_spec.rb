@@ -1,6 +1,42 @@
 require 'rails_helper'
 
 RSpec.describe Pawn, type: :model do
+  describe '.valid_move?' do
+    context 'when called by white pawn' do
+      before(:each) do
+        game = Game.create
+        game.pieces.each(&:destroy)
+        @white_pawn = Pawn.create(x_coord: 2, y_coord: 2, color: 'white')
+        game.pieces << @white_pawn
+      end
+
+      context "move the pawn diagonally" do
+        it 'returns false if attempting to move to an empty square' do
+          @white_pawn.valid_move?(3, 3)
+          expect(@white_pawn.valid_move?(3, 3)).to be(false)
+        end
+      end
+    end
+  end
+
+  describe '.move_to!' do
+    context 'when called by white pawn' do
+      before(:each) do
+        game = Game.create
+        game.pieces.each(&:destroy)
+        @white_pawn = Pawn.create(x_coord: 1, y_coord: 2, color: 'white')
+        game.pieces << @white_pawn
+      end
+
+      context "move the pawn diagonally" do
+        it 'returns false if attempting to move to an empty square' do
+          @white_pawn.move_to!(2, 3)
+          expect(@white_pawn.move_to!(2, 3)).to be(false)
+        end
+      end
+    end
+  end
+
   context "when set up for en passant" do
     let(:game) { Game.create! }
     let(:white_pawn_2) { game.piece_at(2, 2) }

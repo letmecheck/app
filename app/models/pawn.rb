@@ -1,7 +1,5 @@
 class Pawn < Piece
   def valid_move?(new_x, new_y)
-    return false if off_board?(new_x, new_y)
-
     offset = movement_by_axis(new_x, new_y)
 
     offset[1] *= -1 if color == 'black'
@@ -12,21 +10,21 @@ class Pawn < Piece
 
     return valid_capture?(new_x, new_y) if [[-1, 1], [1, 1]].include? offset
 
-    false
+    super
   end
 
   # This is an addition to the move_to! method in the Piece model.
   # It destroys a pawn that has been captured en passant, determines whether
   # the current pawn is vulnerable to en passant capture, and adds a
   # placeholder for pawn promotion.
-  def move_to!(destination_x, destination_y)
+  def move_to!(new_x, new_y)
     # Make note of a pawn captured en passant. Don't destroy it until after
     # the call to super, which ensures that the move is valid.
-    en_passant_victim = en_passant_capturee(destination_x, destination_y)
+    en_passant_victim = en_passant_capturee(new_x, new_y)
 
     # If the pawn is advancing two squares, it may be captured en passant on
     # the next move.
-    en_passant_file = (destination_y - y_coord).abs == 2 ? x_coord : nil
+    en_passant_file = (new_y - y_coord).abs == 2 ? x_coord : nil
 
     # Call the Piece class's move_to! method. If it returns false, that means
     # it's rejecting the move. Make sure execution stops here in that case.
@@ -75,17 +73,17 @@ class Pawn < Piece
     game.reload.en_passant_file == new_x
   end
 
-  def en_passant_capturee(destination_x, destination_y)
+  def en_passant_capturee(new_x, new_y)
     # If the pawn's x value is changing, the move must be a capture.
     # If the destination rank is the current player's sixth rank (the enemy's
     # third), and the last move was a two-square advance by a pawn on the
     # destination file, it must be en passant. In that case, capture the enemy
     # pawn, which is currently on the starting rank of the moving pawn.
-    if destination_x != x_coord &&
-       destination_y == nth_rank(6) &&
-       game.reload.en_passant_file == destination_x
+    if new_x != x_coord &&
+       new_y == nth_rank(6) &&
+       game.reload.en_passant_file == new_x
 
-      return game.piece_at(destination_x, y_coord)
+      return game.piece_at(new_x, y_coord)
     end
     nil
   end
