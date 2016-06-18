@@ -14,7 +14,7 @@ class Piece < ActiveRecord::Base
   scope :kings,   -> { where(piece_type: 'King') }
 
   def move_to!(new_x, new_y)
-    return false unless game.current_player == color && valid_move?(new_x, new_y)
+    return false unless game.current_player == color
     return false unless valid_move?(new_x, new_y)
 
     # If the destination piece is friendly, reject the move.
@@ -57,8 +57,11 @@ class Piece < ActiveRecord::Base
   end
 
   def reset_pieces!(original_status, destination_piece, capturee_location)
-    update_attributes!(x_coord: original_status[0], y_coord: original_status[1], moved: original_status[2])
-    destination_piece && destination_piece.update_attributes!(x_coord: capturee_location[0], y_coord: capturee_location[1])
+    update_attributes!(x_coord: original_status[0],
+                       y_coord: original_status[1],
+                       moved: original_status[2])
+    destination_piece && destination_piece.update_attributes!(x_coord: capturee_location[0],
+                                                              y_coord: capturee_location[1])
   end
 
   def valid_move?(new_x, new_y)
