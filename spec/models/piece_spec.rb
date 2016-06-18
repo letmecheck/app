@@ -10,6 +10,8 @@ RSpec.describe Piece, type: :model do
         @white_rook = Rook.create(x_coord: 1, y_coord: 1, color: 'white')
         @game.pieces << @white_pawn
         @game.pieces << @white_rook
+        @game.kings.create!(x_coord: 5, y_coord: 1, color: 'white')
+        @game.kings.create!(x_coord: 5, y_coord: 8, color: 'black')
       end
 
       context 'A pawn is not permitted to move off the board' do
