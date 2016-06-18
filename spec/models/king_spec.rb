@@ -10,6 +10,7 @@ RSpec.describe King, type: :model do
         @white_pawn = Pawn.create(x_coord: 1, y_coord: 2, color: 'white')
         @game.pieces << @white_pawn
         @game.pieces << @black_king
+        @white_king = @game.kings.create!(x_coord: 5, y_coord: 1, color: 'white')
       end
 
       context "the white pawn shouldn't put the king in check from across the board" do
@@ -58,6 +59,7 @@ RSpec.describe King, type: :model do
         @game.pieces << @white_pawn
         @game.pieces << @black_king
         @game.pieces << @black_rook
+        @game.kings.create!(x_coord: 5, y_coord: 1, color: 'white')
       end
 
       context 'castling move not permitted if the king has moved previously' do
@@ -205,6 +207,10 @@ RSpec.describe King, type: :model do
         @white_bishop = Bishop.create(x_coord: 3, y_coord: 1, color: 'white')
         @game.pieces << @white_pawn
         @game.pieces << @white_bishop
+        @game.kings.create!(x_coord: 5, y_coord: 1, color: 'white')
+        # Add this knight to prevent the king from being in check, thereby
+        # rejecting all white moves.
+        @game.knights.create!(x_coord: 7, y_coord: 1, color: 'white')
       end
 
       context 'Rook has moved, and its original square is unoccupied' do
