@@ -13,13 +13,19 @@ $square-size: 70px;
   border: 1px solid #ccc;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
 }
-
-.white-coords {
-
+.file-indicator {
+  font-size: 2em;
+  padding-left: 2%;
+  padding-top: 2%;
+  letter-spacing: 0.84em;
 }
 
-.black-coords {
-  
+.white-letters {
+  color: #fff;
+}
+
+.black-letters {
+  color: black;
 }
 
 table {
@@ -65,7 +71,7 @@ $square-size-tablet: 60px;
 }
 
 .boardTopBottom {
-  padding: 1em 0
+
 }
 
 .hoveredSquare {
