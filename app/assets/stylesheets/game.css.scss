@@ -1,6 +1,5 @@
 $square-size: 70px;
-$rank-file-font-size: 2em;
-$rank-file-letter-spacing: 0.75em;
+$rank-file-font-size: 1.6em;
 
 .table-surface {
   width: 100%;
@@ -34,9 +33,8 @@ $rank-file-letter-spacing: 0.75em;
 
 .file-indicator {
   font-size: $rank-file-font-size;
-  padding-left: 5%;
-  padding-top: 2%;
-  letter-spacing: $rank-file-letter-spacing;
+  padding: 2% 0 1% 5%;
+  letter-spacing: 1.02em;
   text-shadow: 0px 2px 3px #555;
 }
 
@@ -51,18 +49,18 @@ $rank-file-letter-spacing: 0.75em;
 /* tablet held in portrait */
 @media (max-width: 768px) {
   .file-indicator {
-    font-size: 1.9em;
-    letter-spacing: 0.71em;
-    padding-left: 5%;
+    font-size: $rank-file-font-size;
+    letter-spacing: 1.18em;
+    padding: 2% 0 1% 3%;
   }
 }
 
 /* tablet held in landscape */
 @media (min-width: 769px) and (max-width: 1024px) {
   .file-indicator {
-    font-size: 1.9em;
-    letter-spacing: 0.93em;
-    padding-left: 5%;
+    font-size: $rank-file-font-size;
+    letter-spacing: 1.2em;
+    padding: 2% 0 1% 3%;
   }
 }
 
@@ -78,28 +76,47 @@ $square-size-tablet: 60px;
 $rank-file-font-size-cell-portrait: 1em;
 /* iphone5 held in portrait */
 @media (max-width: 321px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    /*padding-left: 9%*/;
+  }
+}
+
+@media (max-width: 321px) {
   .file-indicator {
     font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.37em;
-    padding-left: 9%;
+    letter-spacing: 0.52em;
+    padding-left: 3%;
   }
 }
 
 /* iPhone 6 and s5 held in portrait */
 @media (min-width: 359px) and (max-width: 376px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+  }
+}
+
+@media (min-width: 359px) and (max-width: 376px) {
   .file-indicator {
     font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.53em;
-    padding-left: 8%;
+    letter-spacing: 0.70em;
+    padding-left: 4%;
   }
 }
 
 /* Nexus5x iPhone6+ Nexus6p held in portrait */
 @media (min-width: 377px) and (max-width: 436px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+  }
+}
+
+@media (min-width: 377px) and (max-width: 436px) {
   .file-indicator {
     font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.70em;
-    padding-left: 7%;
+    letter-spacing: 0.65em;
+    padding-left: 3%;
   }
 }
 /*  -----------------------------------------------  */
@@ -161,8 +178,7 @@ $square-size-mobile: 30px;
 }
 
 .warning {
-  font-size: 1.8em;
-  padding-bottom: .48em;
+  padding-bottom: 4%;
 }
 
 .kingInCheckMessage {
