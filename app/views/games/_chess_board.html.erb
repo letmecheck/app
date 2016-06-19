@@ -1,14 +1,18 @@
-<p class="boardTopBottom letter-coordinate"></p>
+<p class="boardTopBottom"></p>
 <div class="warning text-center">&nbsp</div>
   <table id="board">
+
     <% 8.downto(1) do |y| %>
       <tr>
-        <% 1.upto(8) do |x| %>
-          <td data-x="<%= x %>" data-y="<%= y %>"class="square">
+        <% 0.upto(9) do |x| %>
+          <td data-x="<%= x %>" data-y="<%= y %>
+          "class="square<%= + " rank-indicator center-text" if (x == 0) %>
+          <%= add_squash_class(x) %>" >
             <%= game_pieces(@game, x, y) %>
           </td>
         <% end %>
       </tr>
+
     <% end %>
   </table>
-<p class="boardTopBottom file-indicator text-center">A B C D E F G H</p>
+<p class="boardTopBottom file-indicator text-center col-xs-12">a b c d e f g h</p>
