@@ -64,3 +64,9 @@ end
 
 # Use rails_12factor gem for easier production deployment
 gem 'rails_12factor', group: :production
+
+# Enable automatic updating of board when opponent moves.
+gem 'pusher'
+
+# Enable hiding of config variables
+gem 'figaro', "~> 1.0"
