@@ -5,7 +5,10 @@ class PiecesController < ApplicationController
 
   def update
     @piece = Piece.find(params[:id])
-    @piece.move_to!(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+    if @piece.move_to!(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+      # Trigger update notification.
+      Pusher["game-#{@piece.game.id}"].trigger('move_made', {})
+    end
   end
 
   private
