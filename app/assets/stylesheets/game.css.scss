@@ -41,15 +41,9 @@ $rank-file-font-size: 1.6em;
 }
 
 /* --------- optimizations for tablets ----------- */
-/*$table-surface-width-tablet-landscape: 76%;
-@media (min-width: 761px) and (max-width: 1024px) {
-  .table-surface {
-    width: $table-surface-width-tablet-landscape;
-  }
-}*/
 
 /* tablet held in portrait */
-@media (min-width: 741px) and (max-width: 768px) {
+@media (min-width: 760px) and (max-width: 769px) {
   .file-indicator {
     font-size: $rank-file-font-size;
     letter-spacing: 1.18em;
@@ -58,7 +52,7 @@ $rank-file-font-size: 1.6em;
 }
 
 /* tablet held in landscape */
-@media (min-width: 774px) and (max-width: 1024px) {
+@media (min-width: 775px) and (max-width: 1024px) {
   .file-indicator {
     font-size: $rank-file-font-size;
     letter-spacing: 1.2em;
@@ -84,7 +78,7 @@ $rank-file-font-size-cell-portrait: 1em;
 }
 
 /* device held in portrait */
-@media (min-width: 330px) and (max-width: 760px) {
+@media (min-width: 330px) and (max-width: 759px) {
   .rank-indicator {
     font-size: $rank-file-font-size-cell-portrait;
   }
@@ -109,7 +103,7 @@ $rank-file-font-size-cell-portrait: 1em;
 }
 
 /* iPhone 6 and s5 held in portrait */
-@media (min-width: 359px) and (max-width: 376px) {
+@media (min-width: 359px) and (max-width: 548px) {
   .file-indicator {
     font-size: $rank-file-font-size-cell-portrait;
     letter-spacing: 0.70em;
@@ -144,8 +138,16 @@ $rank-file-font-size-cell-portrait: 1em;
   }
 }
 
+@media (min-width: 680px) and (max-width: 719px) {
+  .file-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    letter-spacing: 0.70em;
+    padding-left: 2%;
+  }
+}
+
 /* Nexus6P held in L A N D S C A P E */
-@media (min-width: 770px) and (max-width: 780px) {
+@media (min-width: 770px) and (max-width: 774px) {
   .file-indicator {
     letter-spacing: 0.92em;
   }
