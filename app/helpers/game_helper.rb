@@ -22,4 +22,8 @@ module GameHelper
   def add_squash_class(x)
     + " squash-me" if x == 9
   end
+
+  def add_rank_indicator_class(x)
+    + " rank-indicator center-text" if x == 0
+  end
 end

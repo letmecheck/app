@@ -27,6 +27,9 @@ $rank-file-letter-spacing: 0.75em;
 
 .rank-indicator {
   font-size: $rank-file-font-size;
+  text-align: center;
+  padding-right: 0.4em;
+  text-shadow: 0px 2px 3px #555;
 }
 
 .file-indicator {
