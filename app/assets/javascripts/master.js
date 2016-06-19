@@ -28,8 +28,3 @@ function handleDragStop( event, ui ) {
     data: { piece: { x_coord: destination_x, y_coord: destination_y } }
   });
 }
-
-function gameStartMessage() {
-  $( ".player-turn" ).html( "White has the first move" )
-                     .addClass( "animated fadeInDown white-player-turn", 1000 );
-}

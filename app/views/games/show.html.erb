@@ -1,14 +1,13 @@
 <h2 class="text-center">
   <% if !@game.black_player_id.nil? %>
-    <%= @white_player.email %><h3> vs </h3><%= @black_player.email %>
+    <%= @white_player.email %> vs <%= @black_player.email %>
   <% else %>
     <%= @white_player.email %> vs Someone
   <% end %>
 </h2>
 
-<div class="player-turn text-center"></div>
-
 <div class="container table-surface">
+  <div class="player-turn text-center"></div>
   <div class="board-booyah-box col-lg-6 col-lg-offset-3 col-sm-10 
   col-sm-offset-1 col-xs-12" data-no-turbolink>
     <!-- pull in the board from a partial -->
