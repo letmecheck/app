@@ -17,7 +17,7 @@ $rank-file-font-size: 1.6em;
 
 /* ---- indicators for rank and file on board edges ------- */
 .white-letters {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.84);
 }
 
 .black-letters {
@@ -28,14 +28,16 @@ $rank-file-font-size: 1.6em;
   font-size: $rank-file-font-size;
   text-align: center;
   padding-right: 0.4em;
-  text-shadow: 0px 2px 3px #555;
+  text-shadow: rgba(0, 0, 0, 0.45) 0 -1px 0.025em, rgba(255, 255, 255, 0.75) 0 1px 0.025em;
+  /*text-shadow: 0px 2px 3px #555;*/
 }
 
 .file-indicator {
   font-size: $rank-file-font-size;
   padding: 2% 0 1% 5%;
   letter-spacing: 1.02em;
-  text-shadow: 0px 2px 3px #555;
+  text-shadow: rgba(0, 0, 0, 0.45) 0 -1px 0.025em, rgba(255, 255, 255, 0.75) 0 1px 0.025em;
+  /*text-shadow: 0px 2px 3px #555;*/
 }
 
 /* --------- optimizations for tablets ----------- */

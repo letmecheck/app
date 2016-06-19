@@ -12,13 +12,13 @@ $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')
 
 // Display a message indicating whether it's white or black's turn.
 <% if @game.white? %>
-  $( ".file-indicator" ).addClass( "animated fadeIn white-letters", 800 )
+  $( ".rank-and-file" ).addClass( "animated fadeIn white-letters", 800 )
                           .removeClass( "black-letters", "slow" );
 
   $( ".player-turn" ).html( "current move: white player" )
                      .addClass( "animated fadeInDown white-player-turn", 1000 );
 <% elsif @game.black? %>
-  $( ".file-indicator" ).removeClass( "white-letters", "slow" )
+  $( ".rank-and-file" ).removeClass( "white-letters", "slow" )
                           .addClass( "animated fadeIn black-letters", 800 );
 
   $( ".player-turn" ).html( "current move: black player" )

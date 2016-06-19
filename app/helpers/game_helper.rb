@@ -24,6 +24,6 @@ module GameHelper
   end
 
   def add_rank_indicator_class(x)
-    + " rank-indicator center-text" if x == 0
+    + " rank-indicator center-text rank-and-file" if x == 0
   end
 end
