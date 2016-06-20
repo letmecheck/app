@@ -54,7 +54,27 @@
     });
 
     channel.bind('move_made', function(data) {
-      window.location.reload(false);
+      //window.location.reload(false);
+      //if ( data.dest_x !== data.orig_x || data.orig_y !== data.dest_y ) {
+        $.ajax({
+          type: 'PATCH',
+          url: data.piece_url,
+          dataType: 'script',
+          data: { piece: { x_coord: data.dest_x, y_coord: data.dest_y } }
+        });
+      // }
     });
+
+    /*
+    //Absolutely awful hack to make messages display:
+    <% piece = @game.pieces.take %>
+    $.ajax({
+      type: 'PATCH',
+      url: '<%= piece_url(piece) %>',
+      dataType: 'script',
+      data: { piece: { x_coord: <%= piece.x_coord %>,
+                       y_coord: <%= piece.y_coord %> } }
+    });
+    */
   });
 </script>
