@@ -1,14 +1,19 @@
 <p class="boardTopBottom"></p>
 <div class="warning text-center">&nbsp</div>
   <table id="board">
+
     <% 8.downto(1) do |y| %>
       <tr>
-        <% 1.upto(8) do |x| %>
-          <td data-x="<%= x %>" data-y="<%= y %>"class="square">
+        <% 0.upto(9) do |x| %>
+          <td data-x="<%= x %>" data-y="<%= y %>
+              "class="square<%= add_rank_indicator_class(x) %>
+                            <%= add_squash_class(x) %>" >
             <%= game_pieces(@game, x, y) %>
+            <%= y if x == 0 %>
           </td>
         <% end %>
       </tr>
+
     <% end %>
   </table>
-<p class="boardTopBottom"></p>
+<p class="boardTopBottom rank-and-file file-indicator text-center col-xs-12">a b c d e f g h</p>

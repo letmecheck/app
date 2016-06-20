@@ -1,7 +1,9 @@
 $square-size: 70px;
+$rank-file-font-size: 1.6em;
 
 .table-surface {
   width: 100%;
+  padding: 3em 0;
   background: url('/assets/upfeathers.png');
 }
 
@@ -14,23 +16,167 @@ $square-size: 70px;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
 }
 
-.white-coords {
-
+/* ---- indicators for rank and file on board edges ------- */
+.white-letters {
+  color: rgba(255, 255, 255, 0.84);
 }
 
-.black-coords {
-  
+.black-letters {
+  color: black;
 }
+
+.rank-indicator {
+  font-size: $rank-file-font-size;
+  text-align: center;
+  padding-right: 0.4em;
+  text-shadow: rgba(0, 0, 0, 0.45) 0 -1px 0.025em, rgba(255, 255, 255, 0.75) 0 1px 0.025em;
+  /*text-shadow: 0px 2px 3px #555;*/
+}
+
+.file-indicator {
+  font-size: $rank-file-font-size;
+  padding: 2% 0 1% 5%;
+  letter-spacing: 1.02em;
+  text-shadow: rgba(0, 0, 0, 0.45) 0 -1px 0.025em, rgba(255, 255, 255, 0.75) 0 1px 0.025em;
+  /*text-shadow: 0px 2px 3px #555;*/
+}
+
+/* --------- optimizations for tablets ----------- */
+
+/* tablet held in portrait */
+@media (min-width: 760px) and (max-width: 769px) {
+  .file-indicator {
+    font-size: $rank-file-font-size;
+    letter-spacing: 1.18em;
+    padding: 2% 0 1% 3%;
+  }
+}
+
+/* tablet held in landscape */
+@media (min-width: 775px) and (max-width: 1024px) {
+  .file-indicator {
+    font-size: $rank-file-font-size;
+    letter-spacing: 1.2em;
+    padding: 2% 0 1% 3%;
+  }
+}
+
+$square-size-tablet: 60px;
+@media (min-width: 768px) and (max-width: 1024px) {
+  .square {
+    width: $square-size-tablet;
+    height: $square-size-tablet;
+  }
+}
+
+/* ---------  optimizations for cell-phones  ----------- */
+$rank-file-font-size-cell-portrait: 1em;
+/* iphone5 held in portrait */
+@media (max-width: 329px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+  }
+}
+
+/* device held in portrait */
+@media (min-width: 330px) and (max-width: 759px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+  }
+}
+
+/* iphone5 held in portrait */
+@media (max-width: 321px) {
+  .file-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    letter-spacing: 0.52em;
+    padding-left: 3%;
+  }
+}
+
+/* iphone5 held in L A N D S C A P E */
+@media (min-width: 549px) and (max-width: 569px) {
+  .file-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    letter-spacing: 0.70em;
+    padding-left: 2%;
+  }
+}
+
+/* iPhone 6 and s5 held in portrait */
+@media (min-width: 359px) and (max-width: 548px) {
+  .file-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    letter-spacing: 0.70em;
+    padding-left: 4%;
+  }
+}
+
+/* iPhone 6 and s5 held in L A N D S C A P E */
+@media (min-width: 570px) and (max-width: 679px) {
+  .file-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    letter-spacing: 0.70em;
+    padding-left: 2%;
+  }
+}
+
+/* Nexus5x iPhone6+ Nexus6p held in portrait */
+@media (min-width: 377px) and (max-width: 436px) {
+  .file-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    letter-spacing: 0.65em;
+    padding-left: 3%;
+  }
+}
+
+/* Nexus5x iPhone6+ held in L A N D S C A P E */
+@media (min-width: 720px) and (max-width: 740px) {
+  .file-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    letter-spacing: 0.68em;
+    padding-left: 2%;
+  }
+}
+
+@media (min-width: 680px) and (max-width: 719px) {
+  .file-indicator {
+    font-size: $rank-file-font-size-cell-portrait;
+    letter-spacing: 0.70em;
+    padding-left: 2%;
+  }
+}
+
+/* Nexus6P held in L A N D S C A P E */
+@media (min-width: 770px) and (max-width: 774px) {
+  .file-indicator {
+    letter-spacing: 0.92em;
+  }
+}
+/*  -----------------------------------------------  */
 
 table {
   margin: 0 auto;
 }
 
+/*eliminate the border for the table column that has the rank numbers*/
+td.rank-indicator {
+  border: none;
+}
 
-table tr:nth-child(odd) td:nth-child(even) {
+td.squash-me {
+  border: none;
+}
+
+/*Starting from the top [ row 1 ( *or rank-8 ) ], handle rows 2, 4, 6, and 8 
+then take each even column (remember that there is the hidden column for the
+rank-indicator cells) and set the dark background */
+table tr:nth-child(n+2):nth-child(-n+8):nth-child(even) td:nth-child(n+2):nth-child(-n+9):nth-child(even) {
   background: url('/assets/med_birdseye_70px.jpg');
 }
-table tr:nth-child(even) td:nth-child(odd) {
+
+/* Starting from the top [ row 1 ( *or rank-8 ) ], handle rows 1, 3, 5, and 7 */
+table tr:nth-child(n+1):nth-child(-n+8):nth-child(odd) td:nth-child(n+2):nth-child(-n+9):nth-child(odd) {
   background: url('/assets/med_birdseye_70px.jpg');
 }
 
@@ -56,16 +202,8 @@ $square-size-mobile: 30px;
   }
 }
 
-$square-size-tablet: 60px;
-@media (min-width: 761px) and (max-width: 1024px) {
-  .square {
-    width: $square-size-tablet;
-    height: $square-size-tablet;
-  }
-}
-
 .boardTopBottom {
-  padding: 1em 0
+
 }
 
 .hoveredSquare {
@@ -74,7 +212,7 @@ $square-size-tablet: 60px;
 }
 
 .warning {
-  font-size: 1.8em;
+  padding-bottom: 4%;
 }
 
 .kingInCheckMessage {
@@ -93,11 +231,12 @@ $kingInCheckMessage-iphone5: .8em;
 
 .blushing-king {
   background: url('/assets/red_king.png');
+  background-size: contain;
 }
 
 .white-player-turn {
   font-size: 1.4em;
-  color: #9CAAA8;
+  color: #858383;
   text-transform: capitalize;
 }
 

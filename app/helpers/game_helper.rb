@@ -18,4 +18,12 @@ module GameHelper
     color = (piece.color == 'white') ? 'white' : 'black'
     return color + '-king' if piece.piece_type == 'King'
   end
+
+  def add_squash_class(x)
+    + " squash-me" if x == 9
+  end
+
+  def add_rank_indicator_class(x)
+    + " rank-indicator center-text rank-and-file" if x == 0
+  end
 end
