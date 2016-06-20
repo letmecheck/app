@@ -21,6 +21,10 @@ class GamesController < ApplicationController
     @white_player = User.find_by_id(@game.white_player_id) unless @game.white_player_id.nil?
     @black_player = User.find_by_id(@game.black_player_id) unless @game.black_player_id.nil?
     @chess_pieces = @game.pieces
+
+    Pusher['test_channel'].trigger('greet', {
+      :greeting => "Hello there!"
+    })
   end
 
   def update

@@ -64,3 +64,7 @@ end
 
 # Use rails_12factor gem for easier production deployment
 gem 'rails_12factor', group: :production
+
+gem 'pusher'
+
+gem 'figaro'
