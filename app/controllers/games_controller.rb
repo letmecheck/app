@@ -33,6 +33,11 @@ class GamesController < ApplicationController
     end
   end
 
+  def destroy
+    @game = Game.find_by_id(params[:id])
+    @game.destroy
+  end
+
   private
 
   def game_spot_open?
