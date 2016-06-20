@@ -7,9 +7,8 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     original_x = @piece.x_coord
     original_y = @piece.y_coord
-    if @piece.move_to!(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
+    @piece.move_to!(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) &&
       trigger_notification(original_x, original_y)
-    end
   end
 
   private

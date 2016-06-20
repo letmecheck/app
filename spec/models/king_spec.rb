@@ -118,8 +118,11 @@ RSpec.describe King, type: :model do
         black_rook = Rook.create(x_coord: 8, y_coord: 8, color: 'black')
         game.pieces << black_king
         game.pieces << black_rook
+        game.kings.create!(x_coord: 5, y_coord: 1, color: 'white')
 
-        black_king.move_to!(7, 8)
+        # Throwaway move to make it Black's turn:
+        game.piece_at(5, 1).move_to!(6, 1)
+        expect(black_king.move_to!(7, 8)).to be true
         black_rook.reload
         expect(black_rook.x_coord).to eq(6)
       end
@@ -133,8 +136,11 @@ RSpec.describe King, type: :model do
         black_rook = Rook.create(x_coord: 1, y_coord: 8, color: 'black')
         game.pieces << black_king
         game.pieces << black_rook
+        game.kings.create!(x_coord: 5, y_coord: 1, color: 'white')
 
-        black_king.move_to!(3, 8)
+        # Throwaway move to make it Black's turn:
+        game.piece_at(5, 1).move_to!(6, 1)
+        expect(black_king.move_to!(3, 8)).to be true
         black_rook.reload
         expect(black_rook.x_coord).to eq(4)
       end
