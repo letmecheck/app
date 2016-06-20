@@ -22,9 +22,6 @@ class GamesController < ApplicationController
     @black_player = User.find_by_id(@game.black_player_id) unless @game.black_player_id.nil?
     @chess_pieces = @game.pieces
 
-    Pusher['test_channel'].trigger('greet', {
-      :greeting => "Hello there!"
-    })
   end
 
   def update
@@ -35,11 +32,6 @@ class GamesController < ApplicationController
     else
       render text: 'The game is already full!', status: :unauthorized
     end
-  end
-
-  def destroy
-    @game = Game.find_by_id(params[:id])
-    @game.destroy
   end
 
   private
