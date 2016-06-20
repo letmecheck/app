@@ -34,6 +34,20 @@ class GamesController < ApplicationController
     end
   end
 
+  def concede
+    @game = Game.find_by_id(params[:id])
+    @white_player = User.find_by_id(@game.white_player_id) unless @game.white_player_id.nil?
+    @black_player = User.find_by_id(@game.black_player_id) unless @game.black_player_id.nil?
+
+    if current_user.id == @white_player.id
+      @game.update_attribute(:white_player_concede, true)
+    elsif current_user.id = @black_player.id
+      @game.update_attribute(:black_player_concede, true)
+    end
+    
+    render "show"
+  end
+
   private
 
   def game_spot_open?

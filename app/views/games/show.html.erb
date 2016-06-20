@@ -24,8 +24,13 @@
 </div>
 
 <div class="container">
-  <%= link_to "Concede the Game", game_path(@game), method: :delete, class: 'btn btn-primary' %>
+  <%= link_to "Concede the Game", {action: "concede", controller: "games"}, method: :patch, class: 'btn btn-primary' %>
 </div>
+
+<br />
+white_player_concede: <%= @game.white_player_concede %>
+<br />
+black_player_concede: <%= @game.black_player_concede %>
 
 <br />
 

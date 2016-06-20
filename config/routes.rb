@@ -3,6 +3,9 @@ Letmecheck::Application.routes.draw do
   root 'static_page#index'
 
   resources :games do
+    member do
+      patch 'concede'
+    end
   end
 
   resources :pieces, only: [:show, :update]
