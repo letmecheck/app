@@ -5,6 +5,7 @@ Letmecheck::Application.routes.draw do
   resources :games do
     member do
       patch 'concede'
+      patch 'draw'
     end
   end
 
