@@ -1,5 +1,7 @@
 class Pawn < Piece
   def valid_move?(new_x, new_y)
+    return false unless super
+
     offset = movement_by_axis(new_x, new_y)
 
     offset[1] *= -1 if color == 'black'
@@ -9,8 +11,7 @@ class Pawn < Piece
     return valid_double_move?(new_x, new_y) if offset == [0, 2]
 
     return valid_capture?(new_x, new_y) if [[-1, 1], [1, 1]].include? offset
-
-    super
+    false
   end
 
   # This is an addition to the move_to! method in the Piece model.
@@ -61,6 +62,7 @@ class Pawn < Piece
     # enemy piece, and invalid if friendly. Otherwise, determine whether an
     # en passant capture is possible.
     destination_piece = game.piece_at(new_x, new_y)
+
     return destination_piece.color != color if destination_piece
 
     # To make an en passant capture, the pawn must start on its fifth rank

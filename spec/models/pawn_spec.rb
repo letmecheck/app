@@ -49,12 +49,13 @@ RSpec.describe Pawn, type: :model do
     let(:white_bishop) { game.piece_at(6, 1) }
 
     it "allows valid en passant capture by White" do
-      white_pawn_2.move_to!(2, 4)
+      expect(white_pawn_2.valid_move?(2, 4)).to be true
+      expect(white_pawn_2.move_to!(2, 4)).to be true
       # Inconsequential move to bypass Black's turn:
-      black_knight.move_to!(8, 6)
-      white_pawn_2.move_to!(2, 5)
+      expect(black_knight.move_to!(8, 6)).to be true
+      expect(white_pawn_2.move_to!(2, 5)).to be true
       # Two-square advance:
-      black_pawn_1.move_to!(1, 5)
+      expect(black_pawn_1.move_to!(1, 5)).to be true
       # Capture:
       expect(white_pawn_2.valid_move?(1, 6)).to be true
       white_pawn_2.move_to!(1, 6)

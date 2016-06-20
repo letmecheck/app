@@ -34,13 +34,10 @@ RSpec.describe Piece, type: :model do
         @game.pieces << @white_rook
       end
       context 'picking up the rook and placing it on the same square' do
-        it 'returns true if a moved piece ends up on its current square' do
-          @white_rook.move_to!(1, 1)
-          expect(@white_rook.current_square?(1, 1)).to be(true)
-        end
-
         it 'returns true if the turn still belongs to White' do
-          @game.white?
+          @white_rook.move_to!(1, 1)
+          expect(@white_rook.x_coord).to eq(1)
+          expect(@white_rook.y_coord).to eq(1)
           expect(@game.white?).to be(true)
         end
       end

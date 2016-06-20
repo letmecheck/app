@@ -1,7 +1,7 @@
 class King < Piece
   def valid_move?(new_x, new_y)
-    # Check to see if destination square is the same as origin square
-    super
+    # Check to see if destination square is the same as origin square and off_board?
+    return false unless super
 
     x_offset, y_offset = movement_by_axis(new_x, new_y)
     (-1..1).cover?(x_offset) && (-1..1).cover?(y_offset) || valid_castling?(new_x, new_y)
