@@ -15,7 +15,7 @@ class King < Piece
     castling = (x_coord - new_x).abs == 2
 
     # Call the move_to! method within the Piece model and move the king.
-    super
+    return false unless super
 
     # If all of the requirements are met for valid_move? AND the intention is to castle;
     # place the rook in its appropriate position to complete the castling move.
@@ -27,6 +27,7 @@ class King < Piece
                                      y_coord: new_y,
                                      moved: true)
     end
+    true
   end
 
   private

@@ -54,6 +54,7 @@ class Piece < ActiveRecord::Base
 
     # Assign turn to the other player after a successful move.
     game.switch_players!
+    true
   end
 
   def reset_pieces!(original_status, destination_piece, capturee_location)
