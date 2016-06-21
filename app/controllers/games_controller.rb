@@ -46,17 +46,14 @@ class GamesController < ApplicationController
       @game.update_attribute(:white_player_concede, true)
       @conceding_player = @white_player.email
 
-    elsif current_user.id = @black_player.id
+    elsif current_user.id == @black_player.id
 
       @game.update_attribute(:black_player_concede, true)
       @conceding_player = @black_player.email
     end
 
-    push_notification
+    reload_other_player_page
 
-    #notify_other_player(@white_player_concede, @black_player_concede)
-    #white = @white_player_concede
-    #black = @black_player_concede
     render "show"
   end
 
@@ -65,32 +62,30 @@ class GamesController < ApplicationController
 
     @white_player = User.find_by_id(@game.white_player_id) unless @game.white_player_id.nil?
     @black_player = User.find_by_id(@game.black_player_id) unless @game.black_player_id.nil?
-
+=begin
     if current_user.id == @white_player.id
 
       @game.update_attribute(:white_player_draw, true)
 
-    elsif current_user.id = @black_player.id
+    elsif current_user.id == @black_player.id
 
       @game.update_attribute(:black_player_draw, true)
     end
-
+=end
+    change_button_message
+    
+    render "show"
   end
 
   private
 
-  def push_notification
-    Pusher["game-#{@game.id}"].trigger("game_conceded", x: 3 )
+  def change_button_message
+    Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
   end
-=begin
-  def notify_other_player(white, black)
-    Pusher["game-#{@game.id}"].trigger(
-    'game_conceded',
-    white_plr_concede: white,
-    black_plr_concede: black
-    )
+
+  def reload_other_player_page
+    Pusher["game-#{@game.id}"].trigger("game_conceded", bogus_data: 0)
   end
-=end
 
   def game_spot_open?
     @game.black_player_id.nil? && @game.white_player_id != current_user.id

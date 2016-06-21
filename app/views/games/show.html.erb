@@ -29,7 +29,7 @@
   </div>
   <br />
   <div class="container">
-    <%= link_to "Suggest draw", {action: "draw", controller: "games"}, method: :patch, class: 'btn btn-primary' %>
+    <%= link_to "Suggest draw", {action: "draw", controller: "games"}, method: :patch, class: 'btn btn-primary draw-btn' %>
   </div>
 <% else %>
   <h3 class="text-center">The game was conceded by <%= @conceding_player %>. </h3>
@@ -45,29 +45,35 @@
 </script>
 
 <script type="text/javascript" charset="utf-8">
-      $(function() {
-        // If your Heroku application is within the EU region,
-        // uncomment the following lines
-        // Pusher.host = 'ws-eu.pusher.com';
-        // Pusher.sockjs_host = 'sockjs-eu.pusher.com';
+  $(function() {
+    // If your Heroku application is within the EU region,
+    // uncomment the following lines
+    // Pusher.host = 'ws-eu.pusher.com';
+    // Pusher.sockjs_host = 'sockjs-eu.pusher.com';
 
-        var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
-        var channel = pusher.subscribe('game-<%= @game.id %>');
+    var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
+    var channel = pusher.subscribe('game-<%= @game.id %>');
 
-        // Some useful debug msgs
-        pusher.connection.bind('connecting', function() {
-          console.log('Connecting to Pusher...');
-        });
-        pusher.connection.bind('connected', function() {
-          console.log('Connected to Pusher!');
-        });
-        pusher.connection.bind('failed', function() {
-          console.log('Connection to Pusher failed :(');
-        });
-       channel.bind('game_conceded', function(data) {
-      //window.location.reload(false);
-      //if ( data.dest_x !== data.orig_x || data.orig_y !== data.dest_y ) {
-        location.reload();
-        });
-      });
-    </script>
+    // Some useful debug msgs
+    pusher.connection.bind('connecting', function() {
+      console.log('Connecting to Pusher...');
+    });
+    pusher.connection.bind('connected', function() {
+      console.log('Connected to Pusher!');
+    });
+    pusher.connection.bind('failed', function() {
+      console.log('Connection to Pusher failed :(');
+    });
+   channel.bind('game_conceded', function(data) {
+  //window.location.reload(false);
+  //if ( data.dest_x !== data.orig_x || data.orig_y !== data.dest_y ) {
+    location.reload();
+    });
+
+   channel.bind('draw_requested', function(data) {
+  //window.location.reload(false);
+  //if ( data.dest_x !== data.orig_x || data.orig_y !== data.dest_y ) {
+    $(".draw-btn").text("draw requested");
+    });
+  });
+</script>
