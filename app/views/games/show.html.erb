@@ -7,7 +7,7 @@
 </h2>
 
 <div class="player-turn text-center"></div>
-<% if (@game.white_player_concede == false && @game.black_player_concede == false) && (@game.white_player_draw == false && @game.black_player_draw == false)  %> 
+<!--<% if (@game.white_player_concede == false && @game.black_player_concede == false) %> -->
   <div class="container table-surface">
     <div class="black-or-white-coords">
       <div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1" data-no-turbolink>
@@ -29,11 +29,22 @@
   </div>
   <br />
   <div class="container">
-    <%= link_to "Suggest draw", {action: "draw", controller: "games"}, method: :patch, class: 'btn btn-primary draw-btn' %>
-  </div>
-<% else %>
+    <!--<%= link_to "Suggest draw", {action: "draw", controller: "games"}, method: :patch, class: 'btn btn-primary draw-btn' %>
+  </div> -->
+  <button data-game-url="draw_game_path(@game)" class="btn btn-primary draw-btn"> Suggest draw </button>
+<!--<% else %>
   <h3 class="text-center">The game was conceded by <%= @conceding_player %>. </h3>
-<% end %>
+<% end %> -->
+<br />
+white_player_concede is: <%= @game.white_player_concede %>
+<br />
+black_player_concede is: <%= @game.black_player_concede %>
+<br />
+<br />
+white_player_draw is: <%= @game.white_player_draw %>
+<br />
+black_player_draw is: <%= @game.black_player_draw %>
+<br /><br />
 
 
 <!-- Execute the script that allows moving pieces on the board. -->
@@ -50,9 +61,19 @@
     // uncomment the following lines
     // Pusher.host = 'ws-eu.pusher.com';
     // Pusher.sockjs_host = 'sockjs-eu.pusher.com';
+    $(".draw-btn").click(function(){
+      $.ajax({
+        type: 'PATCH',
+        url: <%= @game.id %> + "/draw" 
+      }); 
+      //$(".draw-btn").text("draw requested");
+    });  
+
 
     var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
     var channel = pusher.subscribe('game-<%= @game.id %>');
+
+    var channel2 = pusher.subscribe('sender');
 
     // Some useful debug msgs
     pusher.connection.bind('connecting', function() {
@@ -75,5 +96,6 @@
   //if ( data.dest_x !== data.orig_x || data.orig_y !== data.dest_y ) {
     $(".draw-btn").text("draw requested");
     });
+
   });
 </script>

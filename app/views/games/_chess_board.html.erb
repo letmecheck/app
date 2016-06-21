@@ -4,7 +4,7 @@
     <% 8.downto(1) do |y| %>
       <tr>
         <% 1.upto(8) do |x| %>
-          <td data-x="<%= x %>" data-y="<%= y %>"class="square">
+          <td data-x="<%= x %>" data-y="<%= y %>" class="square">
             <%= game_pieces(@game, x, y) %>
           </td>
         <% end %>

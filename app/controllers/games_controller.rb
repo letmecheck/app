@@ -62,19 +62,22 @@ class GamesController < ApplicationController
 
     @white_player = User.find_by_id(@game.white_player_id) unless @game.white_player_id.nil?
     @black_player = User.find_by_id(@game.black_player_id) unless @game.black_player_id.nil?
-=begin
+
     if current_user.id == @white_player.id
 
       @game.update_attribute(:white_player_draw, true)
+      draw_requesting_player_id = @white_player
 
     elsif current_user.id == @black_player.id
 
       @game.update_attribute(:black_player_draw, true)
+      draw_requesting_player = @black_player
+
     end
-=end
+
     change_button_message
-    
-    render "show"
+
+    render nothing: true
   end
 
   private
