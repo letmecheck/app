@@ -61,7 +61,28 @@
   <% elsif alert %>
     <p class="alert"><%= alert %></p>
   <% end %>
-  <p class="notice">Someone merged a branch they weren't supposed to!</p>
+
+  <!-- If this somehow made its way to master,
+       delete from here to the next comment. -->
+
+  <% if Rails.env.production? %>
+    <% if request.host.casecmp('letmecheck-staging-pr-75.herokuapp.com') == 0 %>
+      <div class="alert alert-success">
+        Welcome to the Review app for Pull Request 75!
+      </div>
+    <% else %>
+      <div class="alert alert-danger">
+        Someone merged a branch they weren't supposed to!
+      </div>
+    <% end %>
+  <% else %>
+    <div class="alert alert-info">
+      Hello there. If you're on the master branch, this section needs to be removed from the application layout. Otherwise, it's all good.
+    </div>
+  <% end %>
+
+  <!-- Stop deleting here. -->
+
   <%= yield %>
 
 </body>
