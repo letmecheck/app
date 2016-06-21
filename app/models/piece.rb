@@ -70,13 +70,8 @@ class Piece < ActiveRecord::Base
 
     return false if off_board?(new_x, new_y)
 
-    return false unless linear_move?(new_x, new_y) && piece_type != 'Pawn'
-
-    !obstructed?(new_x, new_y) || piece_type == 'Knight'
-
-    # Implement this method in each subclass.
-    # Keep this method here for the parent class, in case things go awry.
-    # raise 'Abstract method'
+    # The rest of the logic is each Piece sub-class valid_move? method
+    true
   end
 
   def obstructed?(new_x, new_y)
@@ -97,7 +92,7 @@ class Piece < ActiveRecord::Base
     end
   end
 
-  # private  # Temporarily commented out for debugging.
+  private
 
   def linear_move?(new_x, new_y)
     x_offset, y_offset = movement_by_axis(new_x, new_y)
@@ -105,7 +100,7 @@ class Piece < ActiveRecord::Base
     # If a move is along a rank or file, x_offset or y_offset will be zero.
     # If a move is along a diagonal, their absolute values will be equal.
 
-    x_offset == 0 || y_offset == 0 || diagonal_move?(new_x, new_y)
+    x_offset == 0 || y_offset == 0 || x_offset.abs == y_offset.abs
   end
 
   # Returns the potential move's displacement along each axis.

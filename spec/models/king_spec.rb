@@ -121,7 +121,11 @@ RSpec.describe King, type: :model do
         game.kings.create!(x_coord: 5, y_coord: 1, color: 'white')
 
         # Throwaway move to make it Black's turn:
-        game.piece_at(5, 1).move_to!(6, 1)
+        expect(black_king.valid_move?(5, 1)).to be false
+        expect(black_rook.valid_move?(5, 1)).to be false
+        expect(game.piece_at(5, 1).valid_move?(6, 1)).to be true
+        expect(game.in_check?('white')).to be false
+        expect(game.piece_at(5, 1).move_to!(6, 1)).to be true
         expect(black_king.move_to!(7, 8)).to be true
         black_rook.reload
         expect(black_rook.x_coord).to eq(6)
@@ -221,7 +225,7 @@ RSpec.describe King, type: :model do
 
       context 'Rook has moved, and its original square is unoccupied' do
         it 'returns false' do
-          @white_pawn.move_to!(7, 3)
+          expect(@white_pawn.move_to!(7, 3)).to be true
           @black_rook.move_to!(1, 7)
           @white_pawn.move_to!(7, 4)
           expect(@black_king.valid_move?(3, 8)).to eq(false)
