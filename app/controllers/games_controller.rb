@@ -66,24 +66,27 @@ class GamesController < ApplicationController
     if current_user.id == @white_player.id
 
       @game.update_attribute(:white_player_draw, true)
-      draw_requesting_player_id = @white_player
+      @draw_requesting_player_id = @white_player.id
 
     elsif current_user.id == @black_player.id
 
       @game.update_attribute(:black_player_draw, true)
-      draw_requesting_player = @black_player
+      @draw_requesting_player_id = @black_player.id
 
     end
 
     change_button_message
 
     render nothing: true
+
   end
 
   private
 
   def change_button_message
-    Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
+    Pusher["game-#{@game.id}"].trigger("draw_requested", 
+      {requesting_player_id: @draw_requesting_player_id,
+       current_user_id: current_user.id})
   end
 
   def reload_other_player_page

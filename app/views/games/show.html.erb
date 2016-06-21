@@ -29,9 +29,9 @@
   </div>
   <br />
   <div class="container">
-    <!--<%= link_to "Suggest draw", {action: "draw", controller: "games"}, method: :patch, class: 'btn btn-primary draw-btn' %>
-  </div> -->
-  <button data-game-url="draw_game_path(@game)" class="btn btn-primary draw-btn"> Suggest draw </button>
+   <button class="btn btn-primary draw-btn"> Suggest draw </button>
+  </div> 
+  
 <!--<% else %>
   <h3 class="text-center">The game was conceded by <%= @conceding_player %>. </h3>
 <% end %> -->
@@ -61,19 +61,23 @@ black_player_draw is: <%= @game.black_player_draw %>
     // uncomment the following lines
     // Pusher.host = 'ws-eu.pusher.com';
     // Pusher.sockjs_host = 'sockjs-eu.pusher.com';
-    $(".draw-btn").click(function(){
-      $.ajax({
-        type: 'PATCH',
-        url: <%= @game.id %> + "/draw" 
-      }); 
-      //$(".draw-btn").text("draw requested");
-    });  
-
 
     var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
     var channel = pusher.subscribe('game-<%= @game.id %>');
 
-    var channel2 = pusher.subscribe('sender');
+    var socketId = null;
+    socketId = pusher.channel.socket_id;
+
+    // Upon the "Draw" button being clicked, this ajax request triggers the "draw" action in the games controller(no data is sent to the server)
+    $(".draw-btn").click(function(){
+      $.ajax({
+        type: 'PATCH',
+        url: <%= @game.id %> + "/draw", 
+        data: {socket_id: socketId} 
+      }); 
+
+    });  
+
 
     // Some useful debug msgs
     pusher.connection.bind('connecting', function() {
@@ -86,15 +90,18 @@ black_player_draw is: <%= @game.black_player_draw %>
       console.log('Connection to Pusher failed :(');
     });
    channel.bind('game_conceded', function(data) {
-  //window.location.reload(false);
-  //if ( data.dest_x !== data.orig_x || data.orig_y !== data.dest_y ) {
+
     location.reload();
+
     });
 
    channel.bind('draw_requested', function(data) {
-  //window.location.reload(false);
-  //if ( data.dest_x !== data.orig_x || data.orig_y !== data.dest_y ) {
-    $(".draw-btn").text("draw requested");
+
+      confirm("press");
+
+      $(".draw-btn").text("requesting user is " + data.requesting_player_id + " and current one is" + data.current_user_id);
+      $(".draw-btn").css({'background': 'green'});
+ 
     });
 
   });
