@@ -13,40 +13,58 @@ class Piece < ActiveRecord::Base
   scope :queens,  -> { where(piece_type: 'Queen') }
   scope :kings,   -> { where(piece_type: 'King') }
 
-  def move_to!(new_x, new_y)
+  def move_to!(new_x, new_y, real_move = true)
     return false unless game.current_player == color
     return false unless valid_move?(new_x, new_y)
 
-    # If the destination piece is friendly, reject the move.
-    # Otherwise, remove the destination piece for pending capture.
     if (destination_piece = game.piece_at(new_x, new_y))
-      return false if destination_piece.color == color
-      capturee_location = destination_piece_log(destination_piece)
-      return update_game_attributes(new_x, new_y, destination_piece, capturee_location)
+      return capture_piece!(new_x, new_y, destination_piece, real_move)
     end
 
-    update_game_attributes(new_x, new_y)
+    update_piece_attributes(new_x, new_y, real_move)
   end
 
-  def destination_piece_log(destination_piece)
-    result = [destination_piece.x_coord, destination_piece.y_coord]
+  def capture_piece!(new_x, new_y, destination_piece, real_move)
+    # If the destination piece is friendly, reject the move.
+    # Otherwise, remove the destination piece for pending capture.
+    return false if destination_piece.color == color
+    capturee_location = [destination_piece.x_coord, destination_piece.y_coord]
+
+    # Move the tentatively-captured piece to a "square" that
+    # can't affect the actual board.
     destination_piece.update_attributes!(x_coord: 500, y_coord: 100)
-    result
+    update_piece_attributes(new_x,
+                            new_y,
+                            real_move,
+                            destination_piece,
+                            capturee_location)
   end
 
-  def update_game_attributes(new_x, new_y, destination_piece = nil, capturee_location = nil)
+  def update_piece_attributes(new_x,
+                              new_y,
+                              real_move,
+                              destination_piece = nil,
+                              capturee_location = nil)
     original_status = [x_coord, y_coord, moved]
 
     update_attributes!(x_coord: new_x, y_coord: new_y, moved: true)
 
-    if game.in_check?(color)
-      # Move is illegal: put everything back where it was.
+    illegal_move = game.in_check?(color)
+
+    # If the move is illegal or not real, return the pieces to their original
+    # positions. Return the appropriate boolean for whether the move could
+    # have been made.
+    if illegal_move || !real_move
       reset_pieces!(original_status, destination_piece, capturee_location)
-      return false
+      return !illegal_move
     end
 
     destination_piece && destination_piece.destroy
 
+    update_game_attributes
+  end
+
+  def update_game_attributes
     # If the move is not being made by a pawn, en passant capture is not
     # possible on the next move. If it is being made by a pawn, the move_to!
     # method in the Pawn class will set this value appropriately.
@@ -61,8 +79,10 @@ class Piece < ActiveRecord::Base
     update_attributes!(x_coord: original_status[0],
                        y_coord: original_status[1],
                        moved: original_status[2])
-    destination_piece && destination_piece.update_attributes!(x_coord: capturee_location[0],
-                                                              y_coord: capturee_location[1])
+    destination_piece && destination_piece.update_attributes!(
+      x_coord: capturee_location[0],
+      y_coord: capturee_location[1]
+    )
   end
 
   def valid_move?(new_x, new_y)
