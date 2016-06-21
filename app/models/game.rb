@@ -46,6 +46,14 @@ class Game < ActiveRecord::Base
     pieces.find_by(x_coord: x_coord, y_coord: y_coord)
   end
 
+  def player_can_move?(color)
+    player_pieces = pieces.where(color: color)
+    player_pieces.each do |piece|
+      return true if piece.can_move?
+    end
+    false
+  end
+
   private
 
   def setup_board!

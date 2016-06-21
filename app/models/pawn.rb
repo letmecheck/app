@@ -18,7 +18,7 @@ class Pawn < Piece
   # It destroys a pawn that has been captured en passant, determines whether
   # the current pawn is vulnerable to en passant capture, and adds a
   # placeholder for pawn promotion.
-  def move_to!(new_x, new_y)
+  def move_to!(new_x, new_y, real_move = true)
     # Make note of a pawn captured en passant. Don't destroy it until after
     # the call to super, which ensures that the move is valid.
     en_passant_victim = en_passant_capturee(new_x, new_y)
@@ -46,6 +46,14 @@ class Pawn < Piece
   end
 
   private
+
+  def possible_offsets
+    if color == 'white'
+      [[0, 1], [0, 2], [-1, 1], [1, 1]]
+    else
+      [[0, -1], [0, -2], [-1, -1], [1, -1]]
+    end
+  end
 
   def valid_standard_move?(new_x, new_y)
     !game.piece_at(new_x, new_y)

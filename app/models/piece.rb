@@ -13,6 +13,9 @@ class Piece < ActiveRecord::Base
   scope :queens,  -> { where(piece_type: 'Queen') }
   scope :kings,   -> { where(piece_type: 'King') }
 
+  # If real_move is false, the move will be undone regardless of legality.
+  # Either way, move_to! will return true if the move is fully legal,
+  # and false otherwise.
   def move_to!(new_x, new_y, real_move = true)
     return false unless game.current_player == color
     return false unless valid_move?(new_x, new_y)
@@ -92,6 +95,17 @@ class Piece < ActiveRecord::Base
 
     # The rest of the logic is each Piece sub-class valid_move? method
     true
+  end
+
+  # Helper method for checkmate/stalemate determination.
+  # Returns true if the piece has any fully-legal move, false otherwise.
+  def can_move?
+    possible_offsets.each do |offset|
+      return true if move_to!(x_coord + offset[0],
+                              y_coord + offset[1],
+                              false)
+    end
+    false
   end
 
   def obstructed?(new_x, new_y)

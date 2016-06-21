@@ -10,7 +10,7 @@ class King < Piece
   # An addition to the move_to! method found within the Piece model.
   # This determines which rook is to be castled and moves it to the
   # appropriate square.
-  def move_to!(new_x, new_y)
+  def move_to!(new_x, new_y, real_move = true)
     return false unless valid_move?(new_x, new_y)
     castling = (x_coord - new_x).abs == 2
 
@@ -31,6 +31,13 @@ class King < Piece
   end
 
   private
+
+  def possible_offsets
+    [[-1, -1], [-1, 0], [-1, 1],
+     [0, -1], [0, 1],
+     [1, -1], [1, 0], [1, 1],
+     [-2, 0], [2, 0]]
+  end
 
   # Determine if castling is allowed.
   def valid_castling?(new_x, new_y)
