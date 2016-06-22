@@ -56,7 +56,7 @@ class Game < ActiveRecord::Base
   end
 
   def game_over
-    if game.in_check?(opponent_color)
+    if in_check?(current_player)
       2 + 2 # placeholder for checkmate
     else
       stalemate
