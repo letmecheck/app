@@ -15,6 +15,10 @@
   </div>
 </div>
 
+<!-- temporary div: remove this if seen outside fifty-move branch -->
+<div><p>Move rule count: <%= @game.move_rule_count %></p></div>
+<!-- end temporary div -->
+
 <div class="container">
   <% if @game.black_player_id.nil? && @game.white_player_id != current_user.id %>
     <%= link_to "Join", game_path(@game), method: :patch, class: 'btn btn-primary' %>

@@ -50,12 +50,15 @@ module Movable
       return !illegal_move
     end
 
+    # If this point is reached, move will be finalized.
     destination_piece && destination_piece.destroy
 
-    update_game_attributes
+    update_game_attributes(destination_piece)
   end
 
-  def update_game_attributes
+  def update_game_attributes(captured_piece)
+    update_move_rule_count(captured_piece)
+
     # If the move is not being made by a pawn, en passant capture is not
     # possible on the next move. If it is being made by a pawn, the move_to!
     # method in the Pawn class will set this value appropriately.
@@ -78,5 +81,13 @@ module Movable
       x_coord: capturee_location[0],
       y_coord: capturee_location[1]
     )
+  end
+
+  def update_move_rule_count(captured_piece)
+    if captured_piece || is_a?(Pawn)
+      game.update_attribute(:move_rule_count, 0)
+    else
+      game.increment!(:move_rule_count)
+    end
   end
 end

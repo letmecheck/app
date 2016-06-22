@@ -130,4 +130,25 @@ RSpec.describe Piece, type: :model do
       expect(@game.piece_at(8, 6).can_move?).to be true
     end
   end
+
+  describe '.update_game_attributes' do
+    it 'updates the move_rule_count properly' do
+      @game = Game.create!
+      expect(@game.move_rule_count).to eq 0
+      @game.piece_at(5, 2).move_to!(5, 4)
+      expect(@game.move_rule_count).to eq 0
+      @game.piece_at(5, 7).move_to!(5, 5)
+      @game.piece_at(7, 1).move_to!(8, 3)
+      @game.piece_at(7, 8).move_to!(8, 6)
+      @game.piece_at(2, 1).move_to!(1, 3)
+      expect(@game.move_rule_count).to eq 3
+      @game.piece_at(1, 7).move_to!(1, 6)
+      expect(@game.move_rule_count).to eq 0
+      @game.piece_at(4, 1).move_to!(8, 5)
+      @game.piece_at(8, 6).move_to!(7, 8)
+      expect(@game.move_rule_count).to eq 2
+      @game.piece_at(8, 5).move_to!(6, 7)
+      expect(@game.move_rule_count).to eq 0
+    end
+  end
 end
