@@ -63,7 +63,8 @@ class Game < ActiveRecord::Base
 
   def game_over?
     return mate_handler unless player_can_move?(current_player)
-    # TODO: Add fifty-move-rule handler here.
+    return seventy_five_move_handler if move_rule_count >= 150
+    # TODO: Add fifty-move handler here.
     false
   end
 
@@ -75,6 +76,11 @@ class Game < ActiveRecord::Base
     else
       stalemate
     end
+  end
+
+  def seventy_five_move_handler
+    update_attribute(:game_result, "draw")
+    update_attribute(:game_over_reason, "75 move")
   end
 
   def checkmate
