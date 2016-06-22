@@ -15,6 +15,8 @@ module Movable
     update_piece_attributes(new_x, new_y, real_move)
   end
 
+  private
+
   def capture_piece!(new_x, new_y, destination_piece, real_move)
     # If the destination piece is friendly, reject the move.
     # Otherwise, remove the destination piece for pending capture.

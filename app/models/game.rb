@@ -63,8 +63,11 @@ class Game < ActiveRecord::Base
 
   def game_over?
     return mate_handler unless player_can_move?(current_player)
+    # TODO: Add fifty-move-rule handler here.
     false
   end
+
+  private
 
   def mate_handler
     if in_check?(current_player)
@@ -73,8 +76,6 @@ class Game < ActiveRecord::Base
       stalemate
     end
   end
-
-  private
 
   def checkmate
     # The current player is the one who is under checkmate
