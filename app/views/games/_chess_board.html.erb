@@ -2,14 +2,18 @@
 <div class="warning text-center">&nbsp</div>
   <table id="board">
 
-    <% 8.downto(1) do |y| %>
+    <% 8.downto(0) do |y| %>
       <tr>
         <% 0.upto(9) do |x| %>
           <td data-x="<%= x %>" data-y="<%= y %>
               "class="square<%= add_rank_indicator_class(x) %>
-                            <%= add_squash_class(x) %>" >
+                            <%= add_file_indicator_class(x, y) %>
+                            <%= add_squash_class(x, y) %>" >
             <%= game_pieces(@game, x, y) %>
-            <%= y if x == 0 %>
+            <!-- output y for the rank indicator -->
+            <%= y if x == 0 && y != 0 %>
+
+            <%= convert_number_to_file_letter(x, y) %>
           </td>
         <% end %>
       </tr>
