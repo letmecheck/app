@@ -43,4 +43,91 @@ RSpec.describe Piece, type: :model do
       end
     end
   end
+
+  describe '.has_valid_move?' do
+    it 'works properly when check is not a factor' do
+      @game = Game.create!
+      @white_king = @game.piece_at(5, 1)
+      @black_king = @game.piece_at(5, 8)
+      @white_pawn_5 = @game.piece_at(5, 2)
+      @black_pawn_5 = @game.piece_at(5, 7)
+      @white_knight = @game.piece_at(2, 1)
+      @black_knight = @game.piece_at(2, 8)
+      @white_rook = @game.piece_at(1, 1)
+      @black_rook = @game.piece_at(1, 8)
+      @white_bishop = @game.piece_at(3, 1)
+      @black_bishop = @game.piece_at(3, 8)
+      @white_queen = @game.piece_at(4, 1)
+      @black_queen = @game.piece_at(4, 8)
+
+      expect(@white_queen.can_move?).to be false
+      expect(@white_king.can_move?).to be false
+      expect(@white_pawn_5.can_move?).to be true
+      expect(@white_pawn_5.move_to!(5, 4)).to be true
+
+      expect(@black_queen.can_move?).to be false
+      expect(@black_king.can_move?).to be false
+      expect(@black_pawn_5.can_move?).to be true
+      expect(@black_pawn_5.move_to!(5, 5)).to be true
+
+      expect(@white_pawn_5.can_move?).to be false
+      expect(@game.piece_at(1, 2).move_to!(1, 3)).to be true
+
+      expect(@black_pawn_5.can_move?).to be false
+      expect(@game.piece_at(1, 7).move_to!(1, 6)).to be true
+
+      expect(@white_knight.can_move?).to be true
+      expect(@game.piece_at(3, 2).move_to!(3, 3)).to be true
+
+      expect(@black_knight.can_move?).to be true
+      expect(@game.piece_at(3, 7).move_to!(3, 6)).to be true
+
+      expect(@white_knight.can_move?).to be false
+      expect(@game.piece_at(8, 1).can_move?).to be false
+      expect(@white_rook.can_move?).to be true
+      expect(@white_rook.move_to!(1, 2)).to be true
+
+      expect(@black_knight.can_move?).to be false
+      expect(@game.piece_at(8, 8).can_move?).to be false
+      expect(@black_rook.can_move?).to be true
+      expect(@black_rook.move_to!(1, 7)).to be true
+
+      expect(@white_bishop.can_move?).to be false
+      expect(@game.piece_at(2, 2).move_to!(2, 4)).to be true
+
+      expect(@black_bishop.can_move?).to be false
+      expect(@game.piece_at(2, 7).move_to!(2, 5)).to be true
+
+      expect(@white_bishop.can_move?).to be true
+      expect(@white_queen.can_move?).to be true
+      expect(@white_bishop.move_to!(2, 2)).to be true
+
+      expect(@black_bishop.can_move?).to be true
+      expect(@black_queen.can_move?).to be true
+    end
+
+    it 'rejects moves that leave the king in check' do
+      @game = Game.create!
+
+      # Set up a variant of the 4-move checkmate sometimes known as
+      # "blitzkreig" or the "scholar's mate".
+      expect(@game.piece_at(5, 2).move_to!(5, 4)).to be true
+      expect(@game.piece_at(5, 7).move_to!(5, 5)).to be true
+      expect(@game.piece_at(6, 1).move_to!(3, 4)).to be true
+      expect(@game.piece_at(6, 8).move_to!(3, 5)).to be true
+      expect(@game.piece_at(4, 1).move_to!(8, 5)).to be true
+      expect(@game.piece_at(7, 8).move_to!(8, 6)).to be true
+      expect(@game.piece_at(8, 5).move_to!(6, 7)).to be true
+
+      # Black's only legal move is using the knight at (8, 6) to
+      # capture the white queen at (6, 7)
+      expect(@game.piece_at(5, 8).can_move?).to be false
+      expect(@game.piece_at(1, 7).can_move?).to be false
+      expect(@game.piece_at(1, 8).can_move?).to be false
+      expect(@game.piece_at(2, 8).can_move?).to be false
+      expect(@game.piece_at(3, 8).can_move?).to be false
+      expect(@game.piece_at(4, 8).can_move?).to be false
+      expect(@game.piece_at(8, 6).can_move?).to be true
+    end
+  end
 end
