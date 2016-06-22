@@ -32,6 +32,7 @@
 
 
       <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Leaderboard", leader_boards_path %></li>
         <li><%= link_to 'New Game', new_game_path %></li>
         <% if (!user_signed_in?) %>
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>

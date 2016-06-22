@@ -13,57 +13,7 @@ class Piece < ActiveRecord::Base
   scope :queens,  -> { where(piece_type: 'Queen') }
   scope :kings,   -> { where(piece_type: 'King') }
 
-  def move_to!(new_x, new_y)
-    return false unless game.current_player == color
-    return false unless valid_move?(new_x, new_y)
-
-    # If the destination piece is friendly, reject the move.
-    # Otherwise, remove the destination piece for pending capture.
-    if (destination_piece = game.piece_at(new_x, new_y))
-      return false if destination_piece.color == color
-      capturee_location = destination_piece_log(destination_piece)
-      return update_game_attributes(new_x, new_y, destination_piece, capturee_location)
-    end
-
-    update_game_attributes(new_x, new_y)
-  end
-
-  def destination_piece_log(destination_piece)
-    result = [destination_piece.x_coord, destination_piece.y_coord]
-    destination_piece.update_attributes!(x_coord: 500, y_coord: 100)
-    result
-  end
-
-  def update_game_attributes(new_x, new_y, destination_piece = nil, capturee_location = nil)
-    original_status = [x_coord, y_coord, moved]
-
-    update_attributes!(x_coord: new_x, y_coord: new_y, moved: true)
-
-    if game.in_check?(color)
-      # Move is illegal: put everything back where it was.
-      reset_pieces!(original_status, destination_piece, capturee_location)
-      return false
-    end
-
-    destination_piece && destination_piece.destroy
-
-    # If the move is not being made by a pawn, en passant capture is not
-    # possible on the next move. If it is being made by a pawn, the move_to!
-    # method in the Pawn class will set this value appropriately.
-    game.update_attribute(:en_passant_file, nil) unless is_a? Pawn
-
-    # Assign turn to the other player after a successful move.
-    game.switch_players!
-    true
-  end
-
-  def reset_pieces!(original_status, destination_piece, capturee_location)
-    update_attributes!(x_coord: original_status[0],
-                       y_coord: original_status[1],
-                       moved: original_status[2])
-    destination_piece && destination_piece.update_attributes!(x_coord: capturee_location[0],
-                                                              y_coord: capturee_location[1])
-  end
+  include Movable
 
   def valid_move?(new_x, new_y)
     return false if current_square?(new_x, new_y)
@@ -72,6 +22,17 @@ class Piece < ActiveRecord::Base
 
     # The rest of the logic is each Piece sub-class valid_move? method
     true
+  end
+
+  # Helper method for checkmate/stalemate determination.
+  # Returns true if the piece has any fully-legal move, false otherwise.
+  def can_move?
+    possible_offsets.each do |offset|
+      return true if move_to!(x_coord + offset[0],
+                              y_coord + offset[1],
+                              false)
+    end
+    false
   end
 
   def obstructed?(new_x, new_y)

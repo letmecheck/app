@@ -7,4 +7,14 @@ class Rook < Piece
     return false unless  x_offset == 0 || y_offset == 0
     !obstructed?(new_x, new_y)
   end
+
+  private
+
+  def possible_offsets
+    offsets = []
+    1.upto(7) do |i|
+      offsets += [[-i, 0], [i, 0], [0, -i], [0, i]]
+    end
+    offsets
+  end
 end

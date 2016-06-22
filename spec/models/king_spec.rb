@@ -29,6 +29,7 @@ RSpec.describe King, type: :model do
         @game.pieces.each(&:destroy)
         @white_king = King.create(x_coord: 5, y_coord: 1, color: 'white')
         @white_rook = Rook.create(x_coord: 1, y_coord: 1, color: 'white')
+        @black_king = @game.kings.create(x_coord: 5, y_coord: 8, color: 'black')
         @game.pieces << @white_king
         @game.pieces << @white_rook
       end
@@ -36,7 +37,9 @@ RSpec.describe King, type: :model do
       context 'castling move not permitted if the king has moved previously' do
         it 'returns false after attempting to castle' do
           @white_king.move_to!(5, 2)
+          @black_king.move_to!(5, 7)
           @white_king.move_to!(5, 1)
+          @black_king.move_to!(5, 6)
           expect(@white_king.move_to!(3, 1)).to be(false)
         end
       end
@@ -81,32 +84,31 @@ RSpec.describe King, type: :model do
 
   describe '.move_to!' do
     context 'when called by white king' do
-      it 'moves rook to kingside castled position' do
+      it 'successfuly moves white rook to kingside castled position' do
         game = Game.create
         game.pieces.each(&:destroy)
         white_king = King.create(x_coord: 5, y_coord: 1, color: 'white')
         white_rook = Rook.create(x_coord: 8, y_coord: 1, color: 'white')
-        game.pieces << white_king
-        game.pieces << white_rook
+        black_king = King.create(x_coord: 5, y_coord: 8, color: 'black')
+        game.pieces << [white_rook, black_king, white_king]
 
-        white_king.move_to!(7, 1)
-        white_rook.reload
-        expect(white_rook.x_coord).to eq(6)
+        expect(white_king.move_to!(7, 1)).to be(true)
+        expect(white_rook.reload.x_coord).to eq(6)
+        expect(black_king.move_to!(5, 7)).to be(true)
       end
     end
 
     context 'when called by white king' do
-      it 'moves rook to queenside castled position' do
+      it 'successfuly moves white rook to queenside castled position' do
         game = Game.create
         game.pieces.each(&:destroy)
         white_king = King.create(x_coord: 5, y_coord: 1, color: 'white')
         white_rook = Rook.create(x_coord: 1, y_coord: 1, color: 'white')
-        game.pieces << white_king
-        game.pieces << white_rook
+        black_king = King.create(x_coord: 5, y_coord: 8, color: 'black')
+        game.pieces << [white_rook, black_king, white_king]
 
-        white_king.move_to!(3, 1)
-        white_rook.reload
-        expect(white_rook.x_coord).to eq(4)
+        expect(white_king.move_to!(3, 1)).to be(true)
+        expect(white_rook.reload.x_coord).to eq(4)
       end
     end
 
@@ -158,6 +160,7 @@ RSpec.describe King, type: :model do
         @game.pieces.each(&:destroy)
         @white_king = King.create(x_coord: 5, y_coord: 1, color: 'white')
         @white_rook = Rook.create(x_coord: 8, y_coord: 1, color: 'white')
+        @black_king = @game.kings.create(x_coord: 5, y_coord: 8, color: 'black')
         @game.pieces << @white_king
         @game.pieces << @white_rook
       end
@@ -165,6 +168,7 @@ RSpec.describe King, type: :model do
       context 'Rook has moved, and its original square is unoccupied' do
         it 'returns false' do
           @white_rook.move_to!(8, 2)
+          @black_king.move_to!(5, 7)
           expect(@white_king.valid_move?(7, 1)).to eq(false)
         end
       end
@@ -174,6 +178,7 @@ RSpec.describe King, type: :model do
           white_bishop = Bishop.create(x_coord: 8, y_coord: 1, color: 'white')
           white_bishop.moved?
           @white_rook.move_to!(8, 2)
+          @black_king.move_to!(5, 7)
           expect(@white_king.valid_move?(7, 1)).to eq(false)
         end
       end

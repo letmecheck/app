@@ -215,17 +215,17 @@ $square-size-mobile: 30px;
   padding-bottom: 4%;
 }
 
-.kingInCheckMessage {
+.gameMessage {
   font-size: 1.8em;
   color: #B64402;
   text-shadow: 0px 2px 2px rgb(109, 63, 63), 0px 3px 6px #351B03;
 }
 
 
-$kingInCheckMessage-iphone5: .8em;
+$gameMessage-iphone5: .8em;
 @media (max-width: 760px) {
-  .kingInCheckMessage { 
-  font-size: $kingInCheckMessage-iphone5;
+  .gameMessage { 
+  font-size: $gameMessage-iphone5;
   }
 }
 
