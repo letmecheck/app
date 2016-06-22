@@ -46,6 +46,7 @@ class Game < ActiveRecord::Base
     pieces.find_by(x_coord: x_coord, y_coord: y_coord)
   end
 
+  # helper method that aids in determining stalemate/checkmate
   def player_can_move?(color)
     player_pieces = pieces.where(color: color)
     player_pieces.each do |piece|
@@ -54,7 +55,20 @@ class Game < ActiveRecord::Base
     false
   end
 
+  def game_over
+    if game.in_check?(opponent_color)
+      2 + 2 # placeholder for checkmate
+    else
+      stalemate
+    end
+  end
+
   private
+
+  def stalemate
+    update_attribute(:game_result, "Draw")
+    update_attribute(:game_over_reason, "Stalemate")
+  end
 
   def setup_board!
     %w(white black).each do |color|

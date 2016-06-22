@@ -2,6 +2,21 @@
 <% @game = @piece.game %>
 $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')) %>");
 
+<% if (result = @game.game_result) %>
+  <% reason = @game.game_over_reason %>
+  <% if reason == "Stalemate" %>
+    $( ".warning" ).html( "Stalemate, the game is a draw!" )
+                   .addClass( "gameMessage", 1000 )
+                   .addClass( "animated bounceInUp" )
+                   .animate( { letterSpacing: ".3em" }, 1200 );
+  <% end %>
+<% end %>
+
+
+
+
+
+
 // The following calls the function within master.js and limits 
 // making pieces draggable and squares droppable to only the player
 // who has the next move.
@@ -28,7 +43,7 @@ $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')
 // Display a warning if the king is in check
 <% if @game.in_check?('black') %>
   $( ".warning" ).html( "Hello, black is in check!" )
-                 .addClass( "kingInCheckMessage", 1000 )
+                 .addClass( "gameMessage", 1000 )
                  .addClass( "animated bounceInUp" )
                  .animate( { letterSpacing: ".3em" }, 1200 );
  
@@ -36,7 +51,7 @@ $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')
 
 <% elsif @game.in_check?('white') %>
   $( ".warning" ).html( "Hello, white is in check!" )
-                 .addClass( "kingInCheckMessage", 1000 )
+                 .addClass( "gameMessage", 1000 )
                  .addClass( "animated bounceInUp" )
                  .animate( { letterSpacing: ".3em" }, 1200 );
 
