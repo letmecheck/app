@@ -6,6 +6,8 @@ Letmecheck::Application.routes.draw do
     member do
       patch 'concede'
       patch 'draw'
+      get 'concede'
+      get 'draw'
     end
   end
 

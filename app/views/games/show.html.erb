@@ -6,8 +6,12 @@
   <% end %>
 </h2>
 
+<div class="col-xs-10 col-xs-offset-1">
+  <%= link_to "Concede the Game", {action: "concede", controller: "games"}, method: :patch, class: 'btn btn-primary pull-left' %>
+ <button class="btn btn-primary draw-btn pull-right"> Suggest draw </button>
+</div> 
+
 <div class="player-turn text-center"></div>
-<!--<% if (@game.white_player_concede == false && @game.black_player_concede == false) %> -->
   <div class="container table-surface">
     <div class="black-or-white-coords">
       <div class="board-booyah-box col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1" data-no-turbolink>
@@ -24,17 +28,6 @@
   </div>
   <br />
   <br />
-  <div class="container">
-    <%= link_to "Concede the Game", {action: "concede", controller: "games"}, method: :patch, class: 'btn btn-primary' %>
-  </div>
-  <br />
-  <div class="container">
-   <button class="btn btn-primary draw-btn"> Suggest draw </button>
-  </div> 
-  
-<!--<% else %>
-  <h3 class="text-center">The game was conceded by <%= @conceding_player %>. </h3>
-<% end %> -->
 <br />
 white_player_concede is: <%= @game.white_player_concede %>
 <br />
@@ -45,6 +38,7 @@ white_player_draw is: <%= @game.white_player_draw %>
 <br />
 black_player_draw is: <%= @game.black_player_draw %>
 <br /><br />
+current user is: <%= current_user.id %>
 
 
 <!-- Execute the script that allows moving pieces on the board. -->
@@ -65,15 +59,11 @@ black_player_draw is: <%= @game.black_player_draw %>
     var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
     var channel = pusher.subscribe('game-<%= @game.id %>');
 
-    var socketId = null;
-    socketId = pusher.channel.socket_id;
-
-    // Upon the "Draw" button being clicked, this ajax request triggers the "draw" action in the games controller(no data is sent to the server)
+    // Upon clicking "Draw" button, this ajax request triggers the "draw" action in the games controller(no data is sent to the server)
     $(".draw-btn").click(function(){
       $.ajax({
         type: 'PATCH',
-        url: <%= @game.id %> + "/draw", 
-        data: {socket_id: socketId} 
+        url: <%= @game.id %> + "/draw"
       }); 
 
     });  
@@ -86,22 +76,33 @@ black_player_draw is: <%= @game.black_player_draw %>
     pusher.connection.bind('connected', function() {
       console.log('Connected to Pusher!');
     });
+
     pusher.connection.bind('failed', function() {
       console.log('Connection to Pusher failed :(');
     });
    channel.bind('game_conceded', function(data) {
-
-    location.reload();
+    //when one player concedes the game, both players are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur)
+    setTimeout(function(){
+      document.location.href = '<%= @game.id %>' + '/concede';},
+      0);
 
     });
 
    channel.bind('draw_requested', function(data) {
 
-      confirm("press");
+      alert("Your opponnent has sent you a request to draw the game. \n \n Ignore this warning if you sent the request.");
 
-      $(".draw-btn").text("requesting user is " + data.requesting_player_id + " and current one is" + data.current_user_id);
+      $(".draw-btn").text("Click to accept a draw");
       $(".draw-btn").css({'background': 'green'});
  
+    });
+
+   channel.bind('game_drawn', function(data) {
+   //when  both players decide to draw the game, they are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur)
+    setTimeout(function(){
+      document.location.href = '<%= @game.id %>' + '/concede';},
+      0);
+
     });
 
   });

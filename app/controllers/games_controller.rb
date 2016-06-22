@@ -53,8 +53,6 @@ class GamesController < ApplicationController
     end
 
     reload_other_player_page
-
-    render "show"
   end
 
   def draw
@@ -75,18 +73,23 @@ class GamesController < ApplicationController
 
     end
 
-    change_button_message
 
-    render nothing: true
+    if (@game.white_player_draw && !@game.black_player_draw) || ( !@game.white_player_draw && @game.black_player_draw) || ( !@game.white_player_draw || !@game.black_player_draw)
+      change_button_message
+    else
+      redirect_to_draw_page
+    end
 
   end
 
   private
 
+  def redirect_to_draw_page
+    Pusher["game-#{@game.id}"].trigger("game_drawn", bogus_data: 0)
+  end
+
   def change_button_message
-    Pusher["game-#{@game.id}"].trigger("draw_requested", 
-      {requesting_player_id: @draw_requesting_player_id,
-       current_user_id: current_user.id})
+    Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
   end
 
   def reload_other_player_page
