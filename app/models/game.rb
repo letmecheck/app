@@ -61,7 +61,12 @@ class Game < ActiveRecord::Base
     false
   end
 
-  def game_over
+  def game_over?
+    return mate_handler unless player_can_move?(current_player)
+    false
+  end
+
+  def mate_handler
     if in_check?(current_player)
       checkmate
     else

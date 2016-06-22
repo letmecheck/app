@@ -67,8 +67,7 @@ module Movable
     # Assign turn to the other player after a successful move.
     game.switch_players!
 
-    opponent_color = color == 'white' ? 'black' : 'white'
-    game.game_over unless game.player_can_move?(opponent_color)
+    game.game_over?
 
     true
   end
