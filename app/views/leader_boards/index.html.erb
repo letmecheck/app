@@ -1,0 +1,18 @@
+<div class="container">
+  <table style="width:100%">
+  <tr>
+      <th>User</th>
+      <th>Wins</th>
+      <th>Losses</th>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+
+     <td class="leaderboard" ><%= user.email %></td>
+     <td class="leaderboard"><%= user.wins %></td>
+     <td class="leaderboard"><%= user.losses %></td>
+  </tr>
+  <% end %>
+
+  </table>
+</div>
