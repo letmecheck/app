@@ -7,8 +7,10 @@
 </h2>
 
 <div class="col-xs-10 col-xs-offset-1">
-  <%= link_to "Concede the Game", {action: "concede", controller: "games"}, method: :patch, class: 'btn btn-primary pull-left' %>
- <button class="btn btn-primary draw-btn pull-right"> Suggest draw </button>
+  <!-- <%= link_to "Concede the Game", {action: "concede", controller: "games"}, method: :patch, class: 'btn btn-primary pull-left' %> -->
+
+  <button class="btn btn-primary concede-btn pull-left"> Concede the Game </button>
+  <button class="btn btn-primary draw-btn pull-right"> Suggest draw </button>
 </div> 
 
 <div class="player-turn text-center"></div>
@@ -28,17 +30,6 @@
   </div>
   <br />
   <br />
-<br />
-white_player_concede is: <%= @game.white_player_concede %>
-<br />
-black_player_concede is: <%= @game.black_player_concede %>
-<br />
-<br />
-white_player_draw is: <%= @game.white_player_draw %>
-<br />
-black_player_draw is: <%= @game.black_player_draw %>
-<br /><br />
-current user is: <%= current_user.id %>
 
 
 <!-- Execute the script that allows moving pieces on the board. -->
@@ -51,23 +42,27 @@ current user is: <%= current_user.id %>
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
-    // If your Heroku application is within the EU region,
-    // uncomment the following lines
-    // Pusher.host = 'ws-eu.pusher.com';
-    // Pusher.sockjs_host = 'sockjs-eu.pusher.com';
-
-    var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
-    var channel = pusher.subscribe('game-<%= @game.id %>');
 
     // Upon clicking "Draw" button, this ajax request triggers the "draw" action in the games controller(no data is sent to the server)
+    var current_player_id = null;
+
+    $(".concede-btn").click(function(){
+      $.ajax({
+        type: 'PATCH',
+        url: <%= @game.id %> + "/concede",
+        data: {current_player_id: <%= current_user.id %>}
+      }); 
+    });
+
     $(".draw-btn").click(function(){
       $.ajax({
         type: 'PATCH',
         url: <%= @game.id %> + "/draw"
       }); 
+    });
 
-    });  
-
+    var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
+    var channel = pusher.subscribe('game-<%= @game.id %>');  
 
     // Some useful debug msgs
     pusher.connection.bind('connecting', function() {
@@ -76,33 +71,28 @@ current user is: <%= current_user.id %>
     pusher.connection.bind('connected', function() {
       console.log('Connected to Pusher!');
     });
-
     pusher.connection.bind('failed', function() {
       console.log('Connection to Pusher failed :(');
     });
+
+
    channel.bind('game_conceded', function(data) {
     //when one player concedes the game, both players are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur)
     setTimeout(function(){
-      document.location.href = '<%= @game.id %>' + '/concede';},
-      0);
-
+      window.location.href = '<%= @game.id %>' + '/concede';}, 500);
     });
 
    channel.bind('draw_requested', function(data) {
-
       alert("Your opponnent has sent you a request to draw the game. \n \n Ignore this warning if you sent the request.");
 
       $(".draw-btn").text("Click to accept a draw");
       $(".draw-btn").css({'background': 'green'});
- 
     });
 
    channel.bind('game_drawn', function(data) {
    //when  both players decide to draw the game, they are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur)
     setTimeout(function(){
-      document.location.href = '<%= @game.id %>' + '/concede';},
-      0);
-
+      window.location.href = '<%= @game.id %>' + '/draw';},500);
     });
 
   });
