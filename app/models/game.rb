@@ -16,6 +16,12 @@ class Game < ActiveRecord::Base
     end
   end
 
+  # helper method to aid in determining the opponent's color
+  # this returns the color of the player who does NOT have the current move
+  def other_player
+    white? ? 'black' : 'white'
+  end
+
   # Helper method used to determine if a particular square is under potential attack.
   def square_threatened_by?(color, destination_x, destination_y)
     enemy_pieces = pieces.where(color: color)
@@ -57,7 +63,7 @@ class Game < ActiveRecord::Base
 
   def game_over
     if in_check?(current_player)
-      2 + 2 # placeholder for checkmate
+      checkmate
     else
       stalemate
     end
@@ -65,9 +71,15 @@ class Game < ActiveRecord::Base
 
   private
 
+  def checkmate
+    # The current player is the one who is under checkmate
+    update_attribute(:game_result, other_player)
+    update_attribute(:game_over_reason, "checkmate")
+  end
+
   def stalemate
-    update_attribute(:game_result, "Draw")
-    update_attribute(:game_over_reason, "Stalemate")
+    update_attribute(:game_result, "draw")
+    update_attribute(:game_over_reason, "stalemate")
   end
 
   def setup_board!
