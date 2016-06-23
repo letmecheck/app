@@ -5,13 +5,13 @@ $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')
 <% if (result = @game.game_result) %>
   <% reason = @game.game_over_reason %>
   <% if reason == "stalemate" %>
-    $( ".warning" ).html( "Stalemate, the game is a draw!" )
+    $( ".board-top" ).html( "Stalemate, the game is a draw!" )
                    .addClass( "gameMessage", 1000 )
                    .addClass( "animated bounceInUp" )
                    .animate( { letterSpacing: ".3em" }, 1200 );
 
   <% elsif reason == "checkmate" %>
-    $( ".warning" ).html( "Checkmate, <%= result %> wins!" )
+    $( ".board-top" ).html( "Checkmate, <%= result %> wins!" )
                    .addClass( "gameMessage", 1000 )
                    .addClass( "animated bounceInUp" )
                    .animate( { letterSpacing: ".3em" }, 1200 );
@@ -43,7 +43,7 @@ $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')
 
   // Display a warning if the king is in check
   <% if @game.in_check?('black') %>
-    $( ".warning" ).html( "Hello, black is in check!" )
+    $( ".board-top" ).html( "Hello, black is in check!" )
                    .addClass( "gameMessage", 1000 )
                    .addClass( "animated bounceInUp" )
                    .animate( { letterSpacing: ".3em" }, 1200 );
@@ -51,7 +51,7 @@ $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')
     $("#black-king").addClass( "animated bounce blushing-king" );
 
   <% elsif @game.in_check?('white') %>
-    $( ".warning" ).html( "Hello, white is in check!" )
+    $( ".board-top" ).html( "Hello, white is in check!" )
                    .addClass( "gameMessage", 1000 )
                    .addClass( "animated bounceInUp" )
                    .animate( { letterSpacing: ".3em" }, 1200 );
