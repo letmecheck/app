@@ -33,6 +33,6 @@ module GameHelper
   end
 
   def convert_number_to_file_letter(x, y)
-    (x += 96).chr if y == 0 && x != 0 && x != 9
+    (x + 96).chr if y == 0 && x != 0 && x != 9
   end
 end
