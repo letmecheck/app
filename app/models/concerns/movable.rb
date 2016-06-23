@@ -15,6 +15,8 @@ module Movable
     update_piece_attributes(new_x, new_y, real_move)
   end
 
+  private
+
   def capture_piece!(new_x, new_y, destination_piece, real_move)
     # If the destination piece is friendly, reject the move.
     # Otherwise, remove the destination piece for pending capture.
@@ -50,12 +52,15 @@ module Movable
       return !illegal_move
     end
 
+    # If this point is reached, move will be finalized.
     destination_piece && destination_piece.destroy
 
-    update_game_attributes
+    update_game_attributes(destination_piece)
   end
 
-  def update_game_attributes
+  def update_game_attributes(captured_piece)
+    update_move_rule_count(captured_piece)
+
     # If the move is not being made by a pawn, en passant capture is not
     # possible on the next move. If it is being made by a pawn, the move_to!
     # method in the Pawn class will set this value appropriately.
@@ -64,8 +69,7 @@ module Movable
     # Assign turn to the other player after a successful move.
     game.switch_players!
 
-    opponent_color = color == 'white' ? 'black' : 'white'
-    game.game_over unless game.player_can_move?(opponent_color)
+    game.game_over?
 
     true
   end
@@ -78,5 +82,13 @@ module Movable
       x_coord: capturee_location[0],
       y_coord: capturee_location[1]
     )
+  end
+
+  def update_move_rule_count(captured_piece)
+    if captured_piece || is_a?(Pawn)
+      game.update_attribute(:move_rule_count, 0)
+    else
+      game.increment!(:move_rule_count)
+    end
   end
 end

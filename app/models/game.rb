@@ -61,15 +61,33 @@ class Game < ActiveRecord::Base
     false
   end
 
-  def game_over
+  def game_over?
+    return mate_handler unless player_can_move?(current_player)
+    # TODO: Add handler for resignation and agreed-upon draws.
+    # TODO: Add handler for insufficient material.
+    # TODO: Add fifty-move handler.
+    return seventy_five_move_handler if move_rule_count >= 150
+    # TODO: Add threefold-repetition handler.
+    # TODO: Add handler for five-consecutive-repetition draw.
+    false
+  end
+
+  private
+
+  def mate_handler
     if in_check?(current_player)
       checkmate
     else
       stalemate
     end
+    true
   end
 
-  private
+  def seventy_five_move_handler
+    update_attribute(:game_result, "draw")
+    update_attribute(:game_over_reason, "75 move")
+    true
+  end
 
   def checkmate
     # The current player is the one who is under checkmate
