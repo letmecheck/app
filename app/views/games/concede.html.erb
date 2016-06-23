@@ -1,5 +1,7 @@
-<h1 class="text-center">The game was conceded by <%= @conceding_player_id %>. </h1>
 <br />
-conceding player is: <%= @conceding_player_id %>
 <br />
-current user is: <%= current_user.id %>
+<% if params[:conceding_player] == current_user.id.to_s %>
+  <h1 class="text-center"> You have conceded the game.</h1>
+<% else %>
+  <h1 class="text-center"> Your opponnent has conceded the game. You have won!</h1>
+<% end %>

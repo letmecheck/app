@@ -35,20 +35,15 @@ class GamesController < ApplicationController
   def concede
     set_game_and_players_variables
 
-    if current_user.id == @white_player.id
+    conceding_player_id = params[:conceding_user]
 
-      @game.update_attribute(:white_player_concede, true)
-      #@conceding_player = @white_player
-
-    elsif current_user.id == @black_player.id
-
-      @game.update_attribute(:black_player_concede, true)
-      #@conceding_player = @black_player
+    if conceding_player_id == @white_player.id.to_s
+      @game.update_attribute(:game_conceding_player, "white")
+    elsif conceding_player_id == @black_player.id.to_s
+      @game.update_attribute(:game_conceding_player, "black")
     end
 
-    conceding_player = params[:conceding_one] 
-
-    redirect_to_concede_page(conceding_player)
+    redirect_to_concede_page(conceding_player_id)
   end
 
   def draw
@@ -90,8 +85,8 @@ class GamesController < ApplicationController
     Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
   end
 
-  def redirect_to_concede_page(conceding_player)
-    Pusher["game-#{@game.id}"].trigger("game_conceded", my_data: conceding_player)
+  def redirect_to_concede_page(conceding_player_id)
+    Pusher["game-#{@game.id}"].trigger("game_conceded", player_id: conceding_player_id)
   end
 
   def game_spot_open?

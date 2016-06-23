@@ -7,8 +7,7 @@
 </h2>
 
 <div class="col-xs-10 col-xs-offset-1">
-  <!-- <%= link_to "Concede the Game", {action: "concede", controller: "games"}, method: :patch, class: 'btn btn-primary pull-left' %> -->
-  <%= link_to "Concede the Game", concede_game_path(@game, conceding_one: current_user.id), class: 'btn btn-primary pull-left', remote: true %>
+  <%= link_to "Concede the Game", concede_game_path(@game, conceding_user: current_user.id), class: 'btn btn-primary pull-left', remote: true %>
   <!--<button class="btn btn-primary concede-btn pull-left"> Concede the Game </button>
   <button class="btn btn-primary draw-btn pull-right"> Suggest draw </button>
 </div> 
@@ -44,16 +43,6 @@
   $(function() {
 
     // Upon clicking "Draw" button, this ajax request triggers the "draw" action in the games controller(no data is sent to the server)
-    var current_player_id = null;
-
-    $(".concede-btn").click(function(){
-      $.ajax({
-        type: 'PATCH',
-        url: <%= @game.id %> + "/concede",
-        data: {current_player_id: "123"}
-      }); 
-    });
-
     $(".draw-btn").click(function(){
       $.ajax({
         type: 'PATCH',
@@ -77,10 +66,9 @@
 
 
    channel.bind('game_conceded', function(data) {
-    //when one player concedes the game, both players are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur)
+    //when one player concedes the game, both players are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur).The query string added at the end of the url allows the passing of data (the id of the player that conceded the game) via the url to be used in concede.html.erb
     setTimeout(function(){
-      //window.location.href = '<%= @game.id %>' + '/concede' +'?conceding_player=' + '<%= @conceding_player %>';}, 500);
-      window.location.href = '<%= @game.id %>' + '/concede' +'?conceding_player=' + data.my_data;}, 500);
+      window.location.href = '<%= @game.id %>' + '/concede' +'?conceding_player=' + data.player_id;}, 500);
     });
 
    channel.bind('draw_requested', function(data) {
