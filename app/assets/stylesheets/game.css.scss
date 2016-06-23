@@ -14,6 +14,7 @@ $rank-file-font-size: 1.6em;
   background: url('/assets/wood_pattern.png');
   border: 1px solid #ccc;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+  padding-bottom: .1em;
 }
 
 /* ---- indicators for rank and file on board edges ------- */
@@ -30,21 +31,18 @@ $rank-file-font-size: 1.6em;
   text-align: center;
   padding-right: 0.4em;
   text-shadow: rgba(0, 0, 0, 0.45) 0 -1px 0.025em, rgba(255, 255, 255, 0.75) 0 1px 0.025em;
-  /*text-shadow: 0px 2px 3px #555;*/
 }
 
 .file-indicator {
   font-size: $rank-file-font-size;
-  padding: 2% 0 1% 5%;
-  letter-spacing: 1.02em;
+  text-align: center;
   text-shadow: rgba(0, 0, 0, 0.45) 0 -1px 0.025em, rgba(255, 255, 255, 0.75) 0 1px 0.025em;
-  /*text-shadow: 0px 2px 3px #555;*/
 }
 
 /* --------- optimizations for tablets ----------- */
 
 /* tablet held in portrait */
-@media (min-width: 760px) and (max-width: 769px) {
+/*@media (min-width: 760px) and (max-width: 769px) {
   .file-indicator {
     font-size: $rank-file-font-size;
     letter-spacing: 1.18em;
@@ -52,14 +50,14 @@ $rank-file-font-size: 1.6em;
   }
 }
 
-/* tablet held in landscape */
+ tablet held in landscape 
 @media (min-width: 775px) and (max-width: 1024px) {
   .file-indicator {
     font-size: $rank-file-font-size;
     letter-spacing: 1.2em;
     padding: 2% 0 1% 3%;
   }
-}
+}*/
 
 $square-size-tablet: 60px;
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -70,89 +68,94 @@ $square-size-tablet: 60px;
 }
 
 /* ---------  optimizations for cell-phones  ----------- */
-$rank-file-font-size-cell-portrait: 1em;
+$rank-file-font-size-cellphone: 1em;
 /* iphone5 held in portrait */
 @media (max-width: 329px) {
   .rank-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
+    font-size: $rank-file-font-size-cellphone;
+  }
+
+  .file-indicator {
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
 /* device held in portrait */
 @media (min-width: 330px) and (max-width: 759px) {
   .rank-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
+    font-size: $rank-file-font-size-cellphone;
+  }
+
+  .file-indicator {
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
 /* iphone5 held in portrait */
 @media (max-width: 321px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cellphone;
+  }
+
   .file-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.52em;
-    padding-left: 3%;
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
 /* iphone5 held in L A N D S C A P E */
 @media (min-width: 549px) and (max-width: 569px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cellphone;
+  }
+
   .file-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.70em;
-    padding-left: 2%;
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
 /* iPhone 6 and s5 held in portrait */
 @media (min-width: 359px) and (max-width: 548px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cellphone;
+  }
+
   .file-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.70em;
-    padding-left: 4%;
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
 /* iPhone 6 and s5 held in L A N D S C A P E */
 @media (min-width: 570px) and (max-width: 679px) {
+  .rank-indicator {
+    font-size: $rank-file-font-size-cellphone;
+  }
+
   .file-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.70em;
-    padding-left: 2%;
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
 /* Nexus5x iPhone6+ Nexus6p held in portrait */
 @media (min-width: 377px) and (max-width: 436px) {
   .file-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.65em;
-    padding-left: 3%;
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
 /* Nexus5x iPhone6+ held in L A N D S C A P E */
 @media (min-width: 720px) and (max-width: 740px) {
   .file-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.68em;
-    padding-left: 2%;
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
 @media (min-width: 680px) and (max-width: 719px) {
   .file-indicator {
-    font-size: $rank-file-font-size-cell-portrait;
-    letter-spacing: 0.70em;
-    padding-left: 2%;
+    font-size: $rank-file-font-size-cellphone;
   }
 }
 
-/* Nexus6P held in L A N D S C A P E */
-@media (min-width: 770px) and (max-width: 774px) {
-  .file-indicator {
-    letter-spacing: 0.92em;
-  }
-}
+
 /*  -----------------------------------------------  */
 
 table {
@@ -202,8 +205,8 @@ $square-size-mobile: 30px;
   }
 }
 
-.boardTopBottom {
-
+.board-top {
+  margin-top: 1.5em;
 }
 
 .hoveredSquare {
@@ -212,7 +215,7 @@ $square-size-mobile: 30px;
 }
 
 .warning {
-  padding-bottom: 4%;
+  /*margin-bottom: 2%;*/
 }
 
 .gameMessage {
@@ -222,10 +225,14 @@ $square-size-mobile: 30px;
 }
 
 
-$gameMessage-iphone5: .8em;
+$gameMessage-iphone5: 1em;
 @media (max-width: 760px) {
   .gameMessage { 
-  font-size: $gameMessage-iphone5;
+    font-size: $gameMessage-iphone5;
+  }
+
+  .board-top {
+    margin-top: 0em;
   }
 }
 
@@ -245,11 +252,3 @@ $gameMessage-iphone5: .8em;
   color: #3D3D4C;
   text-transform: capitalize;
 }
-
-/* place-holder for checkmate - feel free to use or disregard...
-.checkmate {
-  font-size: 1.8em;
-  color: #C90202;
-  text-shadow: 0px 2px 2px rgb(109, 63, 63), 0px 3px 6px #351B03;
-  margin-top: -1em;
-}*/
