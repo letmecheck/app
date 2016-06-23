@@ -46,9 +46,9 @@ class GamesController < ApplicationController
       #@conceding_player = @black_player
     end
 
-    @conceding_player_id = params[:current_player_id] 
+    conceding_player = params[:conceding_one] 
 
-    redirect_to_concede_page
+    redirect_to_concede_page(conceding_player)
   end
 
   def draw
@@ -90,8 +90,8 @@ class GamesController < ApplicationController
     Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
   end
 
-  def redirect_to_concede_page
-    Pusher["game-#{@game.id}"].trigger("game_conceded", bogus_data: 0)
+  def redirect_to_concede_page(conceding_player)
+    Pusher["game-#{@game.id}"].trigger("game_conceded", my_data: conceding_player)
   end
 
   def game_spot_open?
