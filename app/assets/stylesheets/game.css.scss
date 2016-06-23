@@ -14,7 +14,7 @@ $rank-file-font-size: 1.6em;
   background: url('/assets/wood_pattern.png');
   border: 1px solid #ccc;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
-  padding-bottom: 2%;
+  padding-bottom: .1em;
 }
 
 /* ---- indicators for rank and file on board edges ------- */
@@ -205,8 +205,8 @@ $square-size-mobile: 30px;
   }
 }
 
-.boardTopBottom {
-
+.board-top {
+  margin-top: 1.5em;
 }
 
 .hoveredSquare {
@@ -215,7 +215,7 @@ $square-size-mobile: 30px;
 }
 
 .warning {
-  margin-bottom: 2%;
+  /*margin-bottom: 2%;*/
 }
 
 .gameMessage {
@@ -228,7 +228,11 @@ $square-size-mobile: 30px;
 $gameMessage-iphone5: 1em;
 @media (max-width: 760px) {
   .gameMessage { 
-  font-size: $gameMessage-iphone5;
+    font-size: $gameMessage-iphone5;
+  }
+
+  .board-top {
+    margin-top: 0em;
   }
 }
 
