@@ -8,8 +8,13 @@
 
 <div class="col-xs-10 col-xs-offset-1">
   <%= link_to "Concede the Game", concede_game_path(@game, conceding_user: current_user.id), class: 'btn btn-primary pull-left', remote: true %>
-  <!--<button class="btn btn-primary concede-btn pull-left"> Concede the Game </button>
-  <button class="btn btn-primary draw-btn pull-right"> Suggest draw </button>
+  
+  <div id="change">fghhbkjlkhjgkh
+  </div>
+
+  <%= link_to "Suggest a draw", draw_game_path(@game, draw_requesting_user: current_user.id), class: 'btn btn-primary draw-btn pull-right', remote: true %>
+  
+  <!--<button class="btn btn-primary draw-btn pull-right"> Suggest draw </button>-->
 </div> 
 
 <div class="player-turn text-center"></div>
@@ -43,12 +48,13 @@
   $(function() {
 
     // Upon clicking "Draw" button, this ajax request triggers the "draw" action in the games controller(no data is sent to the server)
-    $(".draw-btn").click(function(){
+   /* $(".draw-btn").click(function(){
       $.ajax({
         type: 'PATCH',
         url: <%= @game.id %> + "/draw"
       }); 
     });
+    */
 
     var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
     var channel = pusher.subscribe('game-<%= @game.id %>');  
@@ -72,7 +78,7 @@
     });
 
    channel.bind('draw_requested', function(data) {
-      alert("Your opponnent has sent you a request to draw the game. \n \n Ignore this warning if you sent the request.");
+      alert("A game draw request has been made.");
 
       $(".draw-btn").text("Click to accept a draw");
       $(".draw-btn").css({'background': 'green'});
@@ -83,6 +89,12 @@
     setTimeout(function(){
       window.location.href = '<%= @game.id %>' + '/draw';},500);
     });
+
+   channel.bind('refresh', function(data) {
+   
+   //$("#change").load("/games/drw");
+    $("#change").load(window.location.href + "/draw");
+  });    
 
   });
 </script>

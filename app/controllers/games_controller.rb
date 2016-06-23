@@ -43,12 +43,16 @@ class GamesController < ApplicationController
       @game.update_attribute(:game_conceding_player, "black")
     end
 
-    redirect_to_concede_page(conceding_player_id)
+    load_concede_page(conceding_player_id)
   end
 
   def draw
-    set_game_and_players_variables
+    #set_game_and_players_variables
+    @game = Game.find_by_id(params[:id])
+    refresh_partial
 
+    #value = params[:draw_requesting_user_id]
+=begin
     if current_user.id == @white_player.id
 
       @game.update_attribute(:white_player_draw, true)
@@ -61,11 +65,19 @@ class GamesController < ApplicationController
 
     end
 
-    if  one_player_has_requested_draw
-      notify_other_player
-    else
-      redirect_to_draw_page #in this case, both players have agreed on a draw
+    def update_button
+      @the_user_id = 10
+
+      respond_to do |format|
+        format.js
+      end
     end
+=end
+    #if  one_player_has_requested_draw
+      #notify_other_player
+    #else
+     # load_draw_page #in this case, both players have agreed on a draw
+    #end
 
   end
 
@@ -77,7 +89,11 @@ class GamesController < ApplicationController
     @black_player = User.find_by_id(@game.black_player_id) unless @game.black_player_id.nil?
   end
 
-  def redirect_to_draw_page
+  def refresh_partial
+    Pusher["game-#{@game.id}"].trigger("refresh", bogus_data: 0)
+  end
+
+  def load_draw_page
     Pusher["game-#{@game.id}"].trigger("game_drawn", bogus_data: 0)
   end
 
@@ -85,7 +101,7 @@ class GamesController < ApplicationController
     Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
   end
 
-  def redirect_to_concede_page(conceding_player_id)
+  def load_to_concede_page(conceding_player_id)
     Pusher["game-#{@game.id}"].trigger("game_conceded", player_id: conceding_player_id)
   end
 
