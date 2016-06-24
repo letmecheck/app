@@ -7,11 +7,6 @@ class Game < ActiveRecord::Base
   delegate :pawns, :rooks, :knights, :bishops, :queens, :kings, to: :pieces
 
   after_create :setup_board!
-  #after_concede :push_notification
-
-  #def push_notification
-   # Pusher["concede_game"].trigger("concession", {message: "game conceded"})
-  #end
 
   def switch_players!
     if white?

@@ -52,7 +52,7 @@ class GamesController < ApplicationController
 
   def draw
     set_game_and_players_variables
-    
+
     draw_requesting_player = params[:draw_requesting_user]
 
     if draw_requesting_player == @white_player.id.to_s
@@ -65,16 +65,15 @@ class GamesController < ApplicationController
 
     end
 
-    if  one_player_has_requested_draw
+    if one_player_has_requested_draw
       change_button_message
     else #in this case, both players have agreed on a draw
-      load_draw_page 
+      load_draw_page
     end
-
   end
 
   def change_button_version #this controller action serves only to allow
-  #the loading of the view file with the same name without errors
+    #the loading of the view file with the same name without errors
     set_game_and_players_variables
   end
 
