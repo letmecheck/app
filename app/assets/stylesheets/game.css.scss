@@ -489,3 +489,52 @@ Messages
   -webkit-animation-delay: .3s;
           animation-delay: .3s;
 }
+
+/*--------------------
+Message Box
+--------------------*/
+.message-box {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 40px;
+      -ms-flex: 0 1 40px;
+          flex: 0 1 40px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  position: relative;
+}
+.message-box .message-input {
+  background: none;
+  border: none;
+  outline: none !important;
+  resize: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  height: 17px;
+  margin: 0;
+  padding-right: 20px;
+  width: 265px;
+}
+.message-box textarea:focus:-webkit-placeholder {
+  color: transparent;
+}
+.message-box .message-submit {
+  position: absolute;
+  z-index: 1;
+  top: 9px;
+  right: 10px;
+  color: #fff;
+  border: none;
+  background: #248A52;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 10px;
+  outline: none !important;
+  -webkit-transition: background .2s ease;
+  transition: background .2s ease;
+}
+.message-box .message-submit:hover {
+  background: #1D7745;
+}
