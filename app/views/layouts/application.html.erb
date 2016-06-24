@@ -6,7 +6,8 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="http://js.pusher.com/2.0/pusher.min.js"></script>
+  <!-- Pusher: allows for automatic updates -->
+  <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
 </head>
 <body>
 
@@ -31,6 +32,7 @@
 
 
       <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Leaderboard", leader_boards_path %></li>
         <li><%= link_to 'New Game', new_game_path %></li>
         <% if (!user_signed_in?) %>
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>

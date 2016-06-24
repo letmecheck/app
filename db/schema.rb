@@ -11,22 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160623140130) do
+=======
+ActiveRecord::Schema.define(version: 20160622212427) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
+<<<<<<< HEAD
     t.string   "name",                  limit: 255
+=======
+    t.string   "name",             limit: 255
+>>>>>>> master
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "white_player_id"
     t.integer  "black_player_id"
     t.integer  "en_passant_file"
+<<<<<<< HEAD
     t.integer  "current_player",                    default: 0,     null: false
     t.boolean  "white_player_draw",                 default: false
     t.boolean  "black_player_draw",                 default: false
     t.string   "game_conceding_player"
+=======
+    t.integer  "current_player",               default: 0, null: false
+    t.string   "game_result"
+    t.string   "game_over_reason"
+    t.integer  "move_rule_count",              default: 0
+>>>>>>> master
   end
 
   create_table "pieces", force: :cascade do |t|
@@ -54,6 +69,8 @@ ActiveRecord::Schema.define(version: 20160623140130) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.integer  "wins"
+    t.integer  "losses"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

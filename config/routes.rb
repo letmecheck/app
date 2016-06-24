@@ -2,6 +2,8 @@ Letmecheck::Application.routes.draw do
   devise_for :users
   root 'static_page#index'
 
+  resources :leader_boards, only: [:index, :show]
+
   resources :games do
     member do
       patch 'concede'
@@ -13,7 +15,7 @@ Letmecheck::Application.routes.draw do
   end
 
   resources :pieces, only: [:show, :update]
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

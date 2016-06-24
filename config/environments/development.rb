@@ -27,6 +27,15 @@ Letmecheck::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+
+  # Allow auto-updating in the dev environment. Actual keys go in
+  # config/application.yml
+  # Make sure config/application.yml is listed in the .gitignore file,
+  # to prevent access codes from being made public.
   require 'pusher'
+
+  Pusher.app_id = ENV['PUSHER_APP_ID']
+  Pusher.key    = ENV['PUSHER_KEY']
+  Pusher.secret = ENV['PUSHER_SECRET']
 
 end

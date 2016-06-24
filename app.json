@@ -23,7 +23,8 @@
     }
   },
   "addons": [
-    "heroku-postgresql"
+    "heroku-postgresql:hobby-dev",
+    "pusher:sandbox"
   ],
   "buildpacks": [
     {

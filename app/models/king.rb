@@ -1,7 +1,7 @@
 class King < Piece
   def valid_move?(new_x, new_y)
-    # Check to see if destination square is the same as origin square
-    super
+    # Check to see if destination square is the same as origin square and off_board?
+    return false unless super
 
     x_offset, y_offset = movement_by_axis(new_x, new_y)
     (-1..1).cover?(x_offset) && (-1..1).cover?(y_offset) || valid_castling?(new_x, new_y)
@@ -10,12 +10,12 @@ class King < Piece
   # An addition to the move_to! method found within the Piece model.
   # This determines which rook is to be castled and moves it to the
   # appropriate square.
-  def move_to!(new_x, new_y)
+  def move_to!(new_x, new_y, real_move = true)
     return false unless valid_move?(new_x, new_y)
     castling = (x_coord - new_x).abs == 2
 
     # Call the move_to! method within the Piece model and move the king.
-    super
+    return false unless super
 
     # If all of the requirements are met for valid_move? AND the intention is to castle;
     # place the rook in its appropriate position to complete the castling move.
@@ -27,9 +27,17 @@ class King < Piece
                                      y_coord: new_y,
                                      moved: true)
     end
+    true
   end
 
   private
+
+  def possible_offsets
+    [[-1, -1], [-1, 0], [-1, 1],
+     [0, -1], [0, 1],
+     [1, -1], [1, 0], [1, 1],
+     [-2, 0], [2, 0]]
+  end
 
   # Determine if castling is allowed.
   def valid_castling?(new_x, new_y)
