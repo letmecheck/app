@@ -1,0 +1,25 @@
+<div id="target">
+  <!-- This if statement checks which player has clicked on the "suggest draw" button-->
+  <% if (@game.white_player_draw && @game.white_player_id == current_user.id) ||
+   (@game.black_player_draw && @game.black_player_id == current_user.id) %>
+
+    <button class="btn btn-success draw-btn pull-right">Draw request sent!</button>
+
+  <% else %>
+
+    <%= link_to "Accept draw request?", draw_game_path(@game, draw_requesting_user: current_user.id), class: 'btn btn-info draw-btn pull-right', remote: true %>
+
+  <% end %>
+<br />
+current_user id is: <%= current_user.id %>
+<br />
+drawing_user id is: <%= @drawing_user_id %>
+<br />
+white_player_draw is : <%= @game.white_player_draw %>
+<br />
+black_player_draw is : <%= @game.black_player_draw %>
+<br />
+white_player_id is : <%= @game.white_player_id %>
+<br />
+black_player_id is : <%= @game.black_player_id %>
+</div>

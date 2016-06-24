@@ -6,15 +6,17 @@
   <% end %>
 </h2>
 
+current_user id is: <%= current_user.id %>
+<br />
+drawing_user id is: <%= @drawing_user_id %>
+
 <div class="col-xs-10 col-xs-offset-1">
   <%= link_to "Concede the Game", concede_game_path(@game, conceding_user: current_user.id), class: 'btn btn-primary pull-left', remote: true %>
   
-  <div id="change">fghhbkjlkhjgkh
+  <div id="changeable_button">
+    <%= link_to "Suggest a draw", draw_game_path(@game, draw_requesting_user: current_user.id), class: 'btn btn-primary draw-btn pull-right', remote: true %>
   </div>
 
-  <%= link_to "Suggest a draw", draw_game_path(@game, draw_requesting_user: current_user.id), class: 'btn btn-primary draw-btn pull-right', remote: true %>
-  
-  <!--<button class="btn btn-primary draw-btn pull-right"> Suggest draw </button>-->
 </div> 
 
 <div class="player-turn text-center"></div>
@@ -76,24 +78,23 @@
     setTimeout(function(){
       window.location.href = '<%= @game.id %>' + '/concede' +'?conceding_player=' + data.player_id;}, 500);
     });
-
+/*
    channel.bind('draw_requested', function(data) {
       alert("A game draw request has been made.");
 
       $(".draw-btn").text("Click to accept a draw");
       $(".draw-btn").css({'background': 'green'});
     });
-
+*/
    channel.bind('game_drawn', function(data) {
    //when  both players decide to draw the game, they are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur)
     setTimeout(function(){
       window.location.href = '<%= @game.id %>' + '/draw';},500);
     });
 
-   channel.bind('refresh', function(data) {
-   
-   //$("#change").load("/games/drw");
-    $("#change").load(window.location.href + "/draw");
+   channel.bind('draw_requested', function(data) {
+    alert("A game draw request has been made.");
+    $("#changeable_button").load(window.location.href + "/button_version #target");
   });    
 
   });

@@ -47,38 +47,31 @@ class GamesController < ApplicationController
   end
 
   def draw
-    #set_game_and_players_variables
-    @game = Game.find_by_id(params[:id])
-    refresh_partial
+    set_game_and_players_variables
+    
+    value = params[:draw_requesting_user]
 
-    #value = params[:draw_requesting_user_id]
-=begin
-    if current_user.id == @white_player.id
+    if value == @white_player.id.to_s
 
       @game.update_attribute(:white_player_draw, true)
-      @draw_requesting_player_id = @white_player.id
 
-    elsif current_user.id == @black_player.id
+    elsif value == @black_player.id.to_s
 
       @game.update_attribute(:black_player_draw, true)
-      @draw_requesting_player_id = @black_player.id
 
     end
 
-    def update_button
-      @the_user_id = 10
-
-      respond_to do |format|
-        format.js
-      end
-    end
-=end
-    #if  one_player_has_requested_draw
+    if  one_player_has_requested_draw
+      change_button_message
       #notify_other_player
-    #else
-     # load_draw_page #in this case, both players have agreed on a draw
-    #end
+    else
+      load_draw_page #in this case, both players have agreed on a draw
+    end
 
+  end
+
+  def button_version
+    set_game_and_players_variables
   end
 
   private
@@ -89,19 +82,19 @@ class GamesController < ApplicationController
     @black_player = User.find_by_id(@game.black_player_id) unless @game.black_player_id.nil?
   end
 
-  def refresh_partial
-    Pusher["game-#{@game.id}"].trigger("refresh", bogus_data: 0)
+  def change_button_message
+    Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: nil)
   end
 
   def load_draw_page
-    Pusher["game-#{@game.id}"].trigger("game_drawn", bogus_data: 0)
+    Pusher["game-#{@game.id}"].trigger("game_drawn", bogus_data: nil)
   end
 
-  def notify_other_player
-    Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
-  end
+  #def notify_other_player
+   # Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
+  #end
 
-  def load_to_concede_page(conceding_player_id)
+  def load_concede_page(conceding_player_id)
     Pusher["game-#{@game.id}"].trigger("game_conceded", player_id: conceding_player_id)
   end
 
