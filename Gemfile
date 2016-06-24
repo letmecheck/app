@@ -8,15 +8,6 @@ gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
-# RSpec
-group :development, :test do
-  gem 'rspec-rails', '~> 3.0'
-  gem 'pry-nav'
-end
-
-# Turns off the Rails asset pipeline log
-gem 'quiet_assets', group: :development
-
 # Rubocop style checking
 gem 'rubocop', '~> 0.40.0', require: false
 
@@ -48,11 +39,6 @@ gem 'jbuilder', '~> 1.2'
 # jQuery UI assets (JavaScripts, stylesheets, and images) for the Rails asset pipeline.
 gem 'jquery-ui-rails'
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
@@ -65,11 +51,25 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# Use rails_12factor gem for easier production deployment
-gem 'rails_12factor', group: :production
-
 # Enable automatic updating of board when opponent moves.
 gem 'pusher'
 
 # Enable hiding of config variables
 gem 'figaro', "~> 1.0"
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
+
+# Use rails_12factor gem for easier production deployment
+gem 'rails_12factor', group: :production
+
+# Turns off the Rails asset pipeline log
+gem 'quiet_assets', group: :development
+
+# RSpec
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'pry-nav'
+end

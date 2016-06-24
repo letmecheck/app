@@ -1,4 +1,4 @@
-<div class="messages">
+<!-- <div class="messages">
   <div class="sent-messages"></div>
   <input id="text" />
   <button id="chat-button">Submit</button>
@@ -16,4 +16,43 @@
       });
     });
   </script>
+</div> -->
+
+
+<div class="chat">
+  <div class="chat-title">
+    <h1><%= @game.other_player %></h1>
+    <figure class="avatar">
+      <%= image_tag 'vader_chess.png', class: 'img-responsive' %>
+    </figure>
+  </div>
+  <div class="messages">
+    <div class="sent-messages"></div>
+  </div>
+  <div class="message-box">
+    <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
+    <button type="submit" class="message-submit">Send</button>
+  </div>
+
+  <script>
+    $(function() {
+      $( '.message-submit' ).click(function() {
+        var message = {
+          "text" : $( '.message-input' ).val()
+        }
+
+        $.post( "<%= message_url(@game) %>", message, function( data ) {
+          console.log( data );
+        });
+      });
+    });
+  </script>
+
 </div>
+<div class="bg"></div>
+
+<!-- The CSS class messages-content has been changed to sent-messages 
+
+ <img src="/assets/vader_chess.png" />  has replaced the following:
+ <img src="http://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80_4.jpg" />
+-->
