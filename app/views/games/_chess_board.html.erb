@@ -1,4 +1,4 @@
-<p class="board-top text-center">&nbsp</p>
+<p class="board-top text-center">&nbsp;</p>
 <!-- <div class="warning text-center">&nbsp</div> -->
 <table id="board">
 
@@ -22,22 +22,3 @@
 </table>
 
 <br>
-
-<input id="text" />
-<button id="chat-button">Submit</button>
-
-<script>
-  $(function() {
-    $( '#chat-button' ).click(function() {
-      var message = {
-        "message" : {
-          "text" : $( '#text' ).val()
-        }
-      };
-
-      $.post( "<%= message_url(@game) %>", message, function( data ) {
-        console.log( data );
-      });
-    });
-  });
-</script>
