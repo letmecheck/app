@@ -70,3 +70,4 @@ gem 'pusher'
 
 # Enable hiding of config variables
 gem 'figaro', "~> 1.0"
+
