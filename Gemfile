@@ -14,6 +14,9 @@ group :development, :test do
   gem 'pry-nav'
 end
 
+# Turns off the Rails asset pipeline log
+gem 'quiet_assets', group: :development
+
 # Rubocop style checking
 gem 'rubocop', '~> 0.40.0', require: false
 
