@@ -254,3 +254,36 @@ $gameMessage-iphone5: 1em;
   color: #3D3D4C;
   text-transform: capitalize;
 }
+
+
+/*--------------------
+Chat
+--------------------*/
+.chat {
+  position: absolute;
+  top: 36%;
+  left: 77%;
+/*  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);*/
+  width: 300px;
+  height: 80vh;
+  max-height: 500px;
+  z-index: 2;
+  overflow: hidden;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
