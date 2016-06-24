@@ -174,13 +174,15 @@ td.squash-me {
 /*Starting from the top [ row 1 ( *or rank-8 ) ], handle rows 2, 4, 6, and 8 
 then take each even column (remember that there is the hidden column for the
 rank-indicator cells) and set the dark background */
-table tr:nth-child(n+2):nth-child(-n+8):nth-child(even) td:nth-child(n+2):nth-child(-n+9):nth-child(even) {
-  background: url('/assets/med_birdseye_70px.jpg');
+.board-booyah-box table tr:nth-child(n+2):nth-child(-n+8):nth-child(even) 
+                        td:nth-child(n+2):nth-child(-n+9):nth-child(even) {
+                          background: url('/assets/med_birdseye_70px.jpg');
 }
 
 /* Starting from the top [ row 1 ( *or rank-8 ) ], handle rows 1, 3, 5, and 7 */
-table tr:nth-child(n+1):nth-child(-n+8):nth-child(odd) td:nth-child(n+2):nth-child(-n+9):nth-child(odd) {
-  background: url('/assets/med_birdseye_70px.jpg');
+.board-booyah-box table tr:nth-child(n+1):nth-child(-n+8):nth-child(odd) 
+                        td:nth-child(n+2):nth-child(-n+9):nth-child(odd) {
+                          background: url('/assets/med_birdseye_70px.jpg');
 }
 
 .square {

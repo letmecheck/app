@@ -33,6 +33,15 @@ class GamesController < ApplicationController
     end
   end
 
+  def message
+    Pusher["game-#{game.id}"].trigger(
+      'message_sent',
+      # from: ,
+      # to: ,
+      text: params[:text]
+    )
+  end
+
   private
 
   def game_spot_open?
