@@ -8,7 +8,7 @@ Letmecheck::Application.routes.draw do
       patch 'draw'
       get 'concede'
       get 'draw'
-      get 'button_version'
+      get 'change_button_version'
     end
   end
 

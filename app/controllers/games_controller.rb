@@ -38,9 +38,13 @@ class GamesController < ApplicationController
     conceding_player_id = params[:conceding_user]
 
     if conceding_player_id == @white_player.id.to_s
+
       @game.update_attribute(:game_conceding_player, "white")
+
     elsif conceding_player_id == @black_player.id.to_s
+
       @game.update_attribute(:game_conceding_player, "black")
+
     end
 
     load_concede_page(conceding_player_id)
@@ -49,13 +53,13 @@ class GamesController < ApplicationController
   def draw
     set_game_and_players_variables
     
-    value = params[:draw_requesting_user]
+    draw_requesting_player = params[:draw_requesting_user]
 
-    if value == @white_player.id.to_s
+    if draw_requesting_player == @white_player.id.to_s
 
       @game.update_attribute(:white_player_draw, true)
 
-    elsif value == @black_player.id.to_s
+    elsif draw_requesting_player == @black_player.id.to_s
 
       @game.update_attribute(:black_player_draw, true)
 
@@ -63,14 +67,14 @@ class GamesController < ApplicationController
 
     if  one_player_has_requested_draw
       change_button_message
-      #notify_other_player
-    else
-      load_draw_page #in this case, both players have agreed on a draw
+    else #in this case, both players have agreed on a draw
+      load_draw_page 
     end
 
   end
 
-  def button_version
+  def change_button_version #this controller action serves only to allow
+  #the loading of the view file with the same name without errors
     set_game_and_players_variables
   end
 
@@ -89,10 +93,6 @@ class GamesController < ApplicationController
   def load_draw_page
     Pusher["game-#{@game.id}"].trigger("game_drawn", bogus_data: nil)
   end
-
-  #def notify_other_player
-   # Pusher["game-#{@game.id}"].trigger("draw_requested", bogus_data: 0)
-  #end
 
   def load_concede_page(conceding_player_id)
     Pusher["game-#{@game.id}"].trigger("game_conceded", player_id: conceding_player_id)

@@ -6,10 +6,6 @@
   <% end %>
 </h2>
 
-current_user id is: <%= current_user.id %>
-<br />
-drawing_user id is: <%= @drawing_user_id %>
-
 <div class="col-xs-10 col-xs-offset-1">
   <%= link_to "Concede the Game", concede_game_path(@game, conceding_user: current_user.id), class: 'btn btn-primary pull-left', remote: true %>
   
@@ -49,15 +45,6 @@ drawing_user id is: <%= @drawing_user_id %>
 <script type="text/javascript" charset="utf-8">
   $(function() {
 
-    // Upon clicking "Draw" button, this ajax request triggers the "draw" action in the games controller(no data is sent to the server)
-   /* $(".draw-btn").click(function(){
-      $.ajax({
-        type: 'PATCH',
-        url: <%= @game.id %> + "/draw"
-      }); 
-    });
-    */
-
     var pusher = new Pusher('<%= ENV["pusher_key"] %>'); // Replace with your app key
     var channel = pusher.subscribe('game-<%= @game.id %>');  
 
@@ -72,29 +59,22 @@ drawing_user id is: <%= @drawing_user_id %>
       console.log('Connection to Pusher failed :(');
     });
 
-
-   channel.bind('game_conceded', function(data) {
     //when one player concedes the game, both players are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur).The query string added at the end of the url allows the passing of data (the id of the player that conceded the game) via the url to be used in concede.html.erb
+   channel.bind('game_conceded', function(data) {
     setTimeout(function(){
       window.location.href = '<%= @game.id %>' + '/concede' +'?conceding_player=' + data.player_id;}, 500);
     });
-/*
-   channel.bind('draw_requested', function(data) {
-      alert("A game draw request has been made.");
 
-      $(".draw-btn").text("Click to accept a draw");
-      $(".draw-btn").css({'background': 'green'});
-    });
-*/
+    //when  both players decide to draw the game, they are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur)
    channel.bind('game_drawn', function(data) {
-   //when  both players decide to draw the game, they are redirected to a new page. The setTimeout is necessary for Chrome users (without it the redirect does not occur)
     setTimeout(function(){
       window.location.href = '<%= @game.id %>' + '/draw';},500);
     });
 
+   //after one player suggests a draw, the message of the "draw" button is updated with the html of a partial
    channel.bind('draw_requested', function(data) {
     alert("A game draw request has been made.");
-    $("#changeable_button").load(window.location.href + "/button_version #target");
+    $("#changeable_button").load(window.location.href + "/change_button_version #target");
   });    
 
   });
