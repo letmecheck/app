@@ -11,7 +11,7 @@ module Movable
     if (destination_piece = game.piece_at(new_x, new_y))
       return capture_piece!(new_x, new_y, destination_piece, real_move)
     end
-    
+
     update_piece_attributes(new_x, new_y, real_move)
   end
 
