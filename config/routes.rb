@@ -9,8 +9,6 @@ Letmecheck::Application.routes.draw do
 
   resources :pieces, only: [:show, :update]
 
-  post 'games/:game_id/message' => 'games#message', as: :message
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

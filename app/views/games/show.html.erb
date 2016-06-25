@@ -23,10 +23,6 @@
 
 <br />
 
-<div class="chatter-box">
-  <%= render 'chat_messaging' %>
-</div>
-
 <!-- Execute the script that allows moving pieces on the board. -->
 <script>
 <% current_player_id = @game.white? ? @game.white_player_id : @game.black_player_id %>
@@ -49,36 +45,34 @@
     <% end %>
     var channel = pusher.subscribe('game-<%= @game.id %>');
 
-    
+    /*
     // Some useful debug msgs
-    // pusher.connection.bind('connecting', function() {
-    //   console.log('Connecting to Pusher...');
-    // });
-    // pusher.connection.bind('connected', function() {
-    //   console.log('Connected to Pusher!');
-    // });
-    // pusher.connection.bind('failed', function() {
-    //   console.log('Connection to Pusher failed :(');
-    // });
-    // channel.bind('subscription_error', function(status) {
-    //   console.log('Pusher subscription_error');
-    // });
-    
+    pusher.connection.bind('connecting', function() {
+      console.log('Connecting to Pusher...');
+    });
+    pusher.connection.bind('connected', function() {
+      console.log('Connected to Pusher!');
+    });
+    pusher.connection.bind('failed', function() {
+      console.log('Connection to Pusher failed :(');
+    });
+    channel.bind('subscription_error', function(status) {
+      console.log('Pusher subscription_error');
+    });
+    */
 
     channel.bind('move_made', function(data) {
-      $.ajax({
-        type: 'PATCH',
-        url: data.piece_url,
-        dataType: 'script',
-        data: { piece: { x_coord: data.dest_x, y_coord: data.dest_y } }
-      });
+      //window.location.reload(false);
+      //if ( data.dest_x !== data.orig_x || data.orig_y !== data.dest_y ) {
+        $.ajax({
+          type: 'PATCH',
+          url: data.piece_url,
+          dataType: 'script',
+          data: { piece: { x_coord: data.dest_x, y_coord: data.dest_y } }
+        });
+      // }
     });
 
-    channel.bind('message_sent', function(data) {
-      var messageBlock = "<p><strong>" + data.sender + 
-                         "</strong> " + data.text + "</p>"
-      $( '.sent-messages' ).append( messageBlock );
-    });
     /*
     //Absolutely awful hack to make messages display:
     <% piece = @game.pieces.take %>

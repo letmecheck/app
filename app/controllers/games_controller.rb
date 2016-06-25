@@ -33,17 +33,6 @@ class GamesController < ApplicationController
     end
   end
 
-  # helper method for Pusher enabled chat messaging
-  def message
-    @game = Game.find_by_id(params[:game_id])
-    Pusher["game-#{@game.id}"].trigger(
-      'message_sent',
-      text: params[:text],
-      sender: current_user.email
-    )
-    render text: 'messages updated!'
-  end
-
   private
 
   def game_spot_open?
