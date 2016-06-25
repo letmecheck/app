@@ -1,6 +1,5 @@
 class Piece < ActiveRecord::Base
   belongs_to :game
-  after_update :send_update_email
   self.inheritance_column = :piece_type
 
   def self.piece_types
@@ -95,5 +94,5 @@ class Piece < ActiveRecord::Base
   def send_update_email
     NotificationMailer.notify_move_made(self).deliver
   end   
-
+  
 end
