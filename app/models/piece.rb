@@ -1,5 +1,6 @@
 class Piece < ActiveRecord::Base
   belongs_to :game
+  after_update :send_update_email
   self.inheritance_column = :piece_type
 
   def self.piece_types
