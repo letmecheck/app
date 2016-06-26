@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe Game, type: :model do
   describe '.player_can_move' do
     it 'works properly for checkmate' do
-      white_user = FactoryGirl.create(:user)
-      black_user = FactoryGirl.create(:user)
+      #white_user = FactoryGirl.create(:user)
+      #sign_in white_user
+      #black_user = FactoryGirl.create(:user)
+      #sign_in black_user
       @game = Game.create!
 
       # Fool's mate.

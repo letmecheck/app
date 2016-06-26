@@ -93,6 +93,6 @@ class Piece < ActiveRecord::Base
   end
 
   def send_update_email
-    NotificationMailer.notify_move_made(self).deliver
+    NotificationMailer.notify_move_made(self).deliver_now
   end
 end
