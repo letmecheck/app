@@ -97,12 +97,18 @@ class Game < ActiveRecord::Base
   end
 
   def assign_wins_and_losses
-    if self.black_player_id && self.white_player_id
-      winner = self.game_result == "black" ? User.find(self.black_player_id) : User.find(self.white_player_id)
-      loser = self.game_result == "black" ? User.find(self.white_player_id) : User.find(self.black_player_id)
-      winner.wins.nil? ? winner.update_attribute(:wins, 1) : winner.update_attribute(:wins, (winner.wins + 1))
-      loser.losses.nil? ? loser.update_attribute(:losses, 1) : loser.update_attribute(:losses, (loser.losses + 1))    
-    end
+    increment_wins if black_player_id && white_player_id
+    increment_losses if black_player_id && white_player_id
+  end
+
+  def increment_wins
+    winner = game_result == "black" ? User.find(black_player_id) : User.find(white_player_id)
+    winner.wins.nil? ? winner.update_attribute(:wins, 1) : winner.update_attribute(:wins, (winner.wins + 1))
+  end
+
+  def increment_losses
+    loser = game_result == "black" ? User.find(white_player_id) : User.find(black_player_id)
+    loser.losses.nil? ? loser.update_attribute(:losses, 1) : loser.update_attribute(:losses, (loser.losses + 1))
   end
 
   def stalemate
