@@ -27,95 +27,97 @@
     </figure>
   </div>
   <div class="messages">
-    <div class="sent-messages mCustomScrollbar update" data-mcs-theme="dark"></div>
+    <div class="sent-messages mCustomScrollbar update scroll-pane" data-mcs-theme="dark"></div>
   </div>
   <div class="message-box">
     <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
     <button type="submit" class="message-submit">Send</button>
   </div>
+</div>
 
-  <script>
-    $(function() {
-      // grab message content
-      $( '.message-submit' ).click(sendMessage);
+<script>
+  $(function() {
+    // grab message content
+    $( '.message-submit' ).click(sendMessage);
 
-      $(window).on('keydown', function(e) {
-        if (e.which == 13) {
-          sendMessage();
-          return false;
-        }
-      });
-
-      function sendMessage() {
-        msg = $('.message-input').val();
-        if ($.trim(msg) == '') {
-          return false;
-        }
-
-        var message = {
-          "text" : msg,
-          "date" : setDate()
-        };
-
-        // request to Pusher
-        $.post( "<%= message_url(@game) %>", message, function( data ) {
-          console.log( data );
-        });
-        $('.message-input').val(null);
-      }
-
-      function setDate(){
-        var d = new Date();
-        var m = d.getMinutes();
-        return String(d.getHours()) + ':' + m;
+    $(window).on('keydown', function(e) {
+      if (e.which == 13) {
+        sendMessage();
+        return false;
       }
     });
 
-    var $messages = $('.sent-messages');
-    
-    function updateScrollbar() {
-      $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
-        scrollInertia: 10,
-        timeout: 0
-      });
-    }
-
-    $messages.mCustomScrollbar();
-    
-
-    function insertMessage() {
+    function sendMessage() {
       msg = $('.message-input').val();
       if ($.trim(msg) == '') {
         return false;
       }
-      $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
-      setDate();
-      // $('.message-input').val(null);
-      updateScrollbar();
+
+      var message = {
+        "text" : msg,
+        "date" : setDate()
+      };
+
+      // request to Pusher
+      $.post( "<%= message_url(@game) %>", message, function( data ) {
+        console.log( data );
+      });
+      $('.message-input').val(null);
     }
 
-    // $(function() {
-    //   $('.scroll-pane').jScrollPane();
-    // });
+    function setDate(){
+      var d = new Date();
+      var m = d.getMinutes();
+      return String(d.getHours()) + ':' + m;
+    }
+  });
 
-    // $('.message-submit').click(function() {
-    //   insertMessage();
-    // });
-  </script>
+  var $messages = $('.sent-messages');
+    
+  function updateScrollbar() {
+    $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
+      scrollInertia: 10,
+      timeout: 0
+    });
+    // $('.scroll-pane').jScrollPane();
+  }
 
-  <script type="text/javascript">
-    (function($){
-        $(window).on("load",function(){
-            $(".sent-messages").mCustomScrollbar();
-        });
-      })
+  $messages.mCustomScrollbar();
+  
+  function insertMessage() {
+    msg = $('.message-input').val();
+    if ($.trim(msg) == '') {
+      return false;
+    }
+    $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+    setDate();
+    // $('.message-input').val(null);
+    updateScrollbar();
+  }
+
+  // $(function() {
+  //   $('.scroll-pane').jScrollPane();
+  // });
+
+  (function($){
+    $(window).on("load",function(){
+        $(".sent-messages").mCustomScrollbar();
+      });
+    })
+  (jQuery);
+</script>
+
+<!--   <script type="text/javascript">
+    $(function() {
+      $(".sent-messages").mCustomScrollbar();
+    });
     (jQuery);
-  </script>
-</div>
+  </script> -->
+
 <!-- <div class="bg"></div> -->
 
 <!-- The CSS class messages-content has been changed to sent-messages 
 
  <img src="/assets/vader_chess.png" />  has replaced the following:
- <img src="http://s3-us-west-2.amazonaws.com/s.cdpn.io/156381/profile/profile-80_4.jpg" />
+
 -->
