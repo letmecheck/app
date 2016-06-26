@@ -261,7 +261,7 @@ Chat
 --------------------*/
 .chat {
   position: absolute;
-  top: 36%;
+  top: 33%;
   left: 77%;
 /*  -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);*/
@@ -540,8 +540,13 @@ Message Box
 }
 
 /*--------------------
-Custom Srollbar
+Custom Scrollbar
 --------------------*/
+.scroll-pane {
+  width: 100%;
+  overflow: auto;
+}
+
 .mCSB_scrollTools {
   margin: 1px -3px 1px 0;
   opacity: 0;
@@ -588,8 +593,21 @@ Custom Srollbar
 }
 
 /* ---------------------------------------- */
+/* Media Queries for chat window postitioning and size */
+/* iphone5 held in portrait */
+@media (max-width: 321px) {
+  .chat {
+    position: absolute;
+    top: 81%;
+    left: 2%;
+    width: 308px;
+    max-height: 108px;
+  }
 
-.scroll-pane {
-  width: 100%;
-  overflow: auto;
+  .message-box .message-input {
+    resize: none;
+    font-size: 11px;
+    height: 17px;
+    width: 267px;
+  }
 }

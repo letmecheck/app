@@ -48,8 +48,7 @@
       var pusher = new Pusher('<%= ENV['PUSHER_KEY'] %>');
     <% end %>
     var channel = pusher.subscribe('game-<%= @game.id %>');
-
-    
+ 
     // Some useful debug msgs
     // pusher.connection.bind('connecting', function() {
     //   console.log('Connecting to Pusher...');
@@ -63,7 +62,6 @@
     // channel.bind('subscription_error', function(status) {
     //   console.log('Pusher subscription_error');
     // });
-    
 
     channel.bind('move_made', function(data) {
       $.ajax({
@@ -78,28 +76,9 @@
       var messageBlock = "<p>" + data.date + "&nbsp; <strong>" + data.sender + 
                          "</strong> " + data.text + "</p>"
       $( '.sent-messages' ).append( messageBlock );
-      // updateScrollbar();
+      // update the scroll-bar
       $(".sent-messages").scrollTop($(".sent-messages")[0].scrollHeight);
     });
-
-    // var $messages = $('.sent-messages');
-
-    // $messages.mCustomScrollbar();
-    
-    // function updateScrollbar() {
-    //   $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
-    //     scrollInertia: 10,
-    //     timeout: 0
-    //   });
-    // }
-
-     // POSSIBLE FIX .content MAY NEED TO BE REPLACED WITH THE PROPER HANDLER
-    // (function($){
-    //     $(window).on("load",function(){
-    //         $(".sent-messages").mCustomScrollbar();
-    //     });
-    //   })(jQuery);
-
 
     /*
     //Absolutely awful hack to make messages display:

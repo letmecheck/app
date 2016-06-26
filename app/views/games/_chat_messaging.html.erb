@@ -21,13 +21,13 @@
 
 <div class="chat">
   <div class="chat-title">
-    <h1><%= @game.other_player %></h1>
-    <figure class="avatar">
+    <h1><%= @game.name %></h1>
+<!--     <figure class="avatar">
       <%= image_tag 'vader_chess.png', class: 'img-responsive' %>
-    </figure>
+    </figure> -->
   </div>
   <div class="messages">
-    <div class="sent-messages update scroll-pane" data-mcs-theme="dark"></div>
+    <div class="sent-messages mCustomScrollbar update scroll-pane" data-mcs-theme="dark"></div>
   </div>
   <div class="message-box">
     <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
@@ -74,12 +74,12 @@
 
   var $messages = $('.sent-messages');
     
-  function updateScrollbar() {
-    $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
-      scrollInertia: 10,
-      timeout: 0
-    });
-  }
+  // function updateScrollbar() {
+  //   $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
+  //     scrollInertia: 10,
+  //     timeout: 0
+  //   });
+  // }
 
   $messages.mCustomScrollbar();
   
