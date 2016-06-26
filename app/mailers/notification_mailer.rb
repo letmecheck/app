@@ -4,7 +4,7 @@ class NotificationMailer < ApplicationMailer
   def notify_move_made(piece)
     if player(piece) && player(piece).timedout?(player(piece).last_request_at)
       mail(to: player(piece).email,
-          subject: "Your opponent has moved a #{piece.piece_type} to #{(piece.x_coord + 96).chr}#{piece.y_coord}")
+           subject: "Your opponent has moved a #{piece.piece_type} to #{(piece.x_coord + 96).chr}#{piece.y_coord}")
     end
   end
 
