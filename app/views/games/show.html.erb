@@ -75,10 +75,32 @@
     });
 
     channel.bind('message_sent', function(data) {
-      var messageBlock = "<p><strong>" + data.sender + 
+      var messageBlock = "<p>" + data.date + " <strong>" + data.sender + 
                          "</strong> " + data.text + "</p>"
       $( '.sent-messages' ).append( messageBlock );
+      updateScrollbar();
     });
+
+    // var $messages = $('.sent-messages');
+
+    // $messages.mCustomScrollbar();
+    
+    // function updateScrollbar() {
+    //   $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
+    //     scrollInertia: 10,
+    //     timeout: 0
+    //   });
+    // }
+
+     // POSSIBLE FIX .content MAY NEED TO BE REPLACED WITH THE PROPER HANDLER
+    // (function($){
+    //     $(window).on("load",function(){
+    //         $(".sent-messages").mCustomScrollbar();
+    //     });
+    //   })(jQuery);
+    // });
+
+
     /*
     //Absolutely awful hack to make messages display:
     <% piece = @game.pieces.take %>

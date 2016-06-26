@@ -6,7 +6,7 @@
     <tr>
       <% 0.upto(9) do |x| %>
         <td data-x="<%= x %>" data-y="<%= y %>
-            "class="square<%= add_rank_indicator_class(x) %>
+            "class="square<%= add_rank_indicator_class(x, y) %>
                           <%= add_file_indicator_class(x, y) %>
                           <%= add_squash_class(x, y) %>" >
           <%= game_pieces(@game, x, y) %>

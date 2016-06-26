@@ -39,6 +39,7 @@ class GamesController < ApplicationController
     Pusher["game-#{@game.id}"].trigger(
       'message_sent',
       text: params[:text],
+      date: params[:date],
       sender: current_user.email
     )
     render text: 'messages updated!'

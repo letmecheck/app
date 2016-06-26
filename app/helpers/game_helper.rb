@@ -24,12 +24,12 @@ module GameHelper
     + " squash-me" if y == 0 || x == 9
   end
 
-  def add_rank_indicator_class(x)
-    + " rank-indicator center-text rank-and-file" if x == 0
+  def add_rank_indicator_class(x, y)
+    + " rank-indicator center-text rank-and-file" if x == 0 && y != 0
   end
 
   def add_file_indicator_class(x, y)
-    + " file-indicator center-text rank-and-file" if y == 0 && x != 9
+    + " file-indicator center-text rank-and-file" if y == 0 && (x != 9 && x != 0)
   end
 
   def convert_number_to_file_letter(x, y)
