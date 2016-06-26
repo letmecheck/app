@@ -75,10 +75,11 @@
     });
 
     channel.bind('message_sent', function(data) {
-      var messageBlock = "<p>" + data.date + " <strong>" + data.sender + 
+      var messageBlock = "<p>" + data.date + "&nbsp; <strong>" + data.sender + 
                          "</strong> " + data.text + "</p>"
       $( '.sent-messages' ).append( messageBlock );
-      updateScrollbar();
+      // updateScrollbar();
+      $(".sent-messages").scrollTop($(".sent-messages")[0].scrollHeight);
     });
 
     // var $messages = $('.sent-messages');

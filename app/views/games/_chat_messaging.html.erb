@@ -27,7 +27,7 @@
     </figure>
   </div>
   <div class="messages">
-    <div class="sent-messages mCustomScrollbar update scroll-pane" data-mcs-theme="dark"></div>
+    <div class="sent-messages update scroll-pane" data-mcs-theme="dark"></div>
   </div>
   <div class="message-box">
     <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
@@ -79,7 +79,6 @@
       scrollInertia: 10,
       timeout: 0
     });
-    // $('.scroll-pane').jScrollPane();
   }
 
   $messages.mCustomScrollbar();
@@ -94,10 +93,6 @@
     // $('.message-input').val(null);
     updateScrollbar();
   }
-
-  // $(function() {
-  //   $('.scroll-pane').jScrollPane();
-  // });
 
   (function($){
     $(window).on("load",function(){
