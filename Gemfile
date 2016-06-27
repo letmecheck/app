@@ -8,6 +8,8 @@ gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+gem 'devise-bootstrap-views'
+
 # RSpec
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
