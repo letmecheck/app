@@ -598,7 +598,7 @@ Custom Scrollbar
 @media (max-width: 321px) {
   .chat {
     position: absolute;
-    top: 81%;
+    top: 80%;
     left: 2%;
     width: 308px;
     max-height: 108px;
@@ -617,7 +617,7 @@ Custom Scrollbar
     position: absolute;
     top: 78%;
     left: 2%;
-    width: 308px;
+    width: 322px;
     max-height: 108px;
   }
 
@@ -625,7 +625,7 @@ Custom Scrollbar
     resize: none;
     font-size: 11px;
     height: 17px;
-    width: 267px;
+    width: 278px;
   }
 }
 
@@ -633,9 +633,9 @@ Custom Scrollbar
 @media (min-width: 360px) and (max-width: 374px) {
   .chat {
     position: absolute;
-    top: 71%;
+    top: 76%;
     left: 3%;
-    width: 308px;
+    width: 336px;
     max-height: 140px;
   }
 
@@ -643,6 +643,42 @@ Custom Scrollbar
     resize: none;
     font-size: 11px;
     height: 17px;
-    width: 267px;
+    width: 290px;
+  }
+}
+
+/* ------- iPhone6 held in portrait------ */
+@media (min-width: 375px) and (max-width: 410px) {
+  .chat {
+    position: absolute;
+    top: 73%;
+    left: 6%;
+    width: 328px;
+    max-height: 172px;
+  }
+
+  .message-box .message-input {
+    resize: none;
+    font-size: 11px;
+    height: 17px;
+    width: 290px;
+  }
+}
+
+/* ------- Nexus5X held in portrait------ */
+@media (min-width: 411px) and (max-width: 413px) {
+  .chat {
+    position: absolute;
+    top: 72%;
+    left: 3%;
+    width: 384px;
+    max-height: 172px;
+  }
+
+  .message-box .message-input {
+    resize: none;
+    font-size: 11px;
+    height: 17px;
+    width: 348px;
   }
 }
