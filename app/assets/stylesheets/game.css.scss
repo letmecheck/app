@@ -611,3 +611,38 @@ Custom Scrollbar
     width: 267px;
   }
 }
+
+@media (min-width: 322px) and (max-width: 359px) {
+  .chat {
+    position: absolute;
+    top: 78%;
+    left: 2%;
+    width: 308px;
+    max-height: 108px;
+  }
+
+  .message-box .message-input {
+    resize: none;
+    font-size: 11px;
+    height: 17px;
+    width: 267px;
+  }
+}
+
+/* ------- Samsung Galaxy S5 held in portrait ------ */
+@media (min-width: 360px) and (max-width: 374px) {
+  .chat {
+    position: absolute;
+    top: 71%;
+    left: 3%;
+    width: 308px;
+    max-height: 140px;
+  }
+
+  .message-box .message-input {
+    resize: none;
+    font-size: 11px;
+    height: 17px;
+    width: 267px;
+  }
+}
