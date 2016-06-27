@@ -1,6 +1,72 @@
 // Replaces the board with a brand-spanking-new board.
 <% @game = @piece.game %>
 $( ".board-booyah-box" ).html("<%= escape_javascript(render('games/chess_board')) %>");
-// The following calls the function within master.js to make 
-// pieces draggable and squares droppable.
-dragDrop();
+
+<% if (result = @game.game_result)  # Game is over. %>
+  <% case @game.game_over_reason %>
+  <% when "checkmate" %>
+    $( ".board-top" ).html( "Checkmate, <%= result %> wins!" )
+                     .addClass( "gameMessage", 1000 )
+                     .addClass( "animated bounceInUp" )
+                     .animate( { letterSpacing: ".3em" }, 1200 );
+
+    <% loser = result == 'white' ? 'black' : 'white' %>
+    $("#<%= loser %>-king").addClass( "animated bounce blushing-king" );
+
+  <% when "stalemate" %>
+    $( ".board-top" ).html( "Stalemate, the game is a draw!" )
+                     .addClass( "gameMessage", 1000 )
+                     .addClass( "animated bounceInUp" )
+                     .animate( { letterSpacing: ".3em" }, 1200 );
+
+  <% when "75 move" %>
+    $( ".board-top" ).html( "No progress in 75 moves. Draw.")
+                     .addClass( "gameMessage", 1000 )
+                     .addClass( "animated bounceInUp" )
+                     .animate( { letterSpacing: ".3em" }, 1200 );
+  <% end %>
+
+  $( ".player-turn" ).hide();
+
+<% else  # Game is not over. %>
+  // The following calls the function within master.js and limits
+  // making pieces draggable and squares droppable to only the player
+  // who has the next move.
+  <% current_player_id = @game.white? ? @game.white_player_id : @game.black_player_id %>
+  <% if current_user.id == current_player_id %>
+    dragDrop();
+  <% end %>
+
+  // Display a message indicating whether it's white or black's turn.
+  <% if @game.white? %>
+    $( ".rank-and-file" ).addClass( "animated fadeIn white-letters", 800 )
+                            .removeClass( "black-letters", "slow" );
+
+    $( ".player-turn" ).html( "current move: white player" )
+                       .addClass( "animated fadeInDown white-player-turn", 1000 );
+  <% elsif @game.black? %>
+    $( ".rank-and-file" ).removeClass( "white-letters", "slow" )
+                            .addClass( "animated fadeIn black-letters", 800 );
+
+    $( ".player-turn" ).html( "current move: black player" )
+                       .addClass( "animated fadeInUp black-player-turn", 1000 );
+  <% end %>
+
+  // Display a warning if the king is in check
+  <% if @game.in_check?('black') %>
+    $( ".board-top" ).html( "Hello, black is in check!" )
+                   .addClass( "gameMessage", 1000 )
+                   .addClass( "animated bounceInUp" )
+                   .animate( { letterSpacing: ".3em" }, 1200 );
+
+    $("#black-king").addClass( "animated bounce blushing-king" );
+
+  <% elsif @game.in_check?('white') %>
+    $( ".board-top" ).html( "Hello, white is in check!" )
+                   .addClass( "gameMessage", 1000 )
+                   .addClass( "animated bounceInUp" )
+                   .animate( { letterSpacing: ".3em" }, 1200 );
+
+    $("#white-king").addClass( "animated bounce blushing-king" );
+  <% end %>
+<% end %>

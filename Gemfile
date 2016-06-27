@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.2.6'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -66,3 +66,9 @@ end
 
 # Use rails_12factor gem for easier production deployment
 gem 'rails_12factor', group: :production
+
+# Enable automatic updating of board when opponent moves.
+gem 'pusher'
+
+# Enable hiding of config variables
+gem 'figaro', "~> 1.0"

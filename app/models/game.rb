@@ -1,4 +1,6 @@
 class Game < ActiveRecord::Base
+  enum current_player: [:white, :black]
+
   belongs_to :user
   has_many :pieces
 
@@ -6,10 +8,38 @@ class Game < ActiveRecord::Base
 
   after_create :setup_board!
 
+  def switch_players!
+    if white?
+      black!
+    else
+      white!
+    end
+  end
+
+  # helper method to aid in determining the opponent's color
+  # this returns the color of the player who does NOT have the current move
+  def other_player
+    white? ? 'black' : 'white'
+  end
+
+  # Helper method used to determine if a particular square is under potential attack.
+  def square_threatened_by?(color, destination_x, destination_y)
+    enemy_pieces = pieces.where(color: color)
+    enemy_pieces.each do |piece|
+      return true if piece.valid_move?(destination_x, destination_y)
+    end
+    false
+  end
+
+  # Helper method for in_check?
+  def find_king(color)
+    pieces.find_by(piece_type: 'King', color: color)
+  end
+
   # Determine if the king is being moved into a position resulting in check.
   def in_check?(color)
     # Find the active player's king
-    king = pieces.find_by(piece_type: 'King', color: color)
+    king = find_king(color)
 
     # Distinguish which pieces belong to the opponent.
     opponent_color = (color == 'white') ? 'black' : 'white'
@@ -22,15 +52,52 @@ class Game < ActiveRecord::Base
     pieces.find_by(x_coord: x_coord, y_coord: y_coord)
   end
 
-  private
-
-  # Helper method used to determine if a particular square is under potential attack.
-  def square_threatened_by?(color, destination_x, destination_y)
-    enemy_pieces = pieces.where(color: color)
-    enemy_pieces.each do |piece|
-      return true if piece.valid_move?(destination_x, destination_y)
+  # helper method that aids in determining stalemate/checkmate
+  def player_can_move?(color)
+    player_pieces = pieces.where(color: color)
+    player_pieces.each do |piece|
+      return true if piece.can_move?
     end
     false
+  end
+
+  def game_over?
+    return mate_handler unless player_can_move?(current_player)
+    # TODO: Add handler for resignation and agreed-upon draws.
+    # TODO: Add handler for insufficient material.
+    # TODO: Add fifty-move handler.
+    return seventy_five_move_handler if move_rule_count >= 150
+    # TODO: Add threefold-repetition handler.
+    # TODO: Add handler for five-consecutive-repetition draw.
+    false
+  end
+
+  private
+
+  def mate_handler
+    if in_check?(current_player)
+      checkmate
+    else
+      stalemate
+    end
+    true
+  end
+
+  def seventy_five_move_handler
+    update_attribute(:game_result, "draw")
+    update_attribute(:game_over_reason, "75 move")
+    true
+  end
+
+  def checkmate
+    # The current player is the one who is under checkmate
+    update_attribute(:game_result, other_player)
+    update_attribute(:game_over_reason, "checkmate")
+  end
+
+  def stalemate
+    update_attribute(:game_result, "draw")
+    update_attribute(:game_over_reason, "stalemate")
   end
 
   def setup_board!

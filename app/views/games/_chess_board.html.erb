@@ -1,18 +1,23 @@
-<p class="boardTopBottom"></p>
+<p class="board-top text-center">&nbsp</p>
+<!-- <div class="warning text-center">&nbsp</div> -->
   <table id="board">
-    <% 8.downto(1) do |y| %>
+
+    <% 8.downto(0) do |y| %>
       <tr>
-        <% 1.upto(8) do |x| %>
-        <% piece = @game.pieces.find_by(x_coord: x, y_coord: y) %>
-          <td data-x="<%= x %>" data-y="<%= y %>"class="square">
-            <% if piece.present? %>
-              <%= image_tag(piece.img, 
-                            class: "chessPiece img-responsive",
-                            "data-update-url" => piece_url(piece)) %>       
-            <% end %>
+        <% 0.upto(9) do |x| %>
+          <td data-x="<%= x %>" data-y="<%= y %>
+              "class="square<%= add_rank_indicator_class(x) %>
+                            <%= add_file_indicator_class(x, y) %>
+                            <%= add_squash_class(x, y) %>" >
+            <%= game_pieces(@game, x, y) %>
+            <!-- output y for the rank indicator -->
+            <%= y if x == 0 && y != 0 %>
+
+            <%= convert_number_to_file_letter(x, y) %>
           </td>
         <% end %>
       </tr>
+
     <% end %>
   </table>
-<p class="boardTopBottom"></p>
+<!-- <p class="boardTopBottom rank-and-file file-indicator text-center col-xs-12"></p> -->

@@ -5,16 +5,26 @@ class PiecesController < ApplicationController
 
   def update
     @piece = Piece.find(params[:id])
-    @piece.move_to!(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i)
-    # The following three lines are for testing purposes and are to be removed after review.
-    # black_check = @piece.game.in_check?('black')
-    # white_check = @piece.game.in_check?('white')
-    # flash.notice = "in check? White: #{white_check} Black: #{black_check}"
+    original_x = @piece.x_coord
+    original_y = @piece.y_coord
+    @piece.move_to!(piece_params[:x_coord].to_i, piece_params[:y_coord].to_i) &&
+      trigger_notification(original_x, original_y)
   end
 
   private
 
   def piece_params
     params.require(:piece).permit(:x_coord, :y_coord)
+  end
+
+  def trigger_notification(original_x, original_y)
+    Pusher["game-#{@piece.game.id}"].trigger(
+      'move_made',
+      piece_url: piece_url(@piece),
+      orig_x: original_x,
+      orig_y: original_y,
+      dest_x: piece_params[:x_coord].to_i,
+      dest_y: piece_params[:y_coord].to_i
+    )
   end
 end
