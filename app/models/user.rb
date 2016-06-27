@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :games
-  
+
   private
-  
+
   def initialize_wins_and_losses
     update_attribute(:wins, 0)
     update_attribute(:losses, 0)
