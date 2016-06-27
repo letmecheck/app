@@ -103,12 +103,12 @@ class Game < ActiveRecord::Base
 
   def increment_wins
     winner = game_result == "black" ? User.find(black_player_id) : User.find(white_player_id)
-    winner.wins.nil? ? winner.update_attribute(:wins, 1) : winner.update_attribute(:wins, (winner.wins + 1))
+    winner.update_attribute(:wins, (winner.wins + 1))
   end
 
   def increment_losses
     loser = game_result == "black" ? User.find(white_player_id) : User.find(black_player_id)
-    loser.losses.nil? ? loser.update_attribute(:losses, 1) : loser.update_attribute(:losses, (loser.losses + 1))
+    loser.update_attribute(:losses, (loser.losses + 1))
   end
 
   def stalemate
