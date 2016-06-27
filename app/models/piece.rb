@@ -91,8 +91,8 @@ class Piece < ActiveRecord::Base
   def nth_rank(n)
     color == 'white' ? n : 9 - n
   end
-  
+
   def send_update_email
     NotificationMailer.notify_move_made(self).deliver_now
-  end  
+  end
 end
