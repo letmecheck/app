@@ -6,7 +6,7 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
     <div class="form-group">
       <p><%= f.label :login %><br />
-       <%= f.text_field :login %></p>
+       <%= f.text_field :login, class: "form-control" %></p>
     </div>
 
       <div class="form-group">
