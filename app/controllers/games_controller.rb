@@ -105,6 +105,6 @@ class GamesController < ApplicationController
   end
 
   def one_player_has_requested_draw
-    return true if (@game.black_player_draw  && !@game.white_player_draw) || (@game.white_player_draw && !@game.black_player_draw)
+    return true if (@game.black_player_draw && !@game.white_player_draw) || (@game.white_player_draw && !@game.black_player_draw)
   end
 end
