@@ -5,6 +5,13 @@ Letmecheck::Application.routes.draw do
   resources :leader_boards, only: [:index, :show]
 
   resources :games do
+    member do
+      patch 'concede'
+      patch 'draw'
+      get 'concede'
+      get 'draw'
+      get 'change_button_version'
+    end
   end
 
   resources :pieces, only: [:show, :update]
