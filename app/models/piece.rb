@@ -1,5 +1,6 @@
 class Piece < ActiveRecord::Base
   belongs_to :game
+  after_update :send_update_email
   self.inheritance_column = :piece_type
 
   def self.piece_types
@@ -89,5 +90,9 @@ class Piece < ActiveRecord::Base
   # returns 2 if the piece is white, and 7 if it's black.
   def nth_rank(n)
     color == 'white' ? n : 9 - n
+  end
+
+  def send_update_email
+    NotificationMailer.notify_move_made(self).deliver_now
   end
 end

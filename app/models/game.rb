@@ -92,7 +92,23 @@ class Game < ActiveRecord::Base
   def checkmate
     # The current player is the one who is under checkmate
     update_attribute(:game_result, other_player)
+    assign_wins_and_losses
     update_attribute(:game_over_reason, "checkmate")
+  end
+
+  def assign_wins_and_losses
+    increment_wins if black_player_id && white_player_id
+    increment_losses if black_player_id && white_player_id
+  end
+
+  def increment_wins
+    winner = game_result == "black" ? User.find(black_player_id) : User.find(white_player_id)
+    winner.update_attribute(:wins, (winner.wins + 1))
+  end
+
+  def increment_losses
+    loser = game_result == "black" ? User.find(white_player_id) : User.find(black_player_id)
+    loser.update_attribute(:losses, (loser.losses + 1))
   end
 
   def stalemate
