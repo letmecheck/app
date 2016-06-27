@@ -8,11 +8,12 @@ gem 'rails', '4.2.6'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+gem 'devise-bootstrap-views'
+
 # RSpec
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'pry-nav'
-  gem 'factory_girl_rails', '~> 4.0'
 end
 
 # Rubocop style checking
