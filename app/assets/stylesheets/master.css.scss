@@ -450,21 +450,19 @@ body {
 }
 
 /* ------ Styling for the games#new page ------- */
+.new-game h1 {
+  font-weight: 200;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+}
 
-/*.new-game input[type="text"] {
+.new-game input[type="text"] {
   margin-left: 2rem;
   color: #000;
-}*/
+}
 
 
-/* ------ Styling for the users#sign_up page ------- */
-/*.new_user input {
-  color: #000;
-}*/
-
-
-
-/* ------ Styling for the users#sign_up page ------- */
+/* ------ Additional styling for devise forms ------- */
 .panel-body {
   color: #000;
 }
