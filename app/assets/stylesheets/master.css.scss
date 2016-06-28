@@ -32,9 +32,25 @@ h2 {
   background-color: yellow;
 }
 
+.concede-draw {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.concede-draw .btn-sm {
+  background-color: #cecece;
+  border-color: rgba(138, 109, 59, 0.32);
+}
+
+.concede-draw .btn-sm:hover {
+  background-color: #286090;
+  border-color: #204d74;
+  border-radius: 1rem;
+}
+
 .btn-sm {
   font-size: 10px;
-  border-radius: 20px;
+  border-radius: .5rem;
 }
 
 /*!
