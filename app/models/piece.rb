@@ -20,7 +20,7 @@ class Piece < ActiveRecord::Base
 
     return false if off_board?(new_x, new_y)
 
-    # The rest of the logic is each Piece sub-class valid_move? method
+    # The rest of the logic is the valid_move? method for each Piece sub-class.
     true
   end
 
