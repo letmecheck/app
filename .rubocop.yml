@@ -25,3 +25,7 @@ Style/EndOfLine:
 
 Style/LeadingCommentSpace:
   Enabled: false
+
+# Allow classes longer than 100 lines of code
+ClassLength:
+  Max: 110

@@ -22,7 +22,7 @@ class Game < ActiveRecord::Base
     white? ? 'black' : 'white'
   end
 
-  # Helper method used to determine if a particular square is under potential attack.
+  # Determine if a particular square is under potential attack.
   def square_threatened_by?(color, destination_x, destination_y)
     enemy_pieces = pieces.where(color: color)
     enemy_pieces.each do |piece|

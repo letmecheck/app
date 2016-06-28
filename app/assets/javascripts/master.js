@@ -1,7 +1,8 @@
 function dragDrop() {
   $(".chessPiece").draggable({
     containment: "#board",
-    //cursor: "move", play with this to make the cursor at the bottom of the piece, this might make it easier to see what's happening on a smaller device
+    //cursor: "move", play with this to make the cursor at the bottom of the piece, 
+    // this might make it easier to see what's happening on a smaller device
     revert: true,
   });
 

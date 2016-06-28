@@ -1,3 +1,388 @@
-<h1>Welcome to Let Me Check</h1>
-<br>
-<%= link_to 'Start a Game', new_game_path, class: 'btn btn-primary btn-large' %>
+<!-- Intro Header -->
+<header class="intro">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1 class="brand-heading">Let Me Check</h1>
+                    <p class="intro-text">Play a friendly game of chess online.<br>Created by Team LetMeCheck.</p>
+                    <a href="#about" class="btn btn-circle page-scroll">
+                        <i class="fa fa-angle-double-down animated"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- About Section -->
+<section id="about" class="container content-section text-center">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 align-center">
+          <!-- Section Titles -->
+            <h1 class="section-title mb-10">
+                About the Team
+            </h1>
+            <h2 class="section-heading">
+                Six Dedicated Ruby on Rails Developers
+            </h2>
+            <!-- End Section Titles -->
+                  
+            <div class="section-line mb-50 mb-xs-30"></div>
+                  
+            <!-- Section Text -->
+            <div class="section-text mb-80 mb-xs-50">
+              Let Me Check represents the work of six developers spanning nine time-zones to build a chess app built with Ruby on Rails. Seasoned veteran, Ilya Krasnov, kept the team working in an Agile Environment, as well as organize weekly standup meetings. 
+            </div>
+            <br>
+            <!-- End Section Text -->                   
+          </div>
+        </div>
+              
+              
+        <!-- Team Grid -->
+        <div class="row multi-columns-row">
+            
+            <!-- Team Item -->
+            <div class="col-sm-6 col-md-2 col-lg-2 mb-sm-30 wow fadeInUp">
+                <div class="team-item">
+                    
+                    <div class="team-item-image">
+
+                      <%= image_tag 'ik_linked.jpg', class: 'img-responsive' %>
+                        
+                        <div class="team-item-detail">
+                            
+<!--                           <h4 class="team-item-h">Hello & Welcome!</h4>
+                          
+                          <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit lacus, a&nbsp;iaculis diam. 
+                          </p> -->
+                          
+                          <div class="team-social-links">
+                              <a href="https://github.com/ilyakrasnov" target="_blank"><i class="fa fa-github"></i></a>
+                              <a href="https://de.linkedin.com/in/ikrasnov" target="_blank"><i class="fa fa-linkedin"></i></a>
+                              <a href="https://twitter.com/ilyakrasnov" target="_blank"><i class="fa fa-twitter"></i></a>
+                          </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="team-item-descr">
+                        
+                        <div class="team-item-name">
+                            Ilya Krasnov 
+                        </div>
+                        
+                        <div class="team-item-role">
+                            Team Lead
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- End Team Item -->
+            
+            <!-- Team Item -->
+            <div class="col-sm-6 col-md-2 col-lg-2 mb-md-30 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item">
+                    
+                    <div class="team-item-image">
+                        
+                        <%= image_tag 'sm_linked.jpg', class: 'img-responsive' %>
+                        
+                        <div class="team-item-detail">
+                            
+                          <!-- <h4 class="team-item-h">Nice to meet!</h4>
+                          
+                          <p>
+                              Curabitur augue, nec finibus mauris pretium eu. Duis placerat ex gravida nibh tristique porta.
+                          </p> -->
+                            
+                          <div class="team-social-links">
+                            <a href="https://github.com/steve-mcclellan" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/steve-mcclellan-39672b121" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                          </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="team-item-descr">
+                        
+                        <div class="team-item-name">
+                            Steve McClellan
+                        </div>
+                        
+                        <div class="team-item-role">
+                            Developer
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- End Team Item -->
+            
+            <!-- Team Item -->
+            <div class="col-sm-6 col-md-2 col-lg-2 mb-md-30 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="team-item">
+                    
+                    <div class="team-item-image">
+                        
+                        <%= image_tag 'pv_linked.jpg', class: 'img-responsive' %>
+                        
+                        <div class="team-item-detail">
+                            
+                          <!-- <h4 class="team-item-h">Whats Up!</h4>
+                          
+                          <p>
+                              Adipiscing elit curabitur eu&nbsp;adipiscing lacus eu&nbsp;adipiscing lacus, a&nbsp;iaculis diam. 
+                          </p> -->
+                            
+                          <div class="team-social-links">
+                            <a href="https://github.com/vinvasir" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/prateek-vasireddy-921b42a4" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                          </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="team-item-descr">
+                        
+                        <div class="team-item-name">
+                            Prateek Vasireddy
+                        </div>
+                        
+                        <div class="team-item-role">
+                            Developer
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- End Team Item -->
+            
+            <!-- Team Item -->
+            <div class="col-sm-6 col-md-2 col-lg-2 mb-md-30 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="team-item">
+                    
+                    <div class="team-item-image">
+                        
+                        <%= image_tag 'fu_linked.JPG', class: 'img-responsive' %>
+                        
+                        <div class="team-item-detail">
+                            
+<!--                      <h4 class="team-item-h">Hi to all!</h4>
+                          
+                          <p>
+                              Adipiscing elit curabitur eu&nbsp;adipiscing lacus eu&nbsp;adipiscing lacus, a&nbsp;iaculis diam. 
+                          </p> -->
+                            
+                          <div class="team-social-links">
+                            <a href="https://github.com/ufarruh" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/farruh-umarov-00460011a" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                          </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="team-item-descr">
+                        
+                        <div class="team-item-name">
+                            Farruh Umarov
+                        </div>
+                        
+                        <div class="team-item-role">
+                            Developer
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- End Team Item -->
+
+            <!-- Team Item -->
+            <div class="col-sm-6 col-md-2 col-lg-2 mb-md-30 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="team-item">
+                    
+                    <div class="team-item-image">
+                        
+                        <%= image_tag 'es_linked.jpg', class: 'img-responsive' %>
+                        
+                        <div class="team-item-detail">
+                            
+                          <!--  <h4 class="team-item-h">Hi to all!</h4>
+                          
+                          <p>
+                              Adipiscing elit curabitur eu&nbsp;adipiscing lacus eu&nbsp;adipiscing lacus, a&nbsp;iaculis diam. 
+                          </p> -->
+                            
+                          <div class="team-social-links">
+                            <a href="https://github.com/efesantos" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/elmer-santos-07b76837" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                          </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="team-item-descr">
+                        
+                        <div class="team-item-name">
+                            Elmer Santos
+                        </div>
+                        
+                        <div class="team-item-role">
+                            Developer
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- End Team Item -->
+
+            <!-- Team Item -->
+            <div class="col-sm-6 col-md-2 col-lg-2 mb-md-30 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="team-item">
+                    
+                    <div class="team-item-image">
+                        
+                        <%= image_tag 'bp_linked.jpg', class: 'img-responsive' %>
+                        
+                        <div class="team-item-detail">
+                            
+                          <!--  <h4 class="team-item-h">Hi to all!</h4>
+                            
+                          <p>
+                              Adipiscing elit curabitur eu&nbsp;adipiscing lacus eu&nbsp;adipiscing lacus, a&nbsp;iaculis diam. 
+                          </p> -->
+                            
+                          <div class="team-social-links">
+                            <a href="https://github.com/bennypaulino" target="_blank"><i class="fa fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/benny-paulino-504b96113" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="https://twitter.com/i_see_in_code" target="_blank"><i class="fa fa-twitter"></i></a>
+                          </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="team-item-descr">
+                        
+                        <div class="team-item-name">
+                            Benny Paulino
+                        </div>
+                        
+                        <div class="team-item-role">
+                            Developer
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- End Team Item -->
+            
+        </div>
+        <!-- End Team Grid -->
+      </div>
+    </div>
+</section>
+
+<!-- Logic Section -->
+<section id="logic" class="container content-section text-center">
+  <div class="logic-section">
+    <div class="row">
+      <div class="col-lg-10 col-lg-offset-1 align-center">
+
+        <!-- Section Titles -->
+        <h1 class="section-title mb-10">
+            The Business Logic
+        </h1>
+        <h2 class="section-heading">
+            A peek behind the scenes...
+        </h2>
+        <!-- End Section Titles -->
+
+        <div class="col-sm-8  align-center">
+          <%= image_tag 'pawn_logic.png', class: 'img-responsive' %>
+        </div>
+        <div class="col-sm-4  align-center">
+          <div class="section-line mb-50 mb-xs-30"></div>
+                
+            <!-- Section Text -->
+            <div class="section-text mb-80 mb-xs-50">
+              Every chess piece has their own move. Some pieces can perform additional moves under special circumstances such as en passant for the pawn; or castling, which involves the king and rook. 
+            </div>
+            <!-- End Section Text -->  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tools Section -->
+<section id="tools" class="content-section text-center">
+  <div class="tools-section">
+    <div class="row text-center">
+      <h2>A small sample of what's in the toolbox...</h2>
+      <br>
+      <div class="col-md-4 logos">
+        <h3>Version Control</h3>
+        <%= image_tag 'github-logos-278px.png', class: 'img-responsive center-block' %>
+      </div>
+      <div class="col-md-4 logos">
+        <h3>Continuous Integration</h3>
+        <%= image_tag 'TravisCI-319x100.png', class: 'img-responsive center-block' %>
+      </div>
+      <div class="col-md-4 logos">
+        <h3>Code Analyzer</h3>
+        <%= image_tag 'rubo-logo-horizontal_110x344.png', class: 'img-responsive center-block' %>
+      </div>
+    </div>
+
+    <div class="row text-center" id="tools-row2">
+      <div class="col-md-4 logos">
+        <h3>Testing &amp; Deployment</h3>
+        <%= image_tag 'heroku_297x100.png', class: 'img-responsive center-block' %>
+      </div>
+      <div class="col-md-4 logos">
+        <h3>Project Management</h3>
+        <%= image_tag 'trello-logo-blue_358x110.png', class: 'img-responsive center-block' %>
+      </div>
+      <div class="col-md-4 logos">
+      <h3>Communication</h3>
+        <%= image_tag 'slack_200x427.png', class: 'img-responsive center-block slack-logo' %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="container content-section text-center">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <h2>See the Code</h2>
+      <p>See how it all works under the hood!</p>
+      <ul class="list-inline banner-social-buttons">
+        <li>
+            <!-- <a href="https://social-link-for-Twitter" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a> -->
+        </li>
+        <li>
+          <a href="https://github.com/letmecheck/app" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+        </li>
+        <li>
+           <!--  <a href="https://social-link-for-G+" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a> -->
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<script type="text/javascript" src="js/wow.min.js"></script>

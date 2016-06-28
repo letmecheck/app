@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h4><%= t('.sign_in', :default => "Sign in") %></h4>
   </div>
-  <div class="panel-body">
+  <div class="panel-body devise-form">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
     <div class="form-group">
       <p><%= f.label :login %><br />
@@ -27,6 +27,13 @@
       <% end %>
       <%= f.submit  t('.sign_in', :default => "Sign in"), class: "btn btn-primary" %>
     <% end %>
+    <br>
+    <br>
   </div>
 </div>
-<%= render "devise/shared/links" %>
+
+<br>
+<br>
+<div class='devise-form'>
+  <%= render "devise/shared/links" %>
+</div>
