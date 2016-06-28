@@ -310,12 +310,34 @@ a:focus {
     width: 100%;
     padding: 50px 0;
     color: #fff;
-    background: url('RSpec_screen-cap.png') no-repeat center center scroll;
-    background-color: #000;
+    background: url('bright_squares.png') no-repeat bottom center scroll;
+    background-color: #fff;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+}
+
+.tools-section {
+  color: #000;
+}
+
+.tools-section h3 {
+  font-size: 1.4rem;
+  text-transform: initial;
+  margin-bottom: 2rem;
+}
+
+#tools-row2 {
+  padding-top: 8rem;
+}
+
+.slack-logo {
+  margin-top: -4rem;
+}
+
+.logos {
+  margin-bottom: 4rem;
 }
 
 .frosty {
