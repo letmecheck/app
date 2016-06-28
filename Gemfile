@@ -70,3 +70,6 @@ gem 'pusher'
 
 # Enable hiding of config variables
 gem 'figaro', "~> 1.0"
+
+# Rails asset pipeline integration for WOW.js
+gem 'wow-rails'
