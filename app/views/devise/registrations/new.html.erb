@@ -3,7 +3,7 @@
   <div class="panel-heading">
     <h4><%= t('.sign_up', :default => "Sign up") %></h4>
   </div>
-  <div class="panel-body">
+  <div class="panel-body devise-form">
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: "form" }) do |f| %>
     <div class="form-group">
       <p><%= f.label :username %><br />
@@ -21,8 +21,16 @@
         <%= f.label :password_confirmation %>
         <%= f.password_field :password_confirmation, class: "form-control" %>
       </div>
+      <br>
       <%= f.submit t('.sign_up', :default => "Sign up"), class: "btn btn-primary" %>
     <% end %>
+    <br>
+    <br>
   </div>
 </div>
-<%= render "devise/shared/links" %>
+
+<br>
+<br>
+<div class='devise-form'>
+  <%= render "devise/shared/links" %>
+</div>

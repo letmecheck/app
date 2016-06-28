@@ -340,6 +340,11 @@ a:focus {
   margin-bottom: 4rem;
 }
 
+.logic-section .section-text {
+  text-align: left;
+  padding-top: 2rem;
+}
+
 .frosty {
   background: rgba(0,0,0, 0.8);
   border-radius: 6px;
@@ -442,4 +447,28 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
+}
+
+/* ------ Styling for the games#new page ------- */
+
+/*.new-game input[type="text"] {
+  margin-left: 2rem;
+  color: #000;
+}*/
+
+
+/* ------ Styling for the users#sign_up page ------- */
+/*.new_user input {
+  color: #000;
+}*/
+
+
+
+/* ------ Styling for the users#sign_up page ------- */
+.panel-body {
+  color: #000;
+}
+
+.devise-form {
+  margin: 0rem 10rem;
 }

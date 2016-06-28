@@ -3,7 +3,7 @@
   <div class="panel-heading">
     <h4><%= t('.change_your_password', :default => 'Change your password') %></h4>
   </div>
-  <div class="panel-body">
+  <div class="panel-body devise-form">
     <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, role: "form" }) do |f| %>
       <%= f.hidden_field :reset_password_token %>
 
@@ -19,6 +19,10 @@
 
       <%= f.submit t('.change_my_password', :default => 'Change my password'), class: "btn btn-primary" %>
     <% end %>
+    <br>
+    <br>
   </div>
 </div>
-<%= render "devise/shared/links" %>
+<div class='devise-form'>
+  <%= render "devise/shared/links" %>
+</div>
