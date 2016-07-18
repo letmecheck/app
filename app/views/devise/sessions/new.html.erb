@@ -5,13 +5,13 @@
   <div class="panel-body devise-form">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
     <div class="form-group">
-      <p><%= f.label :login %><br />
-       <%= f.text_field :login, class: "form-control" %></p>
+      <p><%= f.label :login, "Username" %><br />
+       <%= f.text_field :login, autofocus: true, class: "form-control" %></p>
     </div>
 
       <div class="form-group">
         <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        <%= f.email_field :email, class: "form-control" %>
       </div>
 
       <div class="form-group">
