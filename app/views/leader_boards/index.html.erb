@@ -1,16 +1,16 @@
 <div class="container">
-  <table style="width:100%">
+  <table class="lb-table">
   <tr>
-      <th>User</th>
-      <th>Wins</th>
-      <th>Losses</th>
+      <th class="lb-user">User</th>
+      <th class="lb-wins-losses-heading">Wins</th>
+      <th class="lb-wins-losses-heading">Losses</th>
   </tr>
   <% @users.each do |user| %>
   <tr>
 
-     <td class="leaderboard" ><%= user.username %></td>
-     <td class="leaderboard"><%= user.wins %></td>
-     <td class="leaderboard"><%= user.losses %></td>
+     <td class="leaderboard lb-username"><%= user.username %></td>
+     <td class="leaderboard wins-losses-column"><%= user.wins %></td>
+     <td class="leaderboard wins-losses-column"><%= user.losses %></td>
   </tr>
   <% end %>
 
