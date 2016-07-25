@@ -534,6 +534,24 @@ body {
 .new-game input[type="text"] {
   margin-left: 2rem;
   color: #000;
+  border-radius: 2px;
+  border: 2px solid #dadada;
+  transition: box-shadow linear 1s;
+}
+
+.new-game input[type="text"], textarea:focus {
+/*  outline: none;*/
+  border-color: #439fee;
+  box-shadow: 0 0 10px rgba(158, 202, 237, 0.7);
+}
+
+.new-game input[type="text"]::selection {
+  background-color: rgba(35, 132, 216, 0.62);
+  color: #fff;
+}
+
+.create-game {
+  border-radius: 2px;
 }
 
 
@@ -548,4 +566,9 @@ body {
 
 .devise-bs {
   background: url('ps_neutral.png');
+}
+
+.form-control::selection {
+  background-color: rgba(35, 132, 216, 0.62);
+  color: #fff;
 }

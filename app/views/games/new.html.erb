@@ -1,9 +1,9 @@
 <div class="new-game container">
   <h1>Enter a Title for a New Game</h1>
   <%= simple_form_for @game do |f| %>
-    <%= f.input :name %>
+    <%= f.input :name, class: 'glowing-input-border' %>
     <br>
     <br>
-    <%= f.button :submit, class: 'btn btn-primary' %>
+    <%= f.button :submit, class: 'btn btn-primary create-game' %>
   <% end %>
 </div>
