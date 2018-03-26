@@ -20,10 +20,10 @@ Style/StringLiterals:
 Style/Documentation:
   Enabled: false
 
-Style/EndOfLine:
+Layout/EndOfLine:
   Enabled: false
 
-Style/LeadingCommentSpace:
+Layout/LeadingCommentSpace:
   Enabled: false
 
 # Allow classes longer than 100 lines of code

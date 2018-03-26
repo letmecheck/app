@@ -3,10 +3,10 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '~> 4.2.7'
 
 # Use postgresql as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.18'
 
 gem 'devise-bootstrap-views'
 
@@ -17,11 +17,11 @@ group :development, :test do
 end
 
 # Rubocop style checking
-gem 'rubocop', '~> 0.40.0', require: false
+gem 'rubocop', '~> 0.49.0', require: false
 
 # Use Twitter Bootstrap to style the views
 gem 'bootstrap-sass', '~> 3.3.5.1'
-gem 'sprockets', '2.11.0'
+gem 'sprockets', '~> 2.11.3'
 gem 'sass-rails'
 
 gem 'devise'
@@ -45,7 +45,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 # jQuery UI assets (JavaScripts, stylesheets, and images) for the Rails asset pipeline.
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 5.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
