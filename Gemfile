@@ -6,7 +6,7 @@ ruby '2.3.1'
 gem 'rails', '~> 4.2.7'
 
 # Use postgresql as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 0.18'
 
 gem 'devise-bootstrap-views'
 
