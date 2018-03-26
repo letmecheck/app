@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '~> 4.2.7'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -17,11 +17,11 @@ group :development, :test do
 end
 
 # Rubocop style checking
-gem 'rubocop', '~> 0.40.0', require: false
+gem 'rubocop', '~> 0.49.0', require: false
 
 # Use Twitter Bootstrap to style the views
 gem 'bootstrap-sass', '~> 3.3.5.1'
-gem 'sprockets', '2.11.0'
+gem 'sprockets', '~> 2.11.3'
 gem 'sass-rails'
 
 gem 'devise'
