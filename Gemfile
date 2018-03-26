@@ -45,7 +45,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 # jQuery UI assets (JavaScripts, stylesheets, and images) for the Rails asset pipeline.
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 5.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
