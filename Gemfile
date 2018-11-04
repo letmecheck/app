@@ -8,7 +8,8 @@ gem 'rails', '~> 4.2.7'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 
-gem 'devise-bootstrap-views'
+# Frozen because upgrading to version 1 requires extra tinkering
+gem 'devise-bootstrap-views', '~> 0.0.11'
 
 # RSpec
 group :development, :test do
