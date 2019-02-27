@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.7'
@@ -21,7 +21,7 @@ end
 gem 'rubocop', '~> 0.49.0', require: false
 
 # Use Twitter Bootstrap to style the views
-gem 'bootstrap-sass', '~> 3.3.5.1'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sprockets', '~> 2.12.5'
 gem 'sass-rails'
 
