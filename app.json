@@ -1,5 +1,6 @@
 {
   "name": "letmecheck",
+  "stack": "heroku-18",
   "scripts": {
     "postdeploy": "bundle exec rake db:setup"
   },
