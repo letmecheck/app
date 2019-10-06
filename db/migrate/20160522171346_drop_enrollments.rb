@@ -1,4 +1,4 @@
-class DropEnrollments < ActiveRecord::Migration
+class DropEnrollments < ActiveRecord::Migration[4.2]
   def change
     drop_table :enrollments    
   end
