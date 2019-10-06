@@ -23,7 +23,10 @@ require 'rspec/rails'
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Automatically run migrations on the test database if they're needed.
-ActiveRecord::Migrator.migrate(File.join(Rails.root, 'db/migrate'))
+ActiveRecord::MigrationContext.new(
+  File.join(Rails.root, 'db/migrate'),
+  ::ActiveRecord::Base.connection.schema_migration
+).migrate
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
