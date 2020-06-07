@@ -22,7 +22,7 @@ gem 'rubocop', '~> 0.49.0', require: false
 
 # Use Twitter Bootstrap to style the views
 gem 'bootstrap-sass', '~> 3.4.1'
-gem 'sprockets'
+gem 'sprockets', '~> 3.0'
 gem 'sass-rails'
 
 gem 'devise'
