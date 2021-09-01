@@ -169,7 +169,7 @@ GEM
     rainbow (2.2.2)
       rake
     rake (13.0.3)
-    rdoc (6.2.1)
+    rdoc (6.3.2)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
